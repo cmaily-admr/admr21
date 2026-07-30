@@ -1,3 +1,0 @@
-# Ce site ne doit pas être indexé : voir la balise meta noindex sur chaque page.
-User-agent: *
-Allow: /
