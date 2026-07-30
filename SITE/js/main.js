@@ -173,7 +173,7 @@
 
   // Les formulaires postent dans un iframe caché : la pop-up s'affiche si la
   // validation native est passée (les champs requis sont remplis).
-  document.querySelectorAll('.form-cv, #form-rappel').forEach(form => {
+  document.querySelectorAll('.form-cv, #form-rappel, .form-rdv').forEach(form => {
     form.addEventListener('submit', () => {
       setTimeout(() => {
         ouvrir();
