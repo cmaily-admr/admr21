@@ -991,3 +991,128 @@ body.page-accueil { font-family: var(--font-doux); background: var(--admr-creme)
   .infos-actions { justify-content: center; }
   .qr-box { margin: 0 auto; }
 }
+
+/* ============================================================
+   PAGE BALADE — identité "affiche" (indépendante du reste)
+   Fond crème · scripts Pacifico vert/orange · botanique
+   Portée : uniquement body.page-balade
+   ============================================================ */
+body.page-balade {
+  --av: #2E5D34;      /* vert forêt (titres)      */
+  --av2: #4F7C39;     /* vert moyen               */
+  --ao: #E4863A;      /* orange pinceau           */
+  --al: #A6C24C;      /* lime                     */
+  --acreme: #F5F2E8;  /* papier crème             */
+  --atxt: #403f34;
+  --abrun: #9c6b3e;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  color: var(--atxt);
+  background: var(--acreme);
+}
+.page-balade main { overflow: hidden; }
+.page-balade .aff-in { max-width: 1060px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
+
+/* doodles botaniques */
+.page-balade .aff-deco { position: absolute; pointer-events: none; z-index: 0; color: var(--av); }
+
+/* ---------- HERO ---------- */
+.page-balade .aff-hero { position: relative; text-align: center; padding: 56px 20px 30px; }
+.page-balade .aff-titre { font-family: 'Pacifico', cursive; font-weight: 400; color: var(--av); line-height: .9; font-size: clamp(3.4rem, 12vw, 7rem); margin: 0; text-shadow: 0 2px 0 rgba(0,0,0,.04); }
+.page-balade .aff-titre span { display: block; font-size: .62em; margin-top: .05em; }
+.page-balade .aff-banner-sens {
+  display: inline-block; font-family: 'Pacifico', cursive; color: #fff; background: var(--ao);
+  font-size: clamp(1.4rem, 4.4vw, 2.3rem); padding: 8px 40px 12px; margin: 10px 0 4px;
+  border-radius: 42% 58% 55% 45% / 62% 60% 40% 38%; transform: rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(228,134,58,.32);
+}
+.page-balade .aff-quand { font-family: 'Pacifico', cursive; color: var(--av); font-size: clamp(1.5rem, 4.5vw, 2.4rem); margin: 22px 0 2px; }
+.page-balade .aff-lieu { font-size: 1.08rem; color: var(--atxt); margin-bottom: 6px; }
+
+/* 5 sens */
+.page-balade .aff-sens-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 26px; margin: 26px auto 8px; max-width: 640px; }
+.page-balade .aff-sens { display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 800; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--av); }
+.page-balade .aff-sens .rond { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; font-size: 1.9rem; box-shadow: 0 6px 14px rgba(0,0,0,.14); }
+.page-balade .aff-sens.s1 .rond { background: var(--al); }
+.page-balade .aff-sens.s2 .rond { background: var(--av); }
+.page-balade .aff-sens.s3 .rond { background: var(--ao); }
+.page-balade .aff-sens.s4 .rond { background: #6FA24A; }
+.page-balade .aff-sens.s5 .rond { background: #F0B87A; }
+
+/* photo organique + panneau */
+.page-balade .aff-hero-media { display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: wrap; margin: 30px 0 10px; }
+.page-balade .aff-photo { width: min(420px, 84vw); aspect-ratio: 4/3; overflow: hidden; border: 6px solid #fff; box-shadow: 0 14px 34px rgba(46,93,52,.22); border-radius: 46% 54% 48% 52% / 56% 48% 52% 44%; }
+.page-balade .aff-photo img { width: 100%; height: 100%; object-fit: cover; }
+.page-balade .signpost { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; position: relative; padding-bottom: 46px; }
+.page-balade .signpost::after { content: ""; position: absolute; left: 30px; top: 0; bottom: 0; width: 12px; background: linear-gradient(#b07d4a, #8a5c30); border-radius: 3px; }
+.page-balade .plaque { position: relative; z-index: 1; background: linear-gradient(#a9743f, #8f5f31); color: #fff; font-weight: 800; font-size: 1.4rem; padding: 10px 30px 10px 20px; clip-path: polygon(0 0, 84% 0, 100% 50%, 84% 100%, 0 100%); box-shadow: 0 4px 10px rgba(0,0,0,.2); letter-spacing: .02em; }
+.page-balade .plaque:nth-child(2) { margin-left: 14px; }
+
+.page-balade .aff-cta { display: inline-block; margin-top: 22px; font-weight: 800; text-decoration: none; color: #fff; background: var(--av); padding: 15px 34px; border-radius: 50px; box-shadow: 0 8px 20px rgba(46,93,52,.3); transition: transform .25s, box-shadow .25s, filter .25s; }
+.page-balade .aff-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(46,93,52,.4); filter: brightness(1.05); }
+
+/* ---------- Titres de section ---------- */
+.page-balade .aff-h2 { font-family: 'Pacifico', cursive; font-weight: 400; text-align: center; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 30px; }
+.page-balade .aff-h2.vert { color: var(--av); }
+.page-balade .aff-h2.orange { color: var(--ao); }
+
+/* ---------- Temps forts ---------- */
+.page-balade .aff-forts { position: relative; padding: 50px 20px 20px; }
+.page-balade .aff-forts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 26px; }
+.page-balade .aff-med { text-align: center; }
+.page-balade .aff-med .cercle { width: 108px; height: 108px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; font-size: 3rem; background: #fff; border: 5px solid var(--av); box-shadow: 0 10px 24px rgba(46,93,52,.16); }
+.page-balade .aff-med.o .cercle { border-color: var(--ao); }
+.page-balade .aff-med .label { display: inline-block; font-family: 'Pacifico', cursive; color: #fff; background: var(--av); padding: 6px 18px 8px; border-radius: 30px 40px 34px 44px; transform: rotate(-1.5deg); font-size: 1.05rem; margin-bottom: 10px; }
+.page-balade .aff-med.o .label { background: var(--ao); }
+.page-balade .aff-med .tag { display: block; font-weight: 800; font-size: .82rem; color: var(--av2); }
+.page-balade .aff-med.o .tag { color: #c46a1e; }
+
+/* ---------- Programme ---------- */
+.page-balade .aff-prog { position: relative; padding: 46px 20px 30px; }
+.page-balade .aff-prog-banner { display: inline-block; font-family: 'Pacifico', cursive; color: #fff; background: var(--ao); font-size: clamp(1.8rem, 5vw, 2.6rem); padding: 6px 40px 10px; border-radius: 40px 50px 44px 54px; transform: rotate(-1.5deg); box-shadow: 0 8px 18px rgba(228,134,58,.3); margin-bottom: 20px; }
+.page-balade .aff-cafe { font-weight: 700; color: var(--av); font-size: 1.15rem; margin-bottom: 26px; display: flex; align-items: center; gap: 10px; }
+.page-balade .aff-bloc { margin-bottom: 26px; max-width: 800px; }
+.page-balade .aff-bloc h3 { font-family: 'Pacifico', cursive; font-weight: 400; font-size: clamp(1.5rem, 4vw, 2.1rem); margin-bottom: 8px; display: flex; align-items: baseline; gap: 12px; }
+.page-balade .aff-bloc h3::before { content: "✽"; font-family: 'Open Sans', sans-serif; font-size: 1.1rem; }
+.page-balade .aff-bloc.vert h3 { color: var(--av); }
+.page-balade .aff-bloc.orange h3 { color: var(--ao); }
+.page-balade .aff-bloc p { color: var(--atxt); line-height: 1.65; font-size: 1rem; }
+.page-balade .aff-bloc .sub { display: block; margin-top: 4px; color: #6a6653; }
+
+/* ---------- Infos / inscriptions ---------- */
+.page-balade .aff-infos { position: relative; padding: 44px 20px 20px; text-align: center; }
+.page-balade .aff-url { display: inline-block; font-family: 'Pacifico', cursive; color: var(--av); font-size: clamp(1.4rem, 4vw, 2rem); text-decoration: none; margin-bottom: 28px; }
+.page-balade .aff-url:hover { color: var(--ao); }
+.page-balade .aff-contact { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: center; }
+.page-balade .aff-qr { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.page-balade .aff-qr img { width: 132px; height: 132px; background: #fff; padding: 8px; border-radius: 14px; box-shadow: 0 8px 20px rgba(46,93,52,.14); }
+.page-balade .aff-qr span { font-size: .82rem; color: #6a6653; }
+.page-balade .aff-coords { display: flex; flex-direction: column; gap: 12px; }
+.page-balade .aff-coords a { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; padding: 13px 26px; border-radius: 50px; }
+.page-balade .aff-coords .tel { background: var(--av); color: #fff; }
+.page-balade .aff-coords .mail { background: #fff; color: var(--av); border: 2px solid var(--av); }
+.page-balade .aff-coords a:hover { filter: brightness(1.05); transform: translateY(-2px); transition: .2s; }
+
+/* ---------- Bandeau bas + partenaires ---------- */
+.page-balade .aff-tagline { max-width: 900px; margin: 36px auto 0; text-align: center; font-family: 'Pacifico', cursive; color: #fff; background: var(--av); font-size: clamp(1.2rem, 3.2vw, 1.8rem); padding: 16px 30px 20px; border-radius: 60px 80px 66px 90px / 50px 60px 54px 64px; transform: rotate(-.6deg); box-shadow: 0 10px 24px rgba(46,93,52,.24); }
+.page-balade .aff-partenaires { text-align: center; color: #6a6653; font-size: .9rem; margin: 22px auto 10px; }
+
+/* ---------- Footer assorti (crème/vert) ---------- */
+.page-balade .site-footer { background: var(--av); color: #e9efdf; }
+.page-balade .site-footer .footer-grid h4 { font-family: 'Pacifico', cursive; font-style: normal; font-weight: 400; color: #fff; font-size: 1.5rem; }
+.page-balade .site-footer a:hover { color: var(--al); }
+.page-balade .site-footer .footer-bas { border-top-color: rgba(255,255,255,.2); }
+
+/* doodles : positions */
+.page-balade .d1 { top: 40px; left: 3%; width: 70px; transform: rotate(-8deg); opacity: .55; }
+.page-balade .d2 { top: 120px; right: 4%; width: 90px; opacity: .5; }
+.page-balade .d3 { top: 8px; right: 12%; width: 54px; color: var(--ao); opacity: .8; }
+.page-balade .d4 { bottom: -10px; left: 6%; width: 120px; opacity: .35; }
+.page-balade .d5 { top: 30px; right: 6%; width: 60px; opacity: .5; }
+.page-balade .d6 { bottom: 10px; right: 5%; width: 80px; opacity: .45; }
+.page-balade .d7 { top: 50%; left: 2%; width: 46px; color: var(--ao); opacity: .7; }
+@media (max-width: 720px) { .page-balade .aff-deco { display: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes aff-float { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-8px) rotate(var(--r,0deg)); } }
+  .page-balade .d3, .page-balade .d5 { animation: aff-float 6s ease-in-out infinite; }
+}
