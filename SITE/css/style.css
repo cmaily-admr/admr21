@@ -1116,99 +1116,129 @@ body.page-balade {
   @keyframes aff-float { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-8px) rotate(var(--r,0deg)); } }
   .page-balade .d3, .page-balade .d5 { animation: aff-float 6s ease-in-out infinite; }
 }
-/* --- Cartes vidéo (au cas où non déjà stylées) --- */
-.video-item {
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 12px;
+
+/* Logo "Osons le bénévolat" dans le hero */
+.hero-benevolat h1.logo-benevolat-titre { margin: 0 auto 14px; line-height: 0; }
+.hero-benevolat h1.logo-benevolat-titre img { display: block; width: min(440px, 84%); height: auto; margin: 0 auto; }
+
+/* ============================================================
+   PAGE RECRUTEMENT — version colorée & joyeuse (Chewy + Open Sans)
+   Portée : body.page-recrutement
+   ============================================================ */
+body.page-recrutement {
+  --font-manu: 'Chewy', cursive;            /* tous les titres "manu" -> Chewy */
+  --r-vert:#017734; --r-lime:#AFCA11; --r-orange:#F18700;
+  --r-teal:#159AA0; --r-coral:#FF6B5E; --r-gold:#F5B301; --r-pink:#EC5C9E;
+  font-family: var(--font-doux);
+  color:#3a3f2f; background:#FFFDF6;
+}
+.page-recrutement .wrap { position: relative; z-index: 1; }
+.page-recrutement .titre-manu { font-family: var(--font-manu); font-style: normal; text-transform: none; letter-spacing:.3px; }
+
+/* ---------- Confettis ---------- */
+.page-recrutement .confetti { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.page-recrutement .cf { position:absolute; opacity:.9; }
+.cf-vert{color:var(--r-vert)} .cf-lime{color:var(--r-lime)} .cf-orange{color:var(--r-orange)}
+.cf-teal{color:var(--r-teal)} .cf-coral{color:var(--r-coral)} .cf-gold{color:var(--r-gold)} .cf-pink{color:var(--r-pink)}
+
+/* ---------- HERO ---------- */
+.page-recrutement .hero-intro {
+  position:relative; overflow:hidden; padding:60px 20px 70px;
+  background:
+    radial-gradient(40% 45% at 12% 18%, rgba(175,202,17,.30), transparent 70%),
+    radial-gradient(42% 48% at 88% 12%, rgba(241,135,0,.20), transparent 70%),
+    radial-gradient(45% 50% at 82% 92%, rgba(21,154,160,.16), transparent 70%),
+    linear-gradient(180deg,#FFFDF6,#F3FAE9);
+}
+.page-recrutement .hero-intro .accroche.c1 { color:#556147; font-weight:700; margin:2px 0; }
+.page-recrutement .hero-intro .accroche.c2 {
+  display:inline-block; font-family:var(--font-manu); color:#fff; background:var(--r-orange);
+  font-size:clamp(1.3rem,3.6vw,2rem); padding:6px 24px 8px; margin:10px 0 4px;
+  border-radius:40px 46px 40px 48px; transform:rotate(-2deg); box-shadow:0 6px 16px rgba(241,135,0,.3);
+}
+.page-recrutement .hero-intro h1.titre-manu {
+  color:var(--r-vert); font-size:clamp(2.2rem,6vw,4rem); line-height:1.05; margin:12px 0 14px;
+}
+.page-recrutement .hero-intro h1 .coeur { color:var(--r-coral); }
+.page-recrutement .hero-intro .txt { color:#4b5a3f; max-width:640px; margin-inline:auto; }
+.page-recrutement .hero-intro .punch {
+  display:inline-block; font-family:var(--font-manu); color:var(--r-vert); background:#FFF1C2;
+  padding:8px 22px 10px; border-radius:16px; font-size:clamp(1.2rem,3vw,1.6rem);
+  box-shadow:0 5px 0 rgba(245,179,1,.45); margin:14px 0;
 }
 
-.video-item .vignette img {
-  width: 100%;
-  display: block;
-  transition: transform 0.3s ease;
-}
+/* Chiffres colorés */
+.page-recrutement .chiffres { gap:22px; margin-top:34px; }
+.page-recrutement .chiffre { background:#fff; border-radius:24px; padding:22px 16px; box-shadow:0 12px 28px rgba(1,119,52,.12); border-bottom:6px solid var(--r-vert); }
+.page-recrutement .chiffre:nth-child(2){ border-bottom-color:var(--r-orange); }
+.page-recrutement .chiffre:nth-child(3){ border-bottom-color:var(--r-teal); }
+.page-recrutement .chiffre .n { font-family:var(--font-manu); color:var(--r-vert); font-size:clamp(2.2rem,5vw,3rem); }
+.page-recrutement .chiffre:nth-child(2) .n{ color:var(--r-orange); }
+.page-recrutement .chiffre:nth-child(3) .n{ color:var(--r-teal); }
+.page-recrutement .chiffre .l { font-weight:700; color:#4b5a3f; }
 
-.video-item:hover .vignette img {
-  transform: scale(1.05);
-}
+/* ---------- VIDÉOS ---------- */
+.page-recrutement .videos { position:relative; overflow:hidden; padding:58px 20px; background:#fff; }
+.page-recrutement .sep-titre h2 { font-family:var(--font-manu); color:var(--r-teal); font-size:clamp(1.9rem,4.6vw,2.8rem); }
+.page-recrutement .video-item { border-radius:20px; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,.14); border:4px solid var(--r-orange); background:#000; }
+.page-recrutement .video-item:nth-of-type(2){ border-color:var(--r-teal); }
+.page-recrutement .video-item:nth-of-type(3){ border-color:var(--r-lime); }
+.page-recrutement .video-item .play { background:var(--r-orange); color:#fff; box-shadow:0 6px 16px rgba(0,0,0,.3); }
+.page-recrutement .video-item:nth-of-type(2) .play{ background:var(--r-teal); }
+.page-recrutement .video-item:nth-of-type(3) .play{ background:var(--r-vert); }
+.page-recrutement .video-item .legende { font-weight:700; color:#3a3f2f; }
 
-.video-item .play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  transition: background 0.3s ease, transform 0.3s ease;
+/* ---------- 7 BONNES RAISONS ---------- */
+.page-recrutement .section-bleue {
+  position:relative; overflow:hidden; padding:64px 20px;
+  background:
+    radial-gradient(34% 40% at 8% 8%, rgba(241,135,0,.14), transparent 70%),
+    radial-gradient(34% 40% at 92% 92%, rgba(21,154,160,.14), transparent 70%),
+    linear-gradient(180deg,#FFF9EE,#F3FAE9);
 }
+.page-recrutement .section-bleue .intro-ligne { color:#556147; font-weight:700; }
+.page-recrutement .section-bleue h2.titre-manu { color:var(--r-vert); font-size:clamp(2.1rem,5.4vw,3.2rem); }
+.page-recrutement .section-bleue .sous-h2 { font-family:var(--font-manu); color:var(--r-orange); font-size:1.35rem; }
 
-.video-item:hover .play {
-  background: rgba(220, 30, 40, 0.85); /* couleur ADMR à ajuster */
-  transform: translate(-50%, -50%) scale(1.1);
+.page-recrutement .raisons-grid { counter-reset: raison; }
+.page-recrutement .carte-raison {
+  counter-increment: raison; position:relative; overflow:hidden; background:#fff;
+  border-radius:22px; border-top:7px solid var(--cc,#017734);
+  box-shadow:0 12px 30px rgba(0,0,0,.08); transition:transform .3s cubic-bezier(.34,1.4,.5,1), box-shadow .3s;
 }
+.page-recrutement .carte-raison:hover { transform:translateY(-8px) rotate(-1deg); box-shadow:0 22px 46px rgba(0,0,0,.15); }
+.page-recrutement .carte-raison::before {
+  content: counter(raison); position:absolute; top:12px; left:12px; z-index:2;
+  width:44px; height:44px; border-radius:50%; background:var(--cc,#017734); color:#fff;
+  font-family:var(--font-manu); font-size:1.5rem; display:grid; place-items:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.25); transform:rotate(-6deg);
+}
+.page-recrutement .carte-raison .photo { aspect-ratio:16/10; overflow:hidden; }
+.page-recrutement .carte-raison .photo img { width:100%; height:100%; object-fit:cover; display:block; }
+.page-recrutement .carte-raison h3 { font-family:var(--font-manu); font-weight:400; color:var(--ccd,#016b2e); font-size:1.32rem; line-height:1.18; }
+.page-recrutement .carte-raison p { font-family:var(--font-doux); color:#4b5a3f; }
+.page-recrutement .carte-raison:nth-child(7n+1){--cc:#017734;--ccd:#016b2e;}
+.page-recrutement .carte-raison:nth-child(7n+2){--cc:#F18700;--ccd:#C25E00;}
+.page-recrutement .carte-raison:nth-child(7n+3){--cc:#AFCA11;--ccd:#5F7A08;}
+.page-recrutement .carte-raison:nth-child(7n+4){--cc:#159AA0;--ccd:#0e7377;}
+.page-recrutement .carte-raison:nth-child(7n+5){--cc:#FF6B5E;--ccd:#d8493c;}
+.page-recrutement .carte-raison:nth-child(7n+6){--cc:#F5B301;--ccd:#a87c00;}
+.page-recrutement .carte-raison:nth-child(7n){--cc:#EC5C9E;--ccd:#c23c7d;}
 
-.video-item .legende {
-  padding: 10px 5px;
-  text-align: center;
-  font-weight: 600;
-}
+/* ---------- Candidater / Locaux : titres Chewy + touches de couleur ---------- */
+.page-recrutement .section-candidater .intro-cand { color:#556147; font-weight:700; }
+.page-recrutement .bloc-cand h2 { font-weight:400; }
+.page-recrutement .section-locaux h2 { font-weight:400; }
+.page-recrutement .carte-locale:nth-child(4n+1){ border-left-color:var(--r-vert); }
+.page-recrutement .carte-locale:nth-child(4n+2){ border-left-color:var(--r-orange); }
+.page-recrutement .carte-locale:nth-child(4n+3){ border-left-color:var(--r-teal); }
+.page-recrutement .carte-locale:nth-child(4n){ border-left-color:var(--r-coral); }
 
-/* --- Lightbox --- */
-.video-modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-}
+/* ---------- Pop-up & footer assortis ---------- */
+.page-recrutement .modal-boite h3 { font-weight:400; }
+.page-recrutement .site-footer { background:var(--r-vert); color:#e9f4e6; }
+.page-recrutement .site-footer .footer-grid h4 { font-family:var(--font-manu); font-style:normal; font-weight:400; color:#fff; font-size:1.45rem; }
+.page-recrutement .site-footer a:hover { color:var(--r-lime); }
+.page-recrutement .site-footer .footer-bas { border-top-color:rgba(255,255,255,.2); }
 
-.video-modal.active {
-  display: flex;
-}
-
-.video-modal-content {
-  position: relative;
-  width: 90%;
-  max-width: 900px;
-}
-
-.video-modal-iframe-wrap {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* ratio 16:9 */
-  height: 0;
-}
-
-.video-modal-iframe-wrap iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.close-modal {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  color: #fff;
-  font-size: 36px;
-  cursor: pointer;
-  line-height: 1;
-}
-
-.close-modal:hover {
-  color: #dc1e28; /* couleur ADMR à ajuster */
-}
+@media (max-width:680px){ .page-recrutement .cf { opacity:.7; } }

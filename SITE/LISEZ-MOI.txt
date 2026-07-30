@@ -40,9 +40,25 @@ pop-up « Merci ! On revient vers vous très vite ! » s'affiche après l'envoi.
 ⚠ À activer UNE fois : mettez le site en ligne, faites un envoi test, puis
 cliquez le lien de confirmation reçu à communication@admr21.fr.
 
-À FOURNIR / VÉRIFIER
---------------------
-• Page recrutement : photos temoin-1/2/3.jpg (vidéos) et raison-1…7.jpg
-  (7 raisons) à déposer dans images/, sinon emplacements « cassés ».
+RÉFÉRENCEMENT DÉSACTIVÉ
+-----------------------
+Le site est réglé pour NE PAS être indexé par les moteurs de recherche :
+balise <meta name="robots" content="noindex, nofollow"> sur chaque page +
+fichier _headers (en-tête X-Robots-Tag) lu par Cloudflare. Rien à faire.
+Pour le rendre référençable plus tard : retirez ces balises et le fichier _headers.
+
+VIDÉOS & PHOTOS
+---------------
+• Recrutement : les 3 vidéos YouTube sont intégrées (mode youtube-nocookie,
+  plus respectueux du RGPD ; elles se lancent au clic). Les légendes sont
+  neutres : à personnaliser dans recrutement.html si besoin.
+• Les 7 encarts « bonnes raisons » utilisent vos photos (raison-1 à raison-7).
+• Bénévolat : le logo « Osons le bénévolat » est affiché en haut de page.
+
+À VÉRIFIER
+----------
 • Antennes : coquille probable « ADMR Soulieu » (commune SAULIEU).
+• FormSubmit : activation unique après mise en ligne (voir plus haut).
 • Widget Benevolt : visible seulement une fois le site en ligne.
+• Vidéos YouTube : si vous voulez être 100 % RGPD, prévoir un bandeau de
+  consentement avant chargement (je peux l'ajouter).
