@@ -47,29 +47,52 @@
 
   <!-- ============ VIDÉOS TÉMOIGNAGES ============ -->
   <section class="videos">
-    <div class="wrap">
-      <div class="sep-titre reveal"><h2>On ne va pas vous mentir…</h2></div>
+  <div class="wrap">
+    <div class="sep-titre reveal"><h2>On ne va pas vous mentir…</h2></div>
 
-      <!-- data-video : collez ici l'URL d'intégration (YouTube/Vimeo) -->
-      <div class="video-item reveal" data-video="">
-        <div class="vignette"><img src="images/temoin-1.jpg" alt="Intervenante ADMR aidant une bénéficiaire dans sa cuisine"></div>
-        <div class="play">▶</div>
-        <div class="legende">Sandrine, aide à domicile depuis 6 ans</div>
+    <div class="video-item reveal" data-video="https://www.youtube.com/embed/LoLJrqBSt6A">
+      <div class="vignette">
+        <img src="https://img.youtube.com/vi/LoLJrqBSt6A/hqdefault.jpg" 
+             alt="Intervenante ADMR aidant une bénéficiaire dans sa cuisine">
       </div>
-
-      <div class="video-item reveal" data-video="">
-        <div class="vignette"><img src="images/temoin-2.jpg" alt="Intervenante ADMR accueillie chez une bénéficiaire"></div>
-        <div class="play">▶</div>
-        <div class="legende">Karine, auxiliaire de vie</div>
-      </div>
-
-      <div class="video-item reveal" data-video="">
-        <div class="vignette"><img src="images/temoin-3.jpg" alt="Intervenante ADMR en déplacement dans un village de Côte-d'Or"></div>
-        <div class="play">▶</div>
-        <div class="legende">Une journée avec nos équipes</div>
-      </div>
+      <div class="play">▶</div>
+      <div class="legende">Sandrine, aide à domicile depuis 6 ans</div>
     </div>
-  </section>
+
+    <div class="video-item reveal" data-video="https://www.youtube.com/embed/pTe4XGmxtDw">
+      <div class="vignette">
+        <img src="https://img.youtube.com/vi/pTe4XGmxtDw/hqdefault.jpg" 
+             alt="Témoignage ADMR">
+      </div>
+      <div class="play">▶</div>
+      <div class="legende">Légende à personnaliser</div>
+    </div>
+
+    <div class="video-item reveal" data-video="https://www.youtube.com/embed/ZHJWWUVQSQE">
+      <div class="vignette">
+        <img src="https://img.youtube.com/vi/ZHJWWUVQSQE/hqdefault.jpg" 
+             alt="Témoignage ADMR">
+      </div>
+      <div class="play">▶</div>
+      <div class="legende">Légende à personnaliser</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox (à placer juste avant la fermeture de </body>) -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <div class="video-modal-iframe-wrap">
+      <iframe id="videoModalIframe" 
+              src="" 
+              frameborder="0" 
+              allow="autoplay; encrypted-media; picture-in-picture" 
+              allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
 
   <!-- ============ 7 BONNES RAISONS ============ -->
   <section class="section-bleue">
