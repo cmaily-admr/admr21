@@ -184,3 +184,23 @@
     });
   });
 })();
+
+/* ---------- 8. Soulignement animé du dernier mot des titres (bénévolat) ---------- */
+(function () {
+  const titres = document.querySelectorAll('.page-benevolat h2');
+  if (!titres.length) return;
+  titres.forEach(h => {
+    if (h.querySelector('.souligne')) return;
+    const m = h.textContent.match(/([A-Za-zÀ-ÿ'’\-]{2,})(?:[^A-Za-zÀ-ÿ]*)$/u);
+    if (!m) return;
+    const word = m[1];
+    const html = h.innerHTML;
+    const idx = html.lastIndexOf(word);
+    if (idx < 0) return;
+    h.innerHTML = html.slice(0, idx) + '<span class="souligne">' + word + '</span>' + html.slice(idx + word.length);
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('trace'); obs.unobserve(e.target); } });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.souligne').forEach(s => obs.observe(s));
+})();
