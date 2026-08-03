@@ -1396,7 +1396,27 @@ body.page-recrutement {
 .fs-legal a:hover { text-decoration: underline; color: #fff; }
 .fs-icons { flex-wrap: wrap; }
 
-/* Mini-menu de navigation dans le pied de page */
-.fs-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; justify-content: center; margin-bottom: 16px; }
-.fs-nav a { color: #eaf5e6; text-decoration: none; font-weight: 700; font-size: .92rem; }
-.fs-nav a:hover { color: #fff; text-decoration: underline; }
+
+/* ============================================================
+   BENEVOLAT v2 : antennes + resume + vert clair + fun
+   ============================================================ */
+.grille-locaux .carte-locale h3 { font-size: .88rem; }
+
+.page-benevolat .resume-card { display: flex; align-items: center; gap: 14px; padding: 16px 20px; }
+.page-benevolat .resume-card .num { margin-bottom: 0; flex: none; }
+.page-benevolat .resume-card p { font-family: var(--font-manu); font-weight: 400; color: var(--admr-vert); font-size: 1.1rem; line-height: 1.15; margin: 0; }
+.page-benevolat .resume-card:nth-child(2) p { color: #5F7A08; }
+.page-benevolat .resume-card:nth-child(3) p { color: var(--admr-orange-brule); }
+.page-benevolat .resume-card:nth-child(4) p { color: #0E7377; }
+
+.page-benevolat .section-pourquoi { background: #FCFDF4; }
+.page-benevolat .section-missions { background: #F5FAEC; }
+.page-benevolat .section-accessible { background: #EAF3DD; }
+.page-benevolat .section-temoignages { background: #FCFDF4; }
+.page-benevolat .section-faq { background: #F5FAEC; }
+
+.hero-benevolat { position: relative; overflow: hidden; }
+.hero-benevolat > :not(.benevolat-deco) { position: relative; z-index: 1; }
+.benevolat-deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.benevolat-deco svg { position: absolute; }
+@media (max-width: 680px) { .benevolat-deco { display: none; } }
