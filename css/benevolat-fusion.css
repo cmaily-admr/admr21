@@ -1,0 +1,291 @@
+/* ==========================================================================
+   ADMR 21 — Page Bénévolat : FUSION
+   Objectif : structure & animations de la version modernisée
+              + couleurs & typographies de la charte ADMR classique.
+   Ne modifie ni style.css ni benevolat-modernise.css : surcouche uniquement.
+   Portée : scoping systématique sous .page-benevolat pour zéro régression
+   sur les autres pages du site.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. REMAPPING DES VARIABLES
+   La mise en page moderne (grilles, espacements, hero, cartes, compteurs...)
+   reste strictement identique : on ne fait que réinjecter la palette
+   et les fonds ADMR dans les variables CSS qu'elle consomme.
+   -------------------------------------------------------------------------- */
+.page-benevolat {
+  /* Palette ADMR injectée dans le système moderne */
+  --vert:        var(--admr-vert);
+  --vert-clair:  var(--admr-lime);
+  --vert-doux:   #E1F2ED;
+  --magenta:     #EF6B67;   /* corail ADMR, remplace le magenta moderne */
+  --magenta-doux:#FDEDEC;
+  --orange:      var(--admr-orange);
+  --orange-doux: #FFF3E0;
+  --bleu:        #004B9C;
+  --bleu-fonce:  #003E82;
+  --bleu-clair:  #E3EEF9;
+  --or:          #F3C300;   /* jaune ADMR officiel */
+  --turquoise:   #3FB0A4;   /* accent propre à la charte ADMR */
+
+  /* Fonds : on quitte le crème moderne pour le turquoise pâle ADMR */
+  --creme:       #F7FCFB;
+  --fond:        #F1FAF8;
+  --fond-2:      #E8F5F2;
+  --blanc:       #FFFFFF;
+
+  /* Encres */
+  --encre:       #1F3A33;
+  --texte:       #3F4D34;
+  --texte-doux:  #5B6A50;
+
+  /* Ombres reteintées turquoise plutôt que bleu marine */
+  --ombre:       0 12px 30px rgba(0,119,108,.13);
+  --ombre-fort:  0 20px 50px rgba(0,119,108,.22);
+
+  font-family: var(--font-doux);
+  background: var(--fond);
+}
+
+/* --------------------------------------------------------------------------
+   2. TYPOGRAPHIES ADMR
+   -------------------------------------------------------------------------- */
+.page-benevolat h2 {
+  font-family: var(--font-manu);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--admr-vert);
+  letter-spacing: .01em;
+}
+
+.page-benevolat h3 {
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--bleu-fonce);
+}
+
+.page-benevolat .sec-intro,
+.page-benevolat .intro,
+.page-benevolat .accessible-lead,
+.page-benevolat .role-texte p {
+  font-family: var(--font-titre);
+  font-style: italic;
+  color: var(--texte-doux);
+}
+
+.page-benevolat [data-cible] {
+  font-family: var(--font-doux);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Soulignement du dernier mot des h2 : coup de surligneur au feutre,
+   dessiné de gauche à droite quand le titre entre à l'écran (.vu posée par le JS) */
+.page-benevolat h2 .souligne {
+  background: none;
+  padding: 0 2px;
+  position: relative;
+}
+.page-benevolat h2 .souligne::after {
+  content: "";
+  position: absolute;
+  left: -2px; right: -2px; bottom: .06em;
+  height: .38em;
+  background: var(--or);
+  opacity: .45;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .5s cubic-bezier(.22,1,.36,1) .15s;
+}
+.page-benevolat h2.vu .souligne::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-benevolat h2 .souligne::after { transition: none; transform: scaleX(1); }
+}
+
+/* --------------------------------------------------------------------------
+   3. LE FIL DU LIEN — recoloré ADMR
+   -------------------------------------------------------------------------- */
+.page-benevolat .fil-du-lien .fil-path,
+.page-benevolat .fil-du-lien path.fil-path { stroke: var(--turquoise); }
+.page-benevolat .fil-du-lien .fil-glow    { stroke: var(--turquoise); opacity: .25; }
+.page-benevolat .fil-du-lien .fil-noeud   { fill: var(--or); }
+.page-benevolat .fil-du-lien .fil-pulse   { stroke: var(--or); }
+
+.page-benevolat .section-pourquoi,
+.page-benevolat .section-missions,
+.page-benevolat .section-widget,
+.page-benevolat .section-accessible,
+.page-benevolat .section-temoignages,
+.page-benevolat .section-faq {
+  background: rgba(241,250,248,.86);
+}
+
+.page-benevolat .hero-benevolat {
+  background:
+    radial-gradient(1200px 600px at 50% -100px, rgba(243,195,0,.18), transparent 70%),
+    linear-gradient(180deg, #FFFFFF, #F1FAF8 70%);
+}
+
+/* Nav sticky : point doré sur la section active, en écho au fil */
+.page-benevolat .benevolat-nav a { position: relative; }
+.page-benevolat .benevolat-nav a.actif::before {
+  content: "";
+  position: absolute; left: 50%; top: -7px;
+  width: 6px; height: 6px; margin-left: -3px;
+  background: var(--or); border-radius: 50%;
+  animation: navPoint .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes navPoint { from { transform: scale(0); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .page-benevolat .benevolat-nav a.actif::before { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   4. LE FIL QUI SE TISSE ENTRE LES CARTES
+   Principe : chaque groupe de cartes (raisons, missions, résumé, etc.) reçoit
+   un connecteur en pointillés turquoise qui les relie horizontalement.
+   Le connecteur se "tisse" (se dessine de gauche à droite) au scroll, en
+   utilisant le même mécanisme que le fil SVG global : IntersectionObserver
+   pose une classe .tisse sur le conteneur, le CSS anime un scaleX().
+   -------------------------------------------------------------------------- */
+
+/* Conteneurs concernés : à adapter/étendre selon vos grilles réelles */
+.page-benevolat .resume-grid,
+.page-benevolat .cartes-raisons,
+.page-benevolat .missions-grid,
+.page-benevolat .temoins-grid {
+  position: relative;
+}
+
+/* Le fil tissé : une ligne en pointillés qui traverse la grille,
+   positionnée au niveau vertical du centre des cartes (~ moitié de leur hauteur) */
+.page-benevolat .resume-grid::before,
+.page-benevolat .cartes-raisons::before,
+.page-benevolat .missions-grid::before,
+.page-benevolat .temoins-grid::before {
+  content: "";
+  position: absolute;
+  top: 42px; /* ajuster selon la hauteur réelle des icônes/numéros de vos cartes */
+  left: 4%;
+  right: 4%;
+  height: 0;
+  border-top: 2.5px dashed var(--turquoise);
+  opacity: .55;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.1s cubic-bezier(.22,1,.36,1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-benevolat .resume-grid.tisse::before,
+.page-benevolat .cartes-raisons.tisse::before,
+.page-benevolat .missions-grid.tisse::before,
+.page-benevolat .temoins-grid.tisse::before {
+  transform: scaleX(1);
+}
+
+/* Sur mobile, les cartes s'empilent en colonne : le fil horizontal
+   n'a plus de sens visuel, on le fait passer en vertical à gauche */
+@media (max-width: 720px) {
+  .page-benevolat .resume-grid::before,
+  .page-benevolat .cartes-raisons::before,
+  .page-benevolat .missions-grid::before,
+  .page-benevolat .temoins-grid::before {
+    top: 24px;
+    bottom: 24px;
+    left: 22px;
+    right: auto;
+    width: 0;
+    height: auto;
+    border-top: none;
+    border-left: 2.5px dashed var(--turquoise);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 1.1s cubic-bezier(.22,1,.36,1);
+  }
+  .page-benevolat .resume-grid.tisse::before,
+  .page-benevolat .cartes-raisons.tisse::before,
+  .page-benevolat .missions-grid.tisse::before,
+  .page-benevolat .temoins-grid.tisse::before {
+    transform: scaleY(1);
+  }
+}
+
+/* Chaque carte doit passer au-dessus du fil tissé */
+.page-benevolat .resume-card,
+.page-benevolat .carte-raison,
+.page-benevolat .ph-temoin {
+  position: relative;
+  z-index: 1;
+}
+
+/* Petit nœud doré au niveau de chaque numéro/icône de carte,
+   pour prolonger visuellement la métaphore des nœuds du fil SVG */
+.page-benevolat .resume-card .num {
+  position: relative;
+}
+.page-benevolat .resume-card .num::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--or);
+  opacity: 0;
+  transform: scale(.4);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.page-benevolat .resume-grid.tisse .resume-card .num::after {
+  opacity: .55;
+  transform: scale(1);
+}
+/* Décalage progressif pour un effet de "connexion" carte par carte */
+.page-benevolat .resume-grid.tisse .resume-card:nth-child(1) .num::after { transition-delay: .15s; }
+.page-benevolat .resume-grid.tisse .resume-card:nth-child(2) .num::after { transition-delay: .4s; }
+.page-benevolat .resume-grid.tisse .resume-card:nth-child(3) .num::after { transition-delay: .65s; }
+.page-benevolat .resume-grid.tisse .resume-card:nth-child(4) .num::after { transition-delay: .9s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-benevolat .resume-grid::before,
+  .page-benevolat .cartes-raisons::before,
+  .page-benevolat .missions-grid::before,
+  .page-benevolat .temoins-grid::before {
+    transition: none;
+    transform: none; /* affiché directement, sans animation */
+  }
+  .page-benevolat .resume-card .num::after {
+    transition: none;
+    opacity: .55;
+    transform: scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. SQUELETTES DE TÉMOIGNAGES — shimmer doux + guillemet ADMR
+   -------------------------------------------------------------------------- */
+.page-benevolat .guill { color: var(--or); opacity: .35; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-benevolat .skel {
+    background: linear-gradient(90deg, #E8F5F2 25%, #F7FCFB 50%, #E8F5F2 75%);
+    background-size: 200% 100%;
+    animation: skelShimmer 2.4s ease-in-out infinite;
+  }
+}
+@keyframes skelShimmer { to { background-position: -200% 0; } }
+
+/* --------------------------------------------------------------------------
+   6. DÉCOS ORGANIQUES EN PARALLAXE DOUCE
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .page-benevolat .benevolat-deco svg {
+    animation: admr-flotte 7s ease-in-out infinite;
+  }
+  .page-benevolat .benevolat-deco svg:nth-of-type(2) { animation-delay: .6s; }
+  .page-benevolat .benevolat-deco svg:nth-of-type(3) { animation-delay: 1.2s; }
+  .page-benevolat .benevolat-deco svg:nth-of-type(4) { animation-delay: 1.8s; }
+}
