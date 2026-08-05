@@ -289,20 +289,19 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5"}' crossorigin="anonymous"></script>
     <!-- Tout le contenu de votre site est au-dessus -->
-
 <script>
-(function(){
-  const svg=document.querySelector('.fil-du-lien'); if(!svg)return;
-  const path=svg.querySelector('.fil-path'), glow=svg.querySelector('.fil-glow'), layer=svg.querySelector('.fil-nodes');
-  const sections=[...document.querySelectorAll('main section[id]')];
-  let len=0; try{len=path.getTotalLength()}catch(e){} if(!len)len=4000;
-  path.style.setProperty('--fil-long',len); glow.style.setProperty('--fil-long',len);
-  function nodes(){ layer.innerHTML=''; const r=svg.getBoundingClientRect(), ph=document.documentElement.scrollHeight;
-    sections.forEach(s=>{const yRel=Math.max(.02,Math.min(.98,(s.getBoundingClientRect().top+scrollY)/ph)); const y=yRel*r.height; const x=Math.max(20,Math.min(r.width-20,r.width/2+Math.sin(yRel*Math.PI*3)*r.width*.18));
-      ['fil-node','fil-pulse'].forEach((cl,i)=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',i?6:7);c.setAttribute('class',cl);c.dataset.section=s.id;layer.appendChild(c)});});}
-  function update(){const max=document.documentElement.scrollHeight-innerHeight, ratio=max>0?scrollY/max:0, off=len*(1-Math.max(ratio,.35)); path.style.strokeDashoffset=off;glow.style.strokeDashoffset=off; const trigger=innerHeight*.35; let active=null; sections.forEach(s=>{const r=s.getBoundingClientRect();if(r.top<=trigger&&r.bottom>trigger)active=s.id}); layer.querySelectorAll('circle').forEach(c=>c.classList.toggle('actif',c.dataset.section===active));}
-  function refresh(){nodes();update()} requestAnimationFrame(refresh); addEventListener('scroll',update,{passive:true}); addEventListener('resize',refresh);
-})();
+document.addEventListener("DOMContentLoaded", () => {
+  const path = document.getElementById("le-chemin-fluide");
+  if (!path) return;
+  path.setAttribute("pathLength", "1");
+  function tracerFil() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = total > 0 ? window.scrollY / total : 1;
+    path.style.strokeDashoffset = 1 - prog;
+  }
+  window.addEventListener("scroll", tracerFil, { passive: true });
+  tracerFil();
+});
 </script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5"}' crossorigin="anonymous"></script>
 </body>
