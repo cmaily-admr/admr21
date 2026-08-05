@@ -1538,3 +1538,82 @@ body.page-benevolat {
 .fil-noeud { position: absolute; left: 50%; transform: translate(-50%,-50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid #cfdedb; transition: border-color .3s, transform .3s; }
 .fil-noeud.actif { border-color: var(--admr-orange); transform: translate(-50%,-50%) scale(1.25); }
 @media (max-width: 980px) { .fil-social { display: none; } }
+
+
+/* ============================================================
+   BÉNÉVOLAT — fil social organique et lien entre les personnes
+   Remplace le trait droit par deux brins qui se croisent, avec
+   des nœuds visibles comme autant de points de rencontre.
+   ============================================================ */
+.page-benevolat .fil-social {
+  position: fixed;
+  left: 10px;
+  top: 72px;
+  bottom: 34px;
+  width: 34px;
+  z-index: 60;
+  pointer-events: none;
+  background: transparent;
+}
+.page-benevolat .fil-social::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(0, 96, 86, .13);
+  filter: blur(.15px);
+}
+.page-benevolat .fil-reseau {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.page-benevolat .fil-brin {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.page-benevolat .fil-brin-a {
+  stroke: #00998B;
+  stroke-width: 3.8;
+}
+.page-benevolat .fil-brin-b {
+  stroke: #EA504C;
+  stroke-width: 2.6;
+  stroke-dasharray: 1 0;
+  opacity: .9;
+}
+.page-benevolat .fil-rond {
+  stroke: #fff;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 2px 3px rgba(0,60,55,.18));
+}
+.page-benevolat .fil-rond-a { fill: #00998B; }
+.page-benevolat .fil-rond-b { fill: #F3C300; }
+.page-benevolat .fil-rempli {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 0;
+  width: 5px;
+  height: 0;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #006358, #00998B 46%, #EA504C 80%, #F3C300);
+  opacity: .78;
+  transition: height .35s ease;
+}
+@media (max-width: 980px) {
+  .page-benevolat .fil-social { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-benevolat .fil-rempli { transition: none; }
+}
