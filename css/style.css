@@ -1617,3 +1617,29 @@ body.page-benevolat .section-rdv::before {
     radial-gradient(500px 280px at 90% 10%, rgba(232,179,65,.20), transparent 70%),
     radial-gradient(600px 320px at 10% 90%, rgba(199,54,109,.20), transparent 70%);
 }
+/* ============================================================
+   FOND DE PAGE : GRAND FIL ORGANIQUE ET ALÉATOIRE
+   ============================================================ */
+.fond-fil-organique {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.15; /* Vous pouvez ajuster l'opacité selon vos préférences */
+}
+
+#le-chemin-fluide {
+  fill: none;
+  stroke: var(--admr-vert, #44b06e);
+  stroke-width: 4px; /* Reste à 4px grâce au vector-effect */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  
+  /* Préparation pour l'animation JS au scroll */
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pathLength: 1;
+}
