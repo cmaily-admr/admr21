@@ -15,18 +15,37 @@
 <link rel="stylesheet" href="css/benevolat-fusion.css">
 </head>
 <body class="page-benevolat">
-
-<svg class="fond-fil-organique" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 100">
+<main>
+<svg class="fil-du-lien" aria-hidden="true" focusable="false" viewBox="0 0 600 2500" preserveAspectRatio="none">
   <defs>
-    <linearGradient id="grad-fil" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="fil-grad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%"  stop-color="#8BBE3A"/>
       <stop offset="35%" stop-color="#E86E2A"/>
       <stop offset="70%" stop-color="#C7366D"/>
       <stop offset="100%" stop-color="#1F4E79"/>
     </linearGradient>
   </defs>
-  <path id="le-chemin-fluide" vector-effect="non-scaling-stroke"
-        d="M 10 0 C 40 10, 80 15, 60 25 S 10 35, 30 50 S 90 60, 70 75 S 20 90, 50 100" />
+  <path class="fil-glow" d="
+    M 120 40
+    C 320 120, 60 260, 300 360
+    S 540 520, 280 640
+    S 60 820, 340 920
+    S 600 1100, 320 1240
+    S 80 1420, 360 1560
+    S 580 1740, 280 1880
+    S 60 2060, 340 2180
+    S 580 2360, 320 2500" />
+  <path class="fil-path" d="
+    M 120 40
+    C 320 120, 60 260, 300 360
+    S 540 520, 280 640
+    S 60 820, 340 920
+    S 600 1100, 320 1240
+    S 80 1420, 360 1560
+    S 580 1740, 280 1880
+    S 60 2060, 340 2180
+    S 580 2360, 320 2500" />
+  <g class="fil-nodes"></g>
 </svg>
 <main>
 
