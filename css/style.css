@@ -1566,3 +1566,54 @@ body.page-benevolat {
   stroke-dashoffset: 1;
   pathLength: 1;
 }
+
+
+/* ============================================================
+   PAGE BÉNÉVOLAT — arrière-plan harmonisé avec la version modernisée
+   ============================================================ */
+body.page-benevolat {
+  background: #FAF6EE;
+  color: #2C3A35;
+}
+body.page-benevolat main { position: relative; isolation: isolate; }
+body.page-benevolat main > section { position: relative; z-index: 1; }
+body.page-benevolat .fil-du-lien {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: visible; display: block;
+}
+body.page-benevolat .fil-du-lien .fil-path {
+  fill: none; stroke: url(#fil-grad); stroke-width: 3; stroke-linecap: round;
+  filter: drop-shadow(0 4px 14px rgba(31,78,121,.18)); opacity: .9;
+}
+body.page-benevolat .fil-du-lien .fil-glow {
+  fill: none; stroke: #E8B341; stroke-width: 6; stroke-linecap: round;
+  opacity: .18; filter: blur(8px);
+}
+body.page-benevolat .hero-benevolat {
+  background:
+    radial-gradient(1200px 600px at 50% -100px, rgba(232,179,65,.16), transparent 70%),
+    linear-gradient(180deg, #FBF7F0, #FAF6EE 70%);
+}
+body.page-benevolat .section-pourquoi,
+body.page-benevolat .section-accessible,
+body.page-benevolat .section-temoignages,
+body.page-benevolat .section-faq { background: #FAF6EE; }
+body.page-benevolat .section-missions { background: #F2EBDB; }
+body.page-benevolat .section-widget {
+  background:
+    radial-gradient(700px 300px at 50% 0, rgba(199,54,109,.14), transparent 70%),
+    linear-gradient(180deg, #FAF6EE, #F2EBDB);
+}
+body.page-benevolat .section-ensemble {
+  background:
+    radial-gradient(700px 300px at 50% 0, rgba(199,54,109,.14), transparent 70%),
+    linear-gradient(180deg, #FAF6EE, #F2EBDB);
+}
+body.page-benevolat .section-rdv {
+  background: #143A5C;
+}
+body.page-benevolat .section-rdv::before {
+  background:
+    radial-gradient(500px 280px at 90% 10%, rgba(232,179,65,.20), transparent 70%),
+    radial-gradient(600px 320px at 10% 90%, rgba(199,54,109,.20), transparent 70%);
+}
