@@ -1545,28 +1545,23 @@ body.page-benevolat {
    ============================================================ */
 .fond-fil-organique {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.15; /* Un peu plus visible pour tester (vous pourrez baisser à 0.08) */
+  opacity: .15;
 }
-
 #le-chemin-fluide {
   fill: none;
-  stroke: var(--admr-vert, #44b06e);
-  stroke-width: 4px; /* Grâce au vector-effect, 4px sera toujours 4px à l'écran */
+  stroke: url(#grad-fil);
+  stroke-width: 4px;
   stroke-linecap: round;
   stroke-linejoin: round;
-  
-  /* Préparation pour l'animation JS */
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   pathLength: 1;
 }
-
 
 /* ==========================================================================
    BÉNÉVOLAT — arrière-plan « Fil du lien » repris de la version modernisée
