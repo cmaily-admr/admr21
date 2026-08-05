@@ -1540,34 +1540,43 @@ body.page-benevolat {
    ============================================================ */
 /* Supprimez complètement les anciennes classes .fil-social, .fil-reseau, etc. */
 
-.fond-fil-anime {
+/* ============================================================
+   FOND DE PAGE : GRAND FIL ORGANIQUE ET ALÉATOIRE
+   ============================================================ */
+.fond-fil-organique {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  z-index: -1;          /* Reste bien en arrière-plan */
-  pointer-events: none; /* N'empêche pas de cliquer sur le site */
-  opacity: 0.15;        /* Subtil pour ne pas gêner la lecture */
+  z-index: -1;          /* Reste tout au fond */
+  pointer-events: none; /* N'interfère pas avec les clics */
+  opacity: 0.08;        /* Très transparent (8%) pour ne pas gêner la lecture */
 }
 
-.fond-fil-anime .le-fil {
+.fond-fil-organique .le-fil-fluide {
   fill: none;
-  stroke: var(--admr-vert);
-  stroke-width: 1.5;
+  stroke: var(--admr-vert); /* Utilise votre vert principal #44b06e */
+  stroke-width: 0.5;        /* Épaisseur relative à la viewBox (donne un trait large mais doux) */
   stroke-linecap: round;
+  stroke-linejoin: round;
   
-  /* Astuce pour animer un SVG proportionnellement */
+  /* Paramètres pour l'animation de dessin */
   pathLength: 1;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   
-  /* L'animation est liée au défilement de la page (Scroll-driven animation) */
-  animation: trace-fil linear both;
+  /* L'animation se synchronise avec le défilement de la page */
+  animation: trace-fil-organique linear both;
   animation-timeline: scroll(root block);
 }
 
-@keyframes trace-fil {
+/* On peut ajouter un deuxième brin (optionnel) pour faire un effet de double lien social */
+.fond-fil-organique::after {
+  /* Si on veut complexifier via CSS plus tard */
+}
+
+@keyframes trace-fil-organique {
   to {
     stroke-dashoffset: 0;
   }
