@@ -204,3 +204,73 @@
   }, { threshold: 0.6 });
   document.querySelectorAll('.souligne').forEach(s => obs.observe(s));
 })();
+
+/* ---------- 9. Fil social : ligne animée reliant les sections ---------- */
+(function () {
+  const main = document.querySelector('main');
+  if (!main) return;
+  const fil = document.createElement('div');
+  fil.className = 'fil-social';
+  fil.setAttribute('aria-hidden', 'true');
+  fil.innerHTML = '<span class="fil-track"></span><span class="fil-progress"></span><span class="fil-dots"></span>';
+  document.body.appendChild(fil);
+  const prog = fil.querySelector('.fil-progress');
+  const dotsWrap = fil.querySelector('.fil-dots');
+  const secs = Array.from(main.children).filter(el => el.tagName === 'SECTION' || el.classList.contains('hero-benevolat'));
+
+  function top(el) { return el.getBoundingClientRect().top + window.scrollY; }
+  function build() {
+    const H = document.documentElement.scrollHeight;
+    dotsWrap.innerHTML = '';
+    secs.forEach(s => {
+      const d = document.createElement('span');
+      d.className = 'fil-dot';
+      d.style.top = (top(s) / H * 100) + '%';
+      dotsWrap.appendChild(d);
+    });
+  }
+  function update() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    prog.style.height = (p * 100) + '%';
+    const mark = window.scrollY + window.innerHeight * 0.5;
+    Array.prototype.forEach.call(dotsWrap.children, (d, i) => { d.classList.toggle('on', top(secs[i]) <= mark); });
+  }
+  build(); update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', () => { build(); update(); });
+})();
+
+/* ---------- 9. Fil social : progression verticale + noeuds de section ---------- */
+(function () {
+  const fil = document.querySelector('.fil-social');
+  const rempli = document.querySelector('.fil-rempli');
+  if (!fil || !rempli) return;
+  const secs = [...document.querySelectorAll('main section')];
+  const noeuds = [];
+  function placer() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    noeuds.forEach(n => n.el.remove());
+    noeuds.length = 0;
+    secs.forEach(s => {
+      const abs = s.getBoundingClientRect().top + window.scrollY;
+      const frac = total > 0 ? Math.min(1, Math.max(0, abs / total)) : 0;
+      const d = document.createElement('span');
+      d.className = 'fil-noeud';
+      d.style.top = (frac * 100) + '%';
+      fil.appendChild(d);
+      noeuds.push({ el: d, abs });
+    });
+  }
+  function maj() {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = total > 0 ? (window.scrollY / total) : 0;
+    rempli.style.height = (prog * 100) + '%';
+    const seuil = window.scrollY + window.innerHeight * 0.45;
+    noeuds.forEach(n => n.el.classList.toggle('actif', n.abs <= seuil));
+  }
+  placer(); maj();
+  window.addEventListener('scroll', maj, { passive: true });
+  window.addEventListener('resize', () => { placer(); maj(); });
+  window.addEventListener('load', () => { placer(); maj(); });
+})();
