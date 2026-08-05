@@ -1475,145 +1475,100 @@ html { scroll-behavior: smooth; }
    BÉNÉVOLAT — nouvelle palette (essai) : teal / corail / bleu / jaune
    ============================================================ */
 html { scroll-behavior: smooth; }
+/* ============================================================
+   BÉNÉVOLAT — Nouvelle palette stricte
+   ============================================================ */
 body.page-benevolat {
-  --admr-vert: #00998B;        /* principal (teal)  */
-  --admr-orange: #EA504C;      /* corail            */
-  --admr-orange-brule: #C43B37;/* corail lisible    */
-  --admr-lime: #F3C300;        /* jaune             */
-  --admr-lime-fonce: #9A7C00;  /* jaune lisible     */
-  --admr-encre: #123A35;       /* teal très foncé   */
+  --admr-vert: #44b06e;        /* principal */
+  --admr-orange: #eb6012;      /* orange */
+  --admr-magenta: #b84191;     /* magenta */
+  --admr-lime: #f3c300;        /* jaune */
+  --admr-encre: #1e3b2b;       /* vert très foncé pour le texte */
 }
-/* Groupes de missions */
-.page-benevolat .grp-vert .groupe-titre { background: #00998B; }
-.page-benevolat .grp-vert .carte-mission { border-top-color: #00998B; }
-.page-benevolat .grp-vert .carte-mission h3 { color: #007D72; }
-.page-benevolat .grp-bleu .groupe-titre { background: #004B9C; }
-.page-benevolat .grp-bleu .carte-mission { border-top-color: #004B9C; }
-.page-benevolat .grp-bleu .carte-mission h3 { color: #004B9C; }
-.page-benevolat .grp-orange .groupe-titre { background: #EA504C; }
-.page-benevolat .grp-orange .carte-mission { border-top-color: #EA504C; }
-.page-benevolat .grp-orange .carte-mission h3 { color: #C43B37; }
+
+/* Groupes de missions (4 couleurs) */
+.page-benevolat .grp-vert .groupe-titre { background: var(--admr-vert); }
+.page-benevolat .grp-vert .carte-mission { border-top-color: var(--admr-vert); }
+.page-benevolat .grp-vert .carte-mission h3 { color: var(--admr-vert); }
+
+.page-benevolat .grp-bleu .groupe-titre { background: var(--admr-magenta); }
+.page-benevolat .grp-bleu .carte-mission { border-top-color: var(--admr-magenta); }
+.page-benevolat .grp-bleu .carte-mission h3 { color: var(--admr-magenta); }
+
+.page-benevolat .grp-orange .groupe-titre { background: var(--admr-orange); }
+.page-benevolat .grp-orange .carte-mission { border-top-color: var(--admr-orange); }
+.page-benevolat .grp-orange .carte-mission h3 { color: var(--admr-orange); }
+
 /* Résumé : 4 couleurs */
-.page-benevolat .resume-card:nth-child(1) { border-top-color: #00998B; }
-.page-benevolat .resume-card:nth-child(1) h4 { color: #007D72; }
-.page-benevolat .resume-card:nth-child(1) .num { background: #00998B; color:#fff; }
-.page-benevolat .resume-card:nth-child(2) { border-top-color: #F3C300; }
+.page-benevolat .resume-card:nth-child(1) { border-top-color: var(--admr-vert); }
+.page-benevolat .resume-card:nth-child(1) h4 { color: var(--admr-vert); }
+.page-benevolat .resume-card:nth-child(1) .num { background: var(--admr-vert); color:#fff; }
+
+.page-benevolat .resume-card:nth-child(2) { border-top-color: var(--admr-lime); }
 .page-benevolat .resume-card:nth-child(2) h4 { color: #9A7C00; }
-.page-benevolat .resume-card:nth-child(2) .num { background: #F3C300; color: #123A35; }
-.page-benevolat .resume-card:nth-child(3) { border-top-color: #EA504C; }
-.page-benevolat .resume-card:nth-child(3) h4 { color: #C43B37; }
-.page-benevolat .resume-card:nth-child(3) .num { background: #EA504C; color:#fff; }
-.page-benevolat .resume-card:nth-child(4) { border-top-color: #004B9C; }
-.page-benevolat .resume-card:nth-child(4) h4 { color: #004B9C; }
-.page-benevolat .resume-card:nth-child(4) .num { background: #004B9C; color:#fff; }
-/* Fonds de sections (teintes de la palette) */
-.page-benevolat .section-pourquoi   { background: #F5FBFA; }
-.page-benevolat .section-missions    { background: #ECF8F6; }
-.page-benevolat .section-widget      { background: #ECF8F6; }
-.page-benevolat .section-accessible  { background: #FBF3F2; }
-.page-benevolat .section-temoignages { background: #F5FBFA; }
-.page-benevolat .section-faq         { background: #ECF8F6; }
-.page-benevolat .section-rdv         { background: linear-gradient(180deg,#ffffff,#ECF8F6); }
-.page-benevolat .section-ensemble    { background: linear-gradient(135deg, #00998B, #007067); }
+.page-benevolat .resume-card:nth-child(2) .num { background: var(--admr-lime); color: var(--admr-encre); }
+
+.page-benevolat .resume-card:nth-child(3) { border-top-color: var(--admr-orange); }
+.page-benevolat .resume-card:nth-child(3) h4 { color: var(--admr-orange); }
+.page-benevolat .resume-card:nth-child(3) .num { background: var(--admr-orange); color:#fff; }
+
+.page-benevolat .resume-card:nth-child(4) { border-top-color: var(--admr-magenta); }
+.page-benevolat .resume-card:nth-child(4) h4 { color: var(--admr-magenta); }
+.page-benevolat .resume-card:nth-child(4) .num { background: var(--admr-magenta); color:#fff; }
+
+/* Fonds de sections rafraîchis avec la nouvelle teinte verte */
+.page-benevolat .section-pourquoi   { background: #f0f9f4; }
+.page-benevolat .section-missions    { background: #e6f5ec; }
+.page-benevolat .section-widget      { background: #e6f5ec; }
+.page-benevolat .section-accessible  { background: #fff5f0; }
+.page-benevolat .section-temoignages { background: #f0f9f4; }
+.page-benevolat .section-faq         { background: #e6f5ec; }
+.page-benevolat .section-rdv         { background: linear-gradient(180deg,#ffffff,#e6f5ec); }
+.page-benevolat .section-ensemble    { background: linear-gradient(135deg, #44b06e, #368f59); }
+
 .page-benevolat .hero-benevolat {
   background:
-    radial-gradient(rgba(0,153,139,.05) 1.5px, transparent 1.6px) 0 0 / 24px 24px,
-    radial-gradient(45% 55% at 15% 15%, rgba(0,153,139,.20), transparent 70%),
-    radial-gradient(45% 55% at 85% 85%, rgba(234,80,76,.14), transparent 70%),
-    radial-gradient(40% 45% at 85% 15%, rgba(243,195,0,.16), transparent 70%),
-    linear-gradient(180deg, #F5FBFA, #ffffff 60%, #ECF8F6);
+    radial-gradient(rgba(68,176,110,.08) 1.5px, transparent 1.6px) 0 0 / 24px 24px,
+    radial-gradient(45% 55% at 15% 15%, rgba(68,176,110,.15), transparent 70%),
+    radial-gradient(45% 55% at 85% 85%, rgba(235,96,18,.12), transparent 70%),
+    radial-gradient(40% 45% at 85% 15%, rgba(184,65,145,.12), transparent 70%),
+    linear-gradient(180deg, #f0f9f4, #ffffff 60%, #e6f5ec);
 }
-.page-benevolat .supports .chip { background: #E6F5F3; border-color: #bfe6e1; color: #007D72; }
-.page-benevolat .benevolat-nav { background: rgba(236,248,246,.96); }
-
-/* Accessibilité : focus visible */
-.page-benevolat a:focus-visible, .page-benevolat button:focus-visible,
-.page-benevolat input:focus-visible, .page-benevolat summary:focus-visible {
-  outline: 3px solid var(--admr-orange); outline-offset: 2px; border-radius: 4px;
-}
-
-/* ===== Fil social : progression verticale au défilement ===== */
-.fil-social { position: fixed; left: 16px; top: 72px; bottom: 34px; width: 4px; background: rgba(0,60,55,.08); border-radius: 4px; z-index: 60; }
-.fil-rempli { position: absolute; top: 0; left: 0; width: 100%; height: 0; border-radius: 4px; background: linear-gradient(#00998B, #EA504C, #004B9C, #F3C300); }
-.fil-noeud { position: absolute; left: 50%; transform: translate(-50%,-50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid #cfdedb; transition: border-color .3s, transform .3s; }
-.fil-noeud.actif { border-color: var(--admr-orange); transform: translate(-50%,-50%) scale(1.25); }
-@media (max-width: 980px) { .fil-social { display: none; } }
-
 
 /* ============================================================
-   BÉNÉVOLAT — fil social organique et lien entre les personnes
-   Remplace le trait droit par deux brins qui se croisent, avec
-   des nœuds visibles comme autant de points de rencontre.
+   BÉNÉVOLAT — Grand fil de fond animé au scroll
    ============================================================ */
-.page-benevolat .fil-social {
+/* Supprimez complètement les anciennes classes .fil-social, .fil-reseau, etc. */
+
+.fond-fil-anime {
   position: fixed;
-  left: 10px;
-  top: 72px;
-  bottom: 34px;
-  width: 34px;
-  z-index: 60;
-  pointer-events: none;
-  background: transparent;
-}
-.page-benevolat .fil-social::before {
-  content: "";
-  position: absolute;
-  left: 50%;
   top: 0;
-  bottom: 0;
-  width: 7px;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: rgba(0, 96, 86, .13);
-  filter: blur(.15px);
-}
-.page-benevolat .fil-reseau {
-  position: absolute;
-  inset: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  height: 100vh;
+  z-index: -1;          /* Reste bien en arrière-plan */
+  pointer-events: none; /* N'empêche pas de cliquer sur le site */
+  opacity: 0.15;        /* Subtil pour ne pas gêner la lecture */
 }
-.page-benevolat .fil-brin {
+
+.fond-fil-anime .le-fil {
   fill: none;
+  stroke: var(--admr-vert);
+  stroke-width: 1.5;
   stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
+  
+  /* Astuce pour animer un SVG proportionnellement */
+  pathLength: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  
+  /* L'animation est liée au défilement de la page (Scroll-driven animation) */
+  animation: trace-fil linear both;
+  animation-timeline: scroll(root block);
 }
-.page-benevolat .fil-brin-a {
-  stroke: #00998B;
-  stroke-width: 3.8;
-}
-.page-benevolat .fil-brin-b {
-  stroke: #EA504C;
-  stroke-width: 2.6;
-  stroke-dasharray: 1 0;
-  opacity: .9;
-}
-.page-benevolat .fil-rond {
-  stroke: #fff;
-  stroke-width: 3;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 2px 3px rgba(0,60,55,.18));
-}
-.page-benevolat .fil-rond-a { fill: #00998B; }
-.page-benevolat .fil-rond-b { fill: #F3C300; }
-.page-benevolat .fil-rempli {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  top: 0;
-  width: 5px;
-  height: 0;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  background: linear-gradient(180deg, #006358, #00998B 46%, #EA504C 80%, #F3C300);
-  opacity: .78;
-  transition: height .35s ease;
-}
-@media (max-width: 980px) {
-  .page-benevolat .fil-social { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .page-benevolat .fil-rempli { transition: none; }
+
+@keyframes trace-fil {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
