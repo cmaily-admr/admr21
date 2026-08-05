@@ -285,5 +285,23 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5"}' crossorigin="anonymous"></script>
+    <!-- Tout le contenu de votre site est au-dessus -->
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const path = document.getElementById("le-chemin-fluide");
+        
+        function tracerFil() {
+          const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollActuel = window.scrollY || document.documentElement.scrollTop;
+          let progression = scrollActuel / scrollTotal;
+          if (scrollTotal <= 0) progression = 1; 
+          path.style.strokeDashoffset = 1 - progression;
+        }
+
+        window.addEventListener("scroll", tracerFil);
+        tracerFil();
+      });
+    </script>
 </body>
 </html>
