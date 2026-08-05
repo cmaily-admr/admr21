@@ -1549,35 +1549,20 @@ body.page-benevolat {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;          /* Reste tout au fond */
-  pointer-events: none; /* N'interfère pas avec les clics */
-  opacity: 0.08;        /* Très transparent (8%) pour ne pas gêner la lecture */
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.15; /* Un peu plus visible pour tester (vous pourrez baisser à 0.08) */
 }
 
-.fond-fil-organique .le-fil-fluide {
+#le-chemin-fluide {
   fill: none;
-  stroke: var(--admr-vert); /* Utilise votre vert principal #44b06e */
-  stroke-width: 0.5;        /* Épaisseur relative à la viewBox (donne un trait large mais doux) */
+  stroke: var(--admr-vert, #44b06e);
+  stroke-width: 4px; /* Grâce au vector-effect, 4px sera toujours 4px à l'écran */
   stroke-linecap: round;
   stroke-linejoin: round;
   
-  /* Paramètres pour l'animation de dessin */
-  pathLength: 1;
+  /* Préparation pour l'animation JS */
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  
-  /* L'animation se synchronise avec le défilement de la page */
-  animation: trace-fil-organique linear both;
-  animation-timeline: scroll(root block);
-}
-
-/* On peut ajouter un deuxième brin (optionnel) pour faire un effet de double lien social */
-.fond-fil-organique::after {
-  /* Si on veut complexifier via CSS plus tard */
-}
-
-@keyframes trace-fil-organique {
-  to {
-    stroke-dashoffset: 0;
-  }
+  pathLength: 1;
 }
