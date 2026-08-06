@@ -331,11 +331,42 @@
 .page-benevolat .section-ensemble .ensemble-photo { aspect-ratio: 4 / 3; max-width: 640px; border-radius: 20px; }
 
 /* --- Chiffres animés (bande) --- */
-.page-benevolat section.stats-benevolat { background: var(--admr-vert); padding: 30px 20px; }
-.page-benevolat .stats-benevolat .chiffres { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 64px; max-width: 900px; margin: 0 auto; }
-.page-benevolat section.stats-benevolat .chiffre,
-.page-benevolat section.stats-benevolat .n,
-.page-benevolat section.stats-benevolat .l { color: #fff; }
+.page-benevolat section.stats-benevolat {
+  background: var(--admr-vert);
+  padding: 30px 20px 55px; /* +25px en bas : dégage la barre de boutons */
+}
+.page-benevolat section.stats-benevolat .chiffres {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 18px 64px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-benevolat section.stats-benevolat .chiffre {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* recentre chiffre + libellé l'un sur l'autre */
+}
+
+.page-benevolat section.stats-benevolat .n {
+  color: var(--admr-or, #E9B949); /* OR */
+  font-family: var(--font-manu);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 6vw, 3.3rem);
+  line-height: 1;
+}
+
+.page-benevolat section.stats-benevolat .l {
+  color: #fff;
+  font-weight: 700;
+  opacity: .95;
+  margin-top: 6px;
+  font-size: .95rem;
+}
 .page-benevolat .stats-benevolat .n { font-family: var(--font-manu); font-weight: 400; font-size: clamp(2.3rem, 6vw, 3.3rem); line-height: 1; }
 .page-benevolat .stats-benevolat .l { font-weight: 700; opacity: .95; margin-top: 4px; font-size: .95rem; }
 
