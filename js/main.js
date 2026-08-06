@@ -68,6 +68,7 @@
       if (e.isIntersecting) { anime(e.target); obs.unobserve(e.target); }
     });
   }, { threshold: 0.6 });
+    nombres.forEach(n => obs.observe(n));
 })();
 
 /* ---------- 4. Lecture des vidéos témoignages ---------- */
