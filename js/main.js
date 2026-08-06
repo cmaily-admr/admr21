@@ -205,72 +205,97 @@
   document.querySelectorAll('.souligne').forEach(s => obs.observe(s));
 })();
 
-/* ---------- 9. Fil social : ligne animée reliant les sections ---------- */
+/* ---------- 10. Carrousel des témoignages ---------- */
 (function () {
-  const main = document.querySelector('main');
-  if (!main) return;
-  const fil = document.createElement('div');
-  fil.className = 'fil-social';
-  fil.setAttribute('aria-hidden', 'true');
-  fil.innerHTML = '<span class="fil-track"></span><span class="fil-progress"></span><span class="fil-dots"></span>';
-  document.body.appendChild(fil);
-  const prog = fil.querySelector('.fil-progress');
-  const dotsWrap = fil.querySelector('.fil-dots');
-  const secs = Array.from(main.children).filter(el => el.tagName === 'SECTION' || el.classList.contains('hero-benevolat'));
-
-  function top(el) { return el.getBoundingClientRect().top + window.scrollY; }
-  function build() {
-    const H = document.documentElement.scrollHeight;
-    dotsWrap.innerHTML = '';
-    secs.forEach(s => {
-      const d = document.createElement('span');
-      d.className = 'fil-dot';
-      d.style.top = (top(s) / H * 100) + '%';
-      dotsWrap.appendChild(d);
-    });
-  }
-  function update() {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    prog.style.height = (p * 100) + '%';
-    const mark = window.scrollY + window.innerHeight * 0.5;
-    Array.prototype.forEach.call(dotsWrap.children, (d, i) => { d.classList.toggle('on', top(secs[i]) <= mark); });
-  }
-  build(); update();
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', () => { build(); update(); });
+  const grid = document.querySelector('.page-benevolat .temoins-grid');
+  if (!grid) return;
+  const cards = grid.querySelectorAll('.ph-temoin');
+  if (cards.length < 2) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'temoins-carousel';
+  grid.parentNode.insertBefore(wrap, grid);
+  wrap.appendChild(grid);
+  const mk = (cls, lbl, sym) => { const b = document.createElement('button'); b.className = 'tc-arrow ' + cls; b.type = 'button'; b.setAttribute('aria-label', lbl); b.textContent = sym; return b; };
+  const prev = mk('tc-prev', 'Témoignage précédent', '‹');
+  const next = mk('tc-next', 'Témoignage suivant', '›');
+  wrap.appendChild(prev); wrap.appendChild(next);
+  const step = () => cards[0].getBoundingClientRect().width + 20;
+  prev.addEventListener('click', () => grid.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => grid.scrollBy({ left: step(), behavior: 'smooth' }));
 })();
 
-/* ---------- 9. Fil social : progression verticale + noeuds de section ---------- */
+/* ---------- 11. Fil du lien : animation SVG ondulée au scroll ---------- */
 (function () {
-  const fil = document.querySelector('.fil-social');
-  const rempli = document.querySelector('.fil-rempli');
-  if (!fil || !rempli) return;
-  const secs = [...document.querySelectorAll('main section')];
-  const noeuds = [];
-  function placer() {
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    noeuds.forEach(n => n.el.remove());
-    noeuds.length = 0;
-    secs.forEach(s => {
-      const abs = s.getBoundingClientRect().top + window.scrollY;
-      const frac = total > 0 ? Math.min(1, Math.max(0, abs / total)) : 0;
-      const d = document.createElement('span');
-      d.className = 'fil-noeud';
-      d.style.top = (frac * 100) + '%';
-      fil.appendChild(d);
-      noeuds.push({ el: d, abs });
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const filSvg = document.querySelector('.fil-du-lien');
+  if (!filSvg) return;
+  const filPath = filSvg.querySelector('.fil-path');
+  const filGlow = filSvg.querySelector('.fil-glow');
+  const nodeLayer = filSvg.querySelector('.fil-nodes');
+  if (!filPath) return;
+  if (reduce) {
+    filPath.style.strokeDashoffset = '0';
+    if (filGlow) filGlow.style.strokeDashoffset = '0';
+    return;
+  }
+  const sections = Array.from(document.querySelectorAll('main section[id], main > section'));
+  const docEl = document.documentElement;
+  let longueur = 0;
+  try { longueur = filPath.getTotalLength(); } catch (e) {}
+  if (!longueur) longueur = 4000;
+  filPath.style.setProperty('--fil-long', longueur);
+  if (filGlow) filGlow.style.setProperty('--fil-long', longueur);
+
+  function placerNoeuds() {
+    if (!nodeLayer) return;
+    const svgRect = filSvg.getBoundingClientRect();
+    const svgHeight = svgRect.height;
+    const pageHeight = docEl.scrollHeight;
+    nodeLayer.innerHTML = '';
+    sections.forEach((sec) => {
+      if (!sec.id) return;
+      const rect = sec.getBoundingClientRect();
+      const yAbs = rect.top + window.scrollY;
+      const yRel = yAbs / pageHeight;
+      const y = Math.max(0.02, Math.min(0.98, yRel)) * svgHeight;
+      const xCenter = svgRect.width / 2;
+      const sway = Math.sin(yRel * Math.PI * 3) * (svgRect.width * 0.18);
+      const x = Math.max(20, Math.min(svgRect.width - 20, xCenter + sway));
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 7);
+      c.setAttribute('class', 'fil-node'); c.setAttribute('data-section', sec.id);
+      nodeLayer.appendChild(c);
+      const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      pulse.setAttribute('cx', x); pulse.setAttribute('cy', y); pulse.setAttribute('r', 6);
+      pulse.setAttribute('class', 'fil-pulse'); pulse.setAttribute('data-pulse', sec.id);
+      nodeLayer.appendChild(pulse);
     });
   }
-  function maj() {
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    const prog = total > 0 ? (window.scrollY / total) : 0;
-    rempli.style.height = (prog * 100) + '%';
-    const seuil = window.scrollY + window.innerHeight * 0.45;
-    noeuds.forEach(n => n.el.classList.toggle('actif', n.abs <= seuil));
+  function animerFil() {
+    const scrolled = window.scrollY;
+    const max = docEl.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? scrolled / max : 0;
+    const offset = longueur * (1 - Math.max(ratio, 0.35));
+    filPath.style.strokeDashoffset = offset;
+    if (filGlow) filGlow.style.strokeDashoffset = offset;
   }
-  placer(); maj();
-  window.addEventListener('scroll', maj, { passive: true });
-  window.addEventListener('resize', () => { placer(); maj(); });
-  window.addEventListener('load', () => { placer(); maj(); });
+  function noeudActif() {
+    const trigger = window.innerHeight * 0.35;
+    let current = null;
+    sections.forEach(sec => {
+      if (!sec.id) return;
+      const r = sec.getBoundingClientRect();
+      if (r.top <= trigger && r.bottom > trigger) current = sec.id;
+    });
+    filSvg.querySelectorAll('.fil-node').forEach(n => n.classList.toggle('actif', n.getAttribute('data-section') === current));
+    filSvg.querySelectorAll('.fil-pulse').forEach(pp => pp.classList.toggle('actif', pp.getAttribute('data-pulse') === current));
+  }
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) { requestAnimationFrame(() => { animerFil(); noeudActif(); ticking = false; }); ticking = true; }
+  }
+  requestAnimationFrame(() => { placerNoeuds(); animerFil(); noeudActif(); });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { placerNoeuds(); animerFil(); noeudActif(); });
+  window.addEventListener('load', () => { placerNoeuds(); animerFil(); noeudActif(); });
 })();

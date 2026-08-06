@@ -289,3 +289,76 @@
   .page-benevolat .benevolat-deco svg:nth-of-type(3) { animation-delay: 1.2s; }
   .page-benevolat .benevolat-deco svg:nth-of-type(4) { animation-delay: 1.8s; }
 }
+
+/* ==========================================================================
+   AJUSTEMENTS DEMANDÉS (surcouche, chargée en dernier)
+   ========================================================================== */
+/* --- Hero : logo plus grand, kicker & puce SANS fond, texte plus grand --- */
+.page-benevolat .hero-benevolat .logo-benevolat-titre { margin: 6px auto 22px; }
+.page-benevolat .hero-benevolat .logo-benevolat-titre img { max-width: min(560px, 92%); width: min(560px, 92%); }
+.page-benevolat .hero-benevolat .kicker {
+  display: inline-block; background: none; border: none; padding: 0; margin: 0 0 10px;
+  color: var(--admr-orange); font-family: var(--font-manu); font-weight: 400;
+  text-transform: none; letter-spacing: normal; font-size: clamp(1.25rem, 3vw, 1.8rem);
+}
+.page-benevolat .hero-benevolat .intro { font-size: clamp(1.08rem, 2.2vw, 1.22rem); }
+.page-benevolat .hero-benevolat .puce-chiffre {
+  background: none; border: none; box-shadow: none; padding: 0; gap: 0;
+  color: var(--admr-vert); font-size: 1.2rem; margin-top: 20px;
+}
+.page-benevolat .hero-benevolat .puce-chiffre::before { display: none; }
+.page-benevolat .hero-benevolat .puce-chiffre strong { color: var(--admr-orange); font-size: 1.5rem; }
+
+/* --- « Au cœur de… » : plus moderne & épuré (fini les pastilles pleines) --- */
+.page-benevolat .groupe-titre {
+  background: none; box-shadow: none; border-radius: 0;
+  padding: 2px 0 8px; margin-bottom: 22px; color: #1F3A33;
+  font-family: var(--font-manu); font-weight: 400;
+  font-size: clamp(1.5rem, 3.4vw, 2rem); border-bottom: 3px solid #ccc;
+}
+.page-benevolat .grp-bleu   .groupe-titre { background: none; border-bottom-color: #004B9C; }
+.page-benevolat .grp-bleu   .groupe-titre .cr { color: #004B9C; }
+.page-benevolat .grp-orange .groupe-titre { background: none; border-bottom-color: #EA504C; }
+.page-benevolat .grp-orange .groupe-titre .cr { color: #EA504C; }
+.page-benevolat .grp-vert   .groupe-titre { background: none; border-bottom-color: #00998B; }
+.page-benevolat .grp-vert   .groupe-titre .cr { color: #00998B; }
+
+/* --- Photos uniformes (même ratio 4/3, mêmes coins, même ombre) --- */
+.page-benevolat .art-media,
+.page-benevolat .art-bloc:nth-child(even) .art-media { aspect-ratio: 4 / 3; border-radius: 20px; }
+.page-benevolat .art-media::after { display: none; }
+.page-benevolat .art-media img { width: 100%; height: 100%; object-fit: cover; }
+.page-benevolat .section-ensemble .ensemble-photo { aspect-ratio: 4 / 3; max-width: 640px; border-radius: 20px; }
+
+/* --- Chiffres animés (bande) --- */
+.page-benevolat .stats-benevolat { background: var(--admr-vert); padding: 30px 20px; }
+.page-benevolat .stats-benevolat .chiffres { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 64px; max-width: 900px; margin: 0 auto; }
+.page-benevolat .stats-benevolat .chiffre { text-align: center; color: #fff; }
+.page-benevolat .stats-benevolat .n { font-family: var(--font-manu); font-weight: 400; font-size: clamp(2.3rem, 6vw, 3.3rem); line-height: 1; }
+.page-benevolat .stats-benevolat .l { font-weight: 700; opacity: .95; margin-top: 4px; font-size: .95rem; }
+
+/* --- Témoignages en carrousel --- */
+.page-benevolat .temoins-carousel { position: relative; }
+.page-benevolat .temoins-grid { display: flex; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 8px 4px 18px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+.page-benevolat .temoins-grid::before { display: none; }
+.page-benevolat .temoins-grid .ph-temoin { flex: 0 0 min(340px, 82vw); scroll-snap-align: center; }
+.page-benevolat .temoins-grid::-webkit-scrollbar { height: 8px; }
+.page-benevolat .temoins-grid::-webkit-scrollbar-thumb { background: #cfe0dc; border-radius: 8px; }
+.page-benevolat .tc-arrow { position: absolute; top: 42%; transform: translateY(-50%); z-index: 3; width: 46px; height: 46px; border-radius: 50%; border: none; background: #fff; color: var(--admr-vert); font-size: 2rem; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,119,108,.22); display: grid; place-items: center; transition: transform .2s, background .2s, color .2s; }
+.page-benevolat .tc-arrow:hover { background: var(--admr-vert); color: #fff; transform: translateY(-50%) scale(1.08); }
+.page-benevolat .tc-prev { left: -8px; }
+.page-benevolat .tc-next { right: -8px; }
+@media (max-width: 820px) { .page-benevolat .tc-arrow { display: none; } }
+
+/* Fil du lien : le <main> doit être positionné pour que le SVG couvre toute la page */
+.page-benevolat main { position: relative; }
+
+/* --- Témoignages remplis (photo de profil + nom + citation) --- */
+.page-benevolat .temoins-grid { align-items: stretch; }
+.page-benevolat .ph-temoin { display: flex; flex-direction: column; }
+.page-benevolat .ph-temoin .avatar-photo { width: 64px; height: 64px; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,119,108,.18); background: #e9efe4; overflow: hidden; }
+.page-benevolat .ph-temoin .avatar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.page-benevolat .ph-temoin .meta { flex: 1; text-align: left; }
+.page-benevolat .ph-temoin .meta .nom { font-family: var(--font-titre); font-weight: 700; color: var(--admr-vert); font-size: 1.08rem; line-height: 1.2; }
+.page-benevolat .ph-temoin .meta .role { color: #6a7860; font-size: .86rem; }
+.page-benevolat .ph-temoin .temoignage { text-align: left; color: #3f4d34; line-height: 1.6; font-size: .95rem; margin: 8px 0 0; font-style: normal; }
