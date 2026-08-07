@@ -219,20 +219,22 @@
         <h3>Nos points d'accueil en Côte-d'Or</h3>
         <p class="pa-intro">21 antennes proches de chez vous&nbsp;: trouvez celle de votre secteur.</p>
         <figure class="carte-secteurs">
-        <div class="carte-inner">
-          <img class="carte-antennes" src="images/carte-antennes.png" alt="Carte des secteurs de vie associative de l'ADMR en Côte-d'Or">
-          <svg class="secteur-fleches" viewBox="0 0 820 1014" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <defs><filter id="rough-arrow" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter></defs>
-            <g filter="url(#rough-arrow)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="312" cy="365" r="9" fill="#1C82B0" stroke="none"/>
-              <path d="M 312 365 Q 120 250 -55 120 M -55 120 L -26 112 M -55 120 L -46 150" stroke="#1C82B0"/>
-              <circle cx="607" cy="629" r="9" fill="#7BA61F" stroke="none"/>
-              <path d="M 607 629 Q 790 560 890 538 M 890 538 L 861 528 M 890 538 L 866 560" stroke="#7BA61F"/>
-              <circle cx="254" cy="750" r="9" fill="#E0801F" stroke="none"/>
-              <path d="M 254 750 Q 80 800 -55 812 M -55 812 L -27 800 M -55 812 L -30 832" stroke="#E0801F"/>
-            </g>
-          </svg>
-        </div>
+        <img class="carte-antennes" src="images/carte-antennes.png" alt="Carte des secteurs de vie associative de l'ADMR en Côte-d'Or">
+        <svg class="secteur-fleches" viewBox="0 0 1000 850" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <marker id="ah-b" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="16" refY="12" orient="auto"><path d="M3,4 L20,12 L3,20 L8,12 Z" fill="#1C82B0"/></marker>
+            <marker id="ah-v" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="16" refY="12" orient="auto"><path d="M3,4 L20,12 L3,20 L8,12 Z" fill="#6F9C1B"/></marker>
+            <marker id="ah-o" markerUnits="userSpaceOnUse" markerWidth="24" markerHeight="24" refX="16" refY="12" orient="auto"><path d="M3,4 L20,12 L3,20 L8,12 Z" fill="#D97A1B"/></marker>
+          </defs>
+          <g fill="none" stroke-width="4.5" stroke-linecap="round">
+            <circle cx="423" cy="310" r="7" fill="#1C82B0"/>
+            <path d="M 423 310 Q 268 216 172 176" stroke="#1C82B0" marker-end="url(#ah-b)"/>
+            <circle cx="654" cy="516" r="7" fill="#6F9C1B"/>
+            <path d="M 654 516 Q 762 494 836 486" stroke="#6F9C1B" marker-end="url(#ah-v)"/>
+            <circle cx="378" cy="611" r="7" fill="#D97A1B"/>
+            <path d="M 378 611 Q 262 630 158 643" stroke="#D97A1B" marker-end="url(#ah-o)"/>
+          </g>
+        </svg>
         <div class="secteur-label bleu"><span class="nom">Alexandra</span><a class="tel" href="tel:+33624203392">06 24 20 33 92</a></div>
         <div class="secteur-label vert"><span class="nom">Marine</span><a class="tel" href="tel:+33684058903">06 84 05 89 03</a></div>
         <div class="secteur-label orange"><span class="nom">Christelle</span><a class="tel" href="tel:+33630905310">06 30 90 53 10</a></div>
