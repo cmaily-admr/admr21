@@ -32,7 +32,7 @@
   --transi: .3s cubic-bezier(.4,0,.2,1);
   --font-titre: 'Segoe UI', 'Trebuchet MS', system-ui, sans-serif;
   --font-texte: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-manu: 'Pacifico', cursive;
+  --font-manu: 'Caveat', cursive;
   --font-doux: 'Open Sans', 'Segoe UI', system-ui, sans-serif;
   --max: 1200px;
   --corail: #f18700;
@@ -57,7 +57,7 @@ body.page-balade {
 .page-balade a { color: inherit; }
 .page-balade h1, .page-balade h2, .page-balade h3, .page-balade p { margin-top: 0; }
 .page-balade h1, .page-balade h2, .page-balade h3 { line-height: 1.2; }
-.page-balade h2 { font-family: var(--font-manu); font-weight: 400; }
+.page-balade h2 { font-family: var(--font-manu); font-weight: 700; }
 .page-balade button, .page-balade input { font: inherit; }
 
 /* Oiseaux SVG : utilisable avec .bird dans n'importe quelle section. */
@@ -92,6 +92,12 @@ body.page-balade {
 .page-balade img.hero-logo {
   width: min(620px, 92vw);
   height: auto;
+  margin: 18px auto 8px;
+  object-fit: contain;
+}
+.image-redimensionnee {
+  max-width: 75%; /* S'adapte à la taille du conteneur */
+  height: auto; /* Conserve les proportions */
   margin: 18px auto 8px;
   object-fit: contain;
 }
@@ -187,8 +193,10 @@ body.page-balade {
 .page-balade .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
 .page-balade .actions h3 { margin: 18px 0 2px; color: var(--av-fonce); }
 .page-balade .coming { margin-bottom: 4px; color: #858274; font-size: .82rem; font-style: italic; }
-.page-balade .contact { color: var(--av-fonce); font-weight: 800; text-decoration: none; }
-.page-balade .contact:hover { color: var(--corail); }
+.page-balade .contact {   display: block; /* Pour que margin: auto fonctionne */
+  margin: 0.5rem auto; /* Centrage horizontal + espacement vertical */
+  text-align: center; /* Centrage du texte à l'intérieur du lien */ gap: 9px; color: var(--av-fonce); font-weight: 800; text-decoration: none; font-size: 1.3rem; }
+.page-balade .contact:hover {  display: inline-flex; align-items: center; justify-content: center; gap: 9px; color: var(--corail); }
 .page-balade .qr-placeholder { display: grid; place-items: center; min-height: 220px; padding: 20px; border: 2px dotted var(--al); border-radius: var(--radius); background: var(--fond); text-align: center; color: #6b6859; }
 .page-balade .qr-placeholder > div { display: grid; place-items: center; width: 72px; height: 72px; margin-bottom: 10px; border: 4px solid var(--av); border-radius: 8px; color: var(--av); font-weight: 900; letter-spacing: .08em; }
 .page-balade .qr-placeholder p { margin: 0; font-size: .9rem; }
