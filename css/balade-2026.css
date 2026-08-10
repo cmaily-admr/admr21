@@ -1,0 +1,265 @@
+/* ==========================================================================
+   ADMR 21 — Balade conviviale 2026
+   Charte calquée sur l'affiche : crème, vert forêt, orange, nature & 5 sens.
+   Feuille de style autonome (la page ne charge que ce fichier).
+   ========================================================================== */
+:root {
+  --creme:      #F6F3E9;
+  --creme-2:    #FBF9F2;
+  --vert-fonce: #3B6B34;
+  --vert:       #5E9440;
+  --vert-clair: #8DC63F;
+  --lime:       #A7CF3A;
+  --orange:     #E8862E;
+  --orange-2:   #F4A94E;
+  --olive:      #6E8F36;
+  --texte:      #46473C;
+  --texte-doux: #6a7358;
+  --brun:       #9A6B3B;
+  --brun-f:     #7d5629;
+  --font-titre: 'Pacifico', cursive;
+  --font-hand:  'Caveat', cursive;
+  --font-body:  'Open Sans', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.page-balade {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--texte);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(141,198,63,.06), transparent 30%),
+    radial-gradient(circle at 88% 30%, rgba(232,134,46,.05), transparent 28%),
+    var(--creme);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.page-balade main { display: block; }
+.bal-wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+.page-balade a { color: var(--vert-fonce); }
+
+/* Titres de section : script vert + petit trait */
+.bal-h2 {
+  font-family: var(--font-titre);
+  color: var(--vert-fonce);
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  text-align: center;
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+.bal-lead { text-align: center; color: var(--texte-doux); max-width: 640px; margin: 0 auto 34px; }
+
+/* Bannière-titre "pinceau" (Programme / Inscriptions) */
+.bal-banner {
+  display: inline-block;
+  font-family: var(--font-titre);
+  color: #fff;
+  background: var(--vert);
+  font-size: clamp(1.7rem, 4.6vw, 2.5rem);
+  padding: 6px 54px 12px;
+  border-radius: 46% 54% 52% 48% / 62% 58% 42% 38%;
+  transform: rotate(-1.4deg);
+  box-shadow: 0 8px 20px rgba(59,107,52,.22);
+}
+.bal-banner.orange { background: var(--orange); box-shadow: 0 8px 20px rgba(232,134,46,.28); }
+.bal-banner-wrap { text-align: center; margin-bottom: 34px; }
+
+/* ======================= HERO ======================= */
+.bal-hero { position: relative; text-align: center; padding: 46px 20px 30px; overflow: hidden; }
+.bal-hero .oiseaux {
+  position: absolute; top: 20px; left: max(10px, 3vw); width: clamp(90px, 12vw, 150px);
+  mix-blend-mode: multiply; opacity: .96; pointer-events: none;
+}
+.bal-deco { position: absolute; color: var(--vert-clair); opacity: .5; pointer-events: none; }
+.bal-deco.leaf-r { top: 60px; right: 4%; width: 70px; transform: rotate(20deg); color: var(--vert); }
+.bal-deco.leaf-b { bottom: 12px; left: 6%; width: 60px; transform: rotate(-30deg); color: var(--orange-2); opacity: .45; }
+
+.bal-titre {
+  font-family: var(--font-titre);
+  color: var(--vert-fonce);
+  font-size: clamp(3.2rem, 13vw, 7rem);
+  line-height: .9;
+  margin: 6px 0 2px;
+  text-shadow: 2px 3px 0 rgba(59,107,52,.10);
+}
+.bal-titre span { display: block; font-size: .62em; margin-top: .1em; }
+
+.bal-banner-sens {
+  display: inline-block; font-family: var(--font-titre); color: #fff; background: var(--orange);
+  font-size: clamp(1.4rem, 4.4vw, 2.1rem); padding: 6px 40px 10px; margin: 14px 0 6px;
+  border-radius: 44% 56% 58% 42% / 64% 60% 40% 36%; transform: rotate(-1.5deg);
+  box-shadow: 0 8px 18px rgba(232,134,46,.30);
+}
+
+/* 5 sens */
+.bal-sens-row { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(14px, 4vw, 40px); margin: 22px 0 26px; }
+.bal-sens { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.bal-sens .rond {
+  width: clamp(58px, 9vw, 78px); height: clamp(58px, 9vw, 78px); border-radius: 50%;
+  display: grid; place-items: center; font-size: clamp(1.6rem, 4vw, 2.1rem);
+  box-shadow: 0 6px 14px rgba(0,0,0,.12); color: #fff;
+}
+.bal-sens .nom { font-family: var(--font-hand); font-weight: 700; font-size: 1.15rem; color: var(--vert-fonce); letter-spacing: .5px; }
+.bal-sens.s1 .rond { background: var(--vert-clair); }
+.bal-sens.s2 .rond { background: var(--vert-fonce); }
+.bal-sens.s3 .rond { background: var(--orange); }
+.bal-sens.s4 .rond { background: var(--vert); }
+.bal-sens.s5 .rond { background: var(--orange-2); }
+
+.bal-quand { font-family: var(--font-titre); color: var(--vert-fonce); font-size: clamp(1.8rem, 6vw, 3rem); margin: 8px 0 2px; }
+.bal-lieu { font-size: 1.15rem; font-weight: 600; color: var(--texte); margin: 0 0 26px; }
+
+/* Photo forêt + panneau bois */
+.bal-hero-media { position: relative; max-width: 760px; margin: 0 auto; }
+.bal-photo img { width: 100%; display: block; border-radius: 26px; box-shadow: 0 18px 40px rgba(50,60,30,.28); border: 6px solid #fff; }
+.signpost { position: absolute; right: -6px; bottom: 26px; width: 150px; text-align: left; filter: drop-shadow(0 8px 10px rgba(0,0,0,.25)); }
+.signpost::before { content: ""; position: absolute; left: 62px; top: 0; width: 15px; height: 150px; border-radius: 3px;
+  background: repeating-linear-gradient(180deg, #A9743F 0 8px, #96652F 8px 16px); }
+.signpost .plaque {
+  position: relative; display: block; width: 132px; margin-bottom: 12px; padding: 9px 10px 9px 20px;
+  background: linear-gradient(180deg, #B07C43, #96652F); color: #fff; font-family: var(--font-hand); font-weight: 700;
+  font-size: 1.5rem; line-height: 1; border-radius: 4px;
+  clip-path: polygon(16% 0, 100% 0, 100% 100%, 16% 100%, 0 50%);
+}
+.signpost .plaque.p2 { margin-left: 16px; }
+
+.bal-cta { display: inline-block; margin-top: 30px; background: var(--orange); color: #fff; font-weight: 800;
+  text-decoration: none; padding: 15px 34px; border-radius: 50px; box-shadow: 0 10px 22px rgba(232,134,46,.4);
+  transition: transform .2s, box-shadow .2s; }
+.bal-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(232,134,46,.5); }
+
+/* ======================= UNE JOURNÉE (médaillons) ======================= */
+.bal-forts { padding: 46px 0 40px; }
+.bal-med-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px 16px; margin-top: 30px; }
+.bal-med { width: 182px; text-align: center; position: relative; }
+.bal-med .cercle {
+  width: 132px; height: 132px; border-radius: 50%; margin: 0 auto; display: grid; place-items: center;
+  font-size: 3rem; color: #fff; box-shadow: 0 10px 22px rgba(0,0,0,.14); border: 5px solid #fff; position: relative;
+}
+.bal-med.m1 .cercle { background: linear-gradient(150deg, #7FB53E, #5E9440); }
+.bal-med.m2 .cercle { background: linear-gradient(150deg, #A7CF3A, #7FA22C); }
+.bal-med.m3 .cercle { background: linear-gradient(150deg, #F0A24A, #E8862E); }
+.bal-med.m4 .cercle { background: linear-gradient(150deg, #4E7E3A, #37622C); }
+.bal-med.m5 .cercle { background: linear-gradient(150deg, #7FB53E, #5E9440); }
+.bal-med .badge {
+  position: absolute; top: 2px; right: 14px; background: var(--orange); color: #fff; font-family: var(--font-hand);
+  font-weight: 700; font-size: 1.35rem; min-width: 46px; height: 46px; padding: 0 8px; border-radius: 50%;
+  display: grid; place-items: center; box-shadow: 0 4px 10px rgba(0,0,0,.2); border: 3px solid #fff; line-height: 1;
+}
+.bal-med .label {
+  display: block; margin: -18px auto 0; position: relative; z-index: 2; width: 92%;
+  background: var(--olive); color: #fff; font-weight: 700; font-size: .95rem; line-height: 1.2;
+  padding: 12px 10px 10px; border-radius: 14px; box-shadow: 0 6px 14px rgba(0,0,0,.14);
+}
+.bal-med.m3 .label, .bal-med.m1 .label { background: var(--vert-fonce); }
+.bal-med.m3 .label { background: var(--orange); }
+.bal-med .tag { display: block; margin-top: 8px; font-size: .82rem; color: var(--texte-doux); font-weight: 600; }
+
+/* ======================= PROGRAMME ======================= */
+.bal-prog { padding: 40px 0; background: linear-gradient(180deg, transparent, rgba(141,198,63,.06)); }
+.bal-cafe { text-align: center; font-family: var(--font-hand); font-weight: 700; font-size: 1.6rem; color: var(--vert-fonce); margin: 0 0 26px; }
+.bal-cafe span { font-size: 1.4rem; }
+.bal-bloc {
+  background: #fff; border-radius: 18px; padding: 22px 24px; margin: 0 auto 20px; max-width: 760px;
+  box-shadow: 0 10px 26px rgba(50,60,30,.10); border-left: 8px solid var(--vert);
+}
+.bal-bloc.orange { border-left-color: var(--orange); }
+.bal-bloc h3 { font-family: var(--font-hand); font-weight: 700; font-size: 1.7rem; color: var(--vert-fonce); margin: 0 0 8px; }
+.bal-bloc.orange h3 { color: var(--orange); }
+.bal-bloc p { margin: 0 0 8px; }
+.bal-bloc .sub { display: block; background: var(--creme); border-radius: 12px; padding: 10px 14px; font-size: .93rem; color: var(--texte-doux); }
+.bal-bloc .prix { display: inline-block; margin-top: 10px; font-weight: 800; color: var(--vert-fonce); }
+.bal-bloc.orange .prix { color: var(--orange); }
+.bal-bloc a { font-weight: 700; }
+.bal-dl-wrap { text-align: center; margin-top: 12px; }
+.bal-dl { display: inline-flex; align-items: center; gap: 10px; background: var(--vert-fonce); color: #fff; font-weight: 800;
+  text-decoration: none; padding: 14px 30px; border-radius: 50px; box-shadow: 0 10px 22px rgba(59,107,52,.3);
+  transition: transform .2s, box-shadow .2s; }
+.bal-dl:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(59,107,52,.4); }
+
+/* ======================= INSCRIPTIONS ======================= */
+.bal-inscr { padding: 40px 0; }
+.bal-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; max-width: 720px; margin: 0 auto; }
+.bal-btn-in {
+  flex: 1 1 300px; text-align: center; text-decoration: none; padding: 18px 22px; border-radius: 16px; color: #fff;
+  font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 22px rgba(0,0,0,.14); position: relative;
+  transition: transform .2s, box-shadow .2s; opacity: .96;
+}
+.bal-btn-in small { display: block; font-weight: 600; font-size: .8rem; opacity: .9; margin-top: 4px; }
+.bal-btn-in.vert { background: var(--vert); }
+.bal-btn-in.orange { background: var(--orange); }
+.bal-btn-in.soon { pointer-events: none; filter: grayscale(.15); }
+.bal-btn-in:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.2); }
+.bal-soon { text-align: center; font-style: italic; color: var(--texte-doux); margin: 14px 0 30px; }
+
+.bal-contact { display: flex; flex-wrap: wrap; gap: 26px; justify-content: center; align-items: center; margin-top: 6px; }
+.bal-qr { text-align: center; }
+.bal-qr img { width: 128px; height: 128px; border: 6px solid #fff; border-radius: 14px; box-shadow: 0 8px 18px rgba(0,0,0,.14); background: #fff; }
+.bal-qr span { display: block; font-size: .82rem; color: var(--texte-doux); margin-top: 6px; }
+.bal-coords { display: flex; flex-direction: column; gap: 12px; }
+.bal-coords a { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; color: var(--vert-fonce);
+  background: #fff; padding: 12px 22px; border-radius: 50px; box-shadow: 0 6px 14px rgba(0,0,0,.1); }
+.bal-coords a:hover { color: var(--orange); }
+
+/* ======================= INFOS PRATIQUES ======================= */
+.bal-infos { padding: 40px 0; }
+.bal-info-grid { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; }
+.bal-info-card { flex: 1 1 340px; max-width: 420px; background: var(--creme-2); border-radius: 20px; padding: 24px 26px;
+  box-shadow: 0 10px 24px rgba(50,60,30,.1); border-top: 6px solid var(--vert); }
+.bal-info-card.orange { border-top-color: var(--orange); }
+.bal-info-card h3 { font-family: var(--font-hand); font-weight: 700; font-size: 1.6rem; color: var(--vert-fonce); margin: 0 0 4px; }
+.bal-info-card.orange h3 { color: var(--orange); }
+.bal-info-card .cond { font-size: .9rem; color: var(--texte-doux); margin: 0 0 10px; }
+.bal-info-card .inclus { margin: 0 0 10px; font-weight: 600; }
+.bal-info-card .prix { font-family: var(--font-hand); font-weight: 700; font-size: 1.5rem; color: var(--vert-fonce); }
+.bal-info-card.orange .prix { color: var(--orange); }
+.bal-info-note { text-align: center; font-size: .86rem; color: var(--texte-doux); margin-top: 18px; font-style: italic; }
+
+/* ======================= PARTENAIRES ======================= */
+.bal-partenaires { text-align: center; padding: 30px 0 44px; }
+.bal-partenaires .titre { font-family: var(--font-hand); font-weight: 700; font-size: 1.5rem; color: var(--vert-fonce); margin-bottom: 8px; }
+.bal-partenaires p { max-width: 720px; margin: 0 auto; color: var(--texte-doux); }
+
+/* ======================= FOOTER ======================= */
+.footer-social { background: var(--vert-fonce); color: #eaf5e6; text-align: center; padding: 40px 20px 32px; }
+.footer-social .fs-suivez { font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; color: #fff; margin: 0 0 16px; }
+.fs-icons { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 20px; }
+.fs-icons a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; transition: background .2s, transform .2s; }
+.fs-icons a:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
+.fs-icons svg { width: 20px; height: 20px; fill: #fff; }
+.fs-legal { font-size: .82rem; color: #cfe6c8; margin: 0; }
+.fs-legal a { color: #eaf5e6; }
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 620px) {
+  .signpost { position: static; margin: 18px auto 0; right: auto; bottom: auto; }
+  .signpost::before { display: none; }
+  .signpost .plaque.p2 { margin-left: 40px; }
+  .bal-med { width: 150px; }
+  .bal-med .cercle { width: 112px; height: 112px; font-size: 2.5rem; }
+}
+
+/* Correctif : les boutons-liens gardent leur texte blanc (priorité > .page-balade a) */
+.page-balade .bal-cta,
+.page-balade .bal-dl,
+.page-balade .bal-btn-in { color: #fff; }
+
+/* ==========================================================================
+   Boutons "peints" (forme organique, façon bandeaux de l'affiche)
+   ========================================================================== */
+.page-balade .bal-cta,
+.page-balade .bal-dl,
+.page-balade .bal-btn-in {
+  border-radius: 44% 56% 53% 47% / 64% 58% 42% 36%;
+  box-shadow: 0 8px 16px rgba(60,50,20,.16);
+}
+.page-balade .bal-cta      { transform: rotate(-1.4deg); padding: 16px 48px; }
+.page-balade .bal-dl       { transform: rotate(1.2deg);  padding: 15px 46px; }
+.page-balade .bal-btn-in   { padding: 20px 40px; }
+.page-balade .bal-btn-in.vert   { transform: rotate(-1.2deg); }
+.page-balade .bal-btn-in.orange { transform: rotate(1.1deg); }
+.page-balade .bal-cta:hover      { transform: translateY(-3px) rotate(-1.4deg); }
+.page-balade .bal-dl:hover       { transform: translateY(-3px) rotate(1.2deg); }
+.page-balade .bal-btn-in.vert:hover   { transform: translateY(-3px) rotate(-1.2deg); }
+.page-balade .bal-btn-in.orange:hover { transform: translateY(-3px) rotate(1.1deg); }
