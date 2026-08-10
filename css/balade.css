@@ -10,7 +10,7 @@
   --al: #8FAE5C;
   --fond: #F2F0E4;
   --av2: #4F8052;
-  --ao-fonce: #C85F27;
+  --ao-fonce: #f18700;
   --acreme: var(--fond);
   --atxt: #403F34;
   --abrun: #9C6B3E;
@@ -76,7 +76,127 @@ body.page-balade {
 .page-balade .bird-one { top: 44px; left: 8%; animation-delay: -.8s; }
 .page-balade .bird-two { top: 82px; right: 10%; width: clamp(28px, 5vw, 54px); animation-delay: -3.5s; }
 @keyframes bird-drift { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(2deg); } }
+/* ============================================================
+   /* ============================================
+   LES 5 SENS
+   Une seule valeur à changer : --taille-sens
+   ============================================ */
 
+.section-5sens {
+  --taille-sens: 70px;
+
+  /* Le texte a maintenant sa propre variable, avec un plancher (clamp) */
+  --sens-police:  clamp(35px, calc(var(--taille-sens) * 0.58), 22px);
+  --sens-picto:   calc(var(--taille-sens) * 0.58);
+  --sens-arc-h:   calc(var(--taille-sens) * 0.40);
+  --sens-gap:     calc(var(--taille-sens) * 0.90);
+
+  --vert-fonce:   #017734;
+  --noir:         #0c0f0e;
+  --lime:         #afcb08;
+  --orange:       #f18603;
+  --vert-moyen:   #7ac143;
+  --orange-clair: #fbc06a;
+
+  padding: 2.5rem 0;
+}
+
+.titre-5sens {
+  color: var(--noior);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Bande des 5 pastilles : moitié de la largeur du contenu, centrée */
+.cinq-sens {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 50%;
+  min-width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--sens-gap);
+}
+
+.sens {
+  width: var(--taille-sens);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Le mot courbé --- */
+.sens-mot {
+  width: var(--taille-sens);
+  height: var(--sens-arc-h);
+  display: block;
+  overflow: visible;
+}
+
+.sens-mot text {
+  font-family: inherit;
+  font-size: var(--sens-police);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-anchor: middle;
+  fill: var(--noir);
+}
+
+/* --- La pastille --- */
+.sens-rond {
+  width: var(--taille-sens);
+  height: var(--taille-sens);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: transform .25s ease;
+}
+
+.sens-rond svg {
+  width: var(--sens-picto);
+  height: var(--sens-picto);
+  fill: #fff;          /* vos icônes sont en remplissage */
+  stroke: none;
+}
+
+.sens:hover .sens-rond { transform: scale(1.06); }
+
+/* --- Couleurs --- */
+.s-lime         .sens-rond { background: var(--lime); }
+.s-vert-fonce   .sens-rond { background: var(--vert-fonce); }
+.s-orange       .sens-rond { background: var(--orange); }
+.s-vert-moyen   .sens-rond { background: var(--vert-moyen); }
+.s-orange-clair .sens-rond { background: var(--orange-clair); }
+
+/* --- Responsive : on ne change QUE la variable --- */
+@media (max-width: 1024px) {
+  .section-5sens { --taille-sens: 84px; }
+  .cinq-sens { width: 70%; }
+}
+
+@media (max-width: 640px) {
+  .section-5sens { --taille-sens: 76px; }
+  .cinq-sens { width: 100%; padding: 0 1rem; }
+}
+
+/* --- Accessibilité --- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sens-rond { transition: none; }
+  .sens:hover .sens-rond { transform: none; }
+}
 /* HERO */
 .page-balade .hero {
   position: relative;
@@ -96,9 +216,10 @@ body.page-balade {
   object-fit: contain;
 }
 .image-redimensionnee {
-  max-width: 75%; /* S'adapte à la taille du conteneur */
-  height: auto; /* Conserve les proportions */
-  margin: 18px auto 8px;
+  width: auto;
+  height: 100px;        /* ⬅️ changez ce chiffre : 150, 180, 200, 250... */
+  margin: -10px auto 8px;
+  display: block;
   object-fit: contain;
 }
 .page-balade .hero h1 {
@@ -142,7 +263,7 @@ body.page-balade {
   min-height: 48px; padding: 12px 25px; border: 0; border-radius: var(--radius-btn);
   font-weight: 800; text-align: center; text-decoration: none; transition: var(--transi);
 }
-.page-balade .button-coral { background: var(--corail); color: #fff; box-shadow: 0 7px 18px rgba(232,106,92,.25); }
+.page-balade .button-coral { background: var(--corail); color: #fff; box-shadow: 0 7px 18px}
 .page-balade .button-green { background: var(--av); color: #fff; box-shadow: 0 7px 18px rgba(47,90,51,.2); }
 .page-balade a.button:hover, .page-balade a.download:hover, .page-balade a.affiche-link:hover { transform: translateY(-3px); filter: brightness(1.05); box-shadow: var(--ombre-fort); }
 .page-balade a.disabled, .page-balade .disabled { opacity: .48; cursor: not-allowed; pointer-events: none; filter: grayscale(.25); }
@@ -165,7 +286,7 @@ body.page-balade {
 .page-balade article:hover { transform: translateY(-5px); box-shadow: var(--ombre-fort); }
 .page-balade article .icon { display: block; margin-bottom: 8px; font-size: 2.6rem; line-height: 1; }
 .page-balade article h3 { margin-bottom: 6px; color: var(--av-fonce); font-size: 1.15rem; }
-.page-balade article.coral h3 { color: #B84F45; }
+.page-balade article.coral h3 { color: #f18700; }
 .page-balade article p { margin-bottom: 7px; color: #696653; }
 .page-balade article strong { color: var(--av-fonce); font-size: .9rem; }
 
@@ -178,12 +299,12 @@ body.page-balade {
 .page-balade .program-card.coral { border-left-color: var(--corail); }
 .page-balade .program-card h3 { margin-bottom: 11px; color: var(--av-fonce); font-size: clamp(1.25rem, 3vw, 1.55rem); }
 .page-balade .program-card.gold h3 { color: #927025; }
-.page-balade .program-card.coral h3 { color: #B84F45; }
+.page-balade .program-card.coral h3 { color: #f18700; }
 .page-balade .program-card p { margin-bottom: 12px; }
 .page-balade .program-card .detail { color: #6b6859; font-size: .94rem; }
 .page-balade .program-card .price { margin: 16px 0 0; color: var(--av-fonce); font-weight: 800; }
 .page-balade .program-card.gold .price { color: #927025; }
-.page-balade .program-card.coral .price { color: #B84F45; }
+.page-balade .program-card.coral .price { color: #f18700; }
 .page-balade .program-card a { color: var(--av); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Inscriptions */
