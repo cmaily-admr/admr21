@@ -1601,3 +1601,13 @@ body.page-accueil {
 .page-accueil .v-lime .ico   { background: #eef3c9; }
 .page-accueil .v-orange .ico { background: #fde7d3; }
 .page-accueil .carte-choix:hover { box-shadow: 0 22px 46px rgba(1,119,52,.20); }
+
+/* Lien « Voir l'itinéraire » sur les cartes d'antennes (bénévolat + recrutement) */
+.carte-locale .itineraire {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+  font-size: .82rem; font-weight: 700; text-decoration: none; line-height: 1;
+  color: var(--admr-vert, #017734);
+  border: 1.5px solid currentColor; padding: 6px 13px; border-radius: 20px;
+  transition: background .2s, color .2s;
+}
+.carte-locale .itineraire:hover { background: var(--admr-vert, #017734); color: #fff; }
