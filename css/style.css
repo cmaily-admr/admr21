@@ -1581,3 +1581,23 @@ body.page-benevolat {
 /* Les sections restent lisibles tout en laissant apparaître le fil organique sous-jacent. */
 .page-benevolat .section-pourquoi, .page-benevolat .section-missions, .page-benevolat .section-widget, .page-benevolat .section-accessible, .page-benevolat .section-temoignages, .page-benevolat .section-faq { background: rgba(250,246,238,.84); }
 @media (prefers-reduced-motion: reduce) { .page-benevolat .fil-du-lien .fil-pulse { animation: none; } }
+
+/* ==========================================================================
+   ACCUEIL — nouvelle palette : vert #017734 · lime #afcb08 · orange #f18700
+   (scopé à body.page-accueil : les autres pages ne changent pas)
+   ========================================================================== */
+body.page-accueil {
+  --admr-vert:         #017734;
+  --admr-vert-fonce:   #015a28;
+  --admr-lime:         #afcb08;
+  --admr-lime-fonce:   #6f8004;   /* lisible sur blanc */
+  --admr-orange:       #f18700;
+  --admr-orange-brule: #c46a00;   /* lisible sur blanc */
+  --admr-encre:        #0e2e14;
+  --admr-creme:        #f6faee;
+}
+/* teintes claires des icônes + ombre (étaient en teal/corail en dur) */
+.page-accueil .v-vert .ico   { background: #dcedd6; }
+.page-accueil .v-lime .ico   { background: #eef3c9; }
+.page-accueil .v-orange .ico { background: #fde7d3; }
+.page-accueil .carte-choix:hover { box-shadow: 0 22px 46px rgba(1,119,52,.20); }
