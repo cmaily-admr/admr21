@@ -420,3 +420,21 @@ body.page-balade {
 @media (prefers-reduced-motion: reduce) {
   .page-balade *, .page-balade *::before, .page-balade *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* ==========================================================================
+   Programme : photo (forme organique) à côté de chaque bloc
+   ========================================================================== */
+.page-balade .program-card { display: flex; gap: 28px; align-items: center; }
+.page-balade .program-card .card-body { flex: 1 1 auto; min-width: 0; }
+.page-balade .program-card .card-photo { flex: 0 0 clamp(150px, 27%, 235px); margin: 0; }
+.page-balade .program-card .card-photo img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  box-shadow: 0 12px 26px rgba(60,50,20,.20); }
+/* formes arrondies non linéaires (blobs), alternées */
+.page-balade .program-card:nth-of-type(odd)  .card-photo img { border-radius: 63% 37% 52% 48% / 57% 47% 53% 43%; }
+.page-balade .program-card:nth-of-type(even) .card-photo img { border-radius: 40% 60% 57% 43% / 49% 57% 43% 51%; }
+/* zigzag : photo à gauche un bloc sur deux */
+.page-balade .program-card:nth-of-type(even) { flex-direction: row-reverse; }
+@media (max-width: 680px) {
+  .page-balade .program-card, .page-balade .program-card:nth-of-type(even) { flex-direction: column; align-items: stretch; }
+  .page-balade .program-card .card-photo { flex: none; max-width: 260px; margin: 4px auto 0; }
+}

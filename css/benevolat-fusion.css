@@ -448,3 +448,23 @@
   .page-benevolat .secteur-label.vert::before { background: #6F9C1B; }
   .page-benevolat .secteur-label.orange::before { background: #D97A1B; }
 }
+
+/* ==========================================================================
+   RETOUCHES BÉNÉVOLAT (intro, sous-titres, résumé, rôle)
+   ========================================================================== */
+/* Sous-titres d'article plus petits (texte plus compact, centré sur la photo) */
+.page-benevolat .article-benevolat .art-txt h3 { font-size: clamp(1rem, 2.1vw, 1.3rem); line-height: 1.25; margin-bottom: 10px; }
+
+/* Résumé : carte 2 -> titre jaune (comme le numéro), chiffre « 2 » blanc, texte justifié */
+.page-benevolat .resume-card:nth-child(2) h4 { color: #D9A400; }
+.page-benevolat .resume-card:nth-child(2) .num { color: #fff; }
+.page-benevolat .resume-card p { text-align: justify; }
+
+/* Le rôle des bénévoles : espace après le titre, police uniforme (Open Sans), texte justifié */
+.page-benevolat .types-titre { margin-bottom: 30px; }
+.page-benevolat .role-texte p { font-family: var(--font-doux); font-style: normal; text-align: justify; }
+.page-benevolat .carte-mission p { text-align: justify; }
+
+/* Priorité renforcée (battre .page-benevolat .section-missions ...) */
+.page-benevolat .section-missions .types-titre { margin-bottom: 30px; }
+.page-benevolat .section-missions .role-texte p { text-align: justify; font-family: var(--font-doux); font-style: normal; }
