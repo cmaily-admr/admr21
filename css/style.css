@@ -1127,10 +1127,10 @@ body.page-balade {
    ============================================================ */
 body.page-recrutement {
   --font-manu: 'Chewy', cursive;            /* tous les titres "manu" -> Chewy */
-  --r-vert:#00998B; --r-lime:#F3C300; --r-orange:#EA504C;
-  --r-teal:#004B9C; --r-coral:#EF6B67; --r-gold:#F3C300; --r-pink:#EA504C;
+  --r-vert:#017734; --r-lime:#afcb08; --r-orange:#f18700;
+  --r-teal:#017734; --r-coral:#f18700; --r-gold:#afcb08; --r-pink:#f18700;
   font-family: var(--font-doux);
-  color:#3a3f2f; background:#F4FBFA;
+  color:#3a3f2f; background:#f6faee;
 }
 .page-recrutement .wrap { position: relative; z-index: 1; }
 .page-recrutement .titre-manu { font-family: var(--font-manu); font-style: normal; text-transform: none; letter-spacing:.3px; }
@@ -1146,15 +1146,15 @@ body.page-recrutement {
   position:relative; overflow:hidden; padding:60px 20px 70px;
   background:
     radial-gradient(40% 45% at 12% 18%, rgba(243,195,0,.30), transparent 70%),
-    radial-gradient(42% 48% at 88% 12%, rgba(234,80,76,.20), transparent 70%),
-    radial-gradient(45% 50% at 82% 92%, rgba(0,75,156,.16), transparent 70%),
-    linear-gradient(180deg,#F4FBFA,#E9F6F2);
+    radial-gradient(42% 48% at 88% 12%, rgba(241,135,0,.20), transparent 70%),
+    radial-gradient(45% 50% at 82% 92%, rgba(1,119,52,.16), transparent 70%),
+    linear-gradient(180deg,#f6faee,#eaf3e0);
 }
 .page-recrutement .hero-intro .accroche.c1 { color:#556147; font-weight:700; margin:2px 0; }
 .page-recrutement .hero-intro .accroche.c2 {
   display:inline-block; font-family:var(--font-manu); color:#fff; background:var(--r-orange);
   font-size:clamp(1.3rem,3.6vw,2rem); padding:6px 24px 8px; margin:10px 0 4px;
-  border-radius:40px 46px 40px 48px; transform:rotate(-2deg); box-shadow:0 6px 16px rgba(234,80,76,.3);
+  border-radius:40px 46px 40px 48px; transform:rotate(-2deg); box-shadow:0 6px 16px rgba(241,135,0,.3);
 }
 .page-recrutement .hero-intro h1.titre-manu {
   color:var(--r-vert); font-size:clamp(2.2rem,6vw,4rem); line-height:1.05; margin:12px 0 14px;
@@ -1169,7 +1169,7 @@ body.page-recrutement {
 
 /* Chiffres colorés */
 .page-recrutement .chiffres { gap:22px; margin-top:34px; }
-.page-recrutement .chiffre { background:#fff; border-radius:24px; padding:22px 16px; box-shadow:0 12px 28px rgba(0,153,139,.12); border-bottom:6px solid var(--r-vert); }
+.page-recrutement .chiffre { background:#fff; border-radius:24px; padding:22px 16px; box-shadow:0 12px 28px rgba(1,119,52,.12); border-bottom:6px solid var(--r-vert); }
 .page-recrutement .chiffre:nth-child(2){ border-bottom-color:var(--r-orange); }
 .page-recrutement .chiffre:nth-child(3){ border-bottom-color:var(--r-teal); }
 .page-recrutement .chiffre .n { font-family:var(--font-manu); color:var(--r-vert); font-size:clamp(2.2rem,5vw,3rem); }
@@ -1192,9 +1192,9 @@ body.page-recrutement {
 .page-recrutement .section-bleue {
   position:relative; overflow:hidden; padding:64px 20px;
   background:
-    radial-gradient(34% 40% at 8% 8%, rgba(234,80,76,.14), transparent 70%),
-    radial-gradient(34% 40% at 92% 92%, rgba(0,75,156,.14), transparent 70%),
-    linear-gradient(180deg,#FFF7E6,#E9F6F2);
+    radial-gradient(34% 40% at 8% 8%, rgba(241,135,0,.14), transparent 70%),
+    radial-gradient(34% 40% at 92% 92%, rgba(1,119,52,.14), transparent 70%),
+    linear-gradient(180deg,#FFF7E6,#eaf3e0);
 }
 .page-recrutement .section-bleue .intro-ligne { color:#556147; font-weight:700; }
 .page-recrutement .section-bleue h2.titre-manu { color:var(--r-vert); font-size:clamp(2.1rem,5.4vw,3.2rem); }
@@ -1203,27 +1203,27 @@ body.page-recrutement {
 .page-recrutement .raisons-grid { counter-reset: raison; }
 .page-recrutement .carte-raison {
   counter-increment: raison; position:relative; overflow:hidden; background:#fff;
-  border-radius:22px; border-top:7px solid var(--cc,#00998B);
+  border-radius:22px; border-top:7px solid var(--cc,#017734);
   box-shadow:0 12px 30px rgba(0,0,0,.08); transition:transform .3s cubic-bezier(.34,1.4,.5,1), box-shadow .3s;
 }
 .page-recrutement .carte-raison:hover { transform:translateY(-8px) rotate(-1deg); box-shadow:0 22px 46px rgba(0,0,0,.15); }
 .page-recrutement .carte-raison::before {
   content: counter(raison); position:absolute; top:12px; left:12px; z-index:2;
-  width:44px; height:44px; border-radius:50%; background:var(--cc,#00998B); color:#fff;
+  width:44px; height:44px; border-radius:50%; background:var(--cc,#017734); color:#fff;
   font-family:var(--font-manu); font-size:1.5rem; display:grid; place-items:center;
   box-shadow:0 6px 14px rgba(0,0,0,.25); transform:rotate(-6deg);
 }
 .page-recrutement .carte-raison .photo { aspect-ratio:16/10; overflow:hidden; }
 .page-recrutement .carte-raison .photo img { width:100%; height:100%; object-fit:cover; display:block; }
-.page-recrutement .carte-raison h3 { font-family:var(--font-manu); font-weight:400; color:var(--ccd,#007A6E); font-size:1.32rem; line-height:1.18; }
+.page-recrutement .carte-raison h3 { font-family:var(--font-manu); font-weight:400; color:var(--ccd,#015a28); font-size:1.32rem; line-height:1.18; }
 .page-recrutement .carte-raison p { font-family:var(--font-doux); color:#4b5a3f; }
-.page-recrutement .carte-raison:nth-child(7n+1){--cc:#00998B;--ccd:#007A6E;}
-.page-recrutement .carte-raison:nth-child(7n+2){--cc:#EA504C;--ccd:#C13B37;}
-.page-recrutement .carte-raison:nth-child(7n+3){--cc:#F3C300;--ccd:#9A7B00;}
-.page-recrutement .carte-raison:nth-child(7n+4){--cc:#004B9C;--ccd:#003E82;}
-.page-recrutement .carte-raison:nth-child(7n+5){--cc:#EF6B67;--ccd:#C13B37;}
-.page-recrutement .carte-raison:nth-child(7n+6){--cc:#F3C300;--ccd:#9A7B00;}
-.page-recrutement .carte-raison:nth-child(7n){--cc:#EA504C;--ccd:#C13B37;}
+.page-recrutement .carte-raison:nth-child(7n+1){--cc:#017734;--ccd:#015a28;}
+.page-recrutement .carte-raison:nth-child(7n+2){--cc:#f18700;--ccd:#c46a00;}
+.page-recrutement .carte-raison:nth-child(7n+3){--cc:#afcb08;--ccd:#6f8004;}
+.page-recrutement .carte-raison:nth-child(7n+4){--cc:#017734;--ccd:#015a28;}
+.page-recrutement .carte-raison:nth-child(7n+5){--cc:#f18700;--ccd:#c46a00;}
+.page-recrutement .carte-raison:nth-child(7n+6){--cc:#afcb08;--ccd:#6f8004;}
+.page-recrutement .carte-raison:nth-child(7n){--cc:#f18700;--ccd:#c46a00;}
 
 /* ---------- Candidater / Locaux : titres Chewy + touches de couleur ---------- */
 .page-recrutement .section-candidater .intro-cand { color:#556147; font-weight:700; }
@@ -1611,3 +1611,17 @@ body.page-accueil {
   transition: background .2s, color .2s;
 }
 .carte-locale .itineraire:hover { background: var(--admr-vert, #017734); color: #fff; }
+
+/* ==========================================================================
+   RECRUTEMENT — palette de l'index : vert #017734 · lime #afcb08 · orange #f18700
+   (scopé à body.page-recrutement)
+   ========================================================================== */
+body.page-recrutement {
+  --r-vert: #017734; --r-lime: #afcb08; --r-orange: #f18700;
+  --r-teal: #017734; --r-coral: #f18700; --r-gold: #afcb08; --r-pink: #f18700;
+  --admr-vert: #017734; --admr-vert-fonce: #015a28;
+  --admr-lime: #afcb08; --admr-lime-fonce: #6f8004;
+  --admr-orange: #f18700; --admr-orange-brule: #c46a00;
+  --admr-encre: #0e2e14;
+  background: #f6faee;
+}
