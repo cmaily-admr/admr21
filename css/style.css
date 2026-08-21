@@ -1625,3 +1625,304 @@ body.page-recrutement {
   --admr-encre: #0e2e14;
   background: #f6faee;
 }
+
+/* ============================================================
+   RECRUTEMENT — refonte hero (photo + surligneur + citation) & vidéos
+   ============================================================ */
+.page-recrutement .hero-intro .wrap { max-width: 1130px; }
+.page-recrutement .hero-top { display: grid; grid-template-columns: 1.05fr .95fr; gap: 46px; align-items: center; text-align: left; }
+.page-recrutement .hero-top .hero-txt { text-align: left; }
+.page-recrutement .hero-top .hero-txt .accroche.c1 { margin: 2px 0; }
+.page-recrutement .hero-top .hero-txt .txt { margin: 10px 0 0; max-width: 58ch; }
+.page-recrutement .hero-photo { margin: 0; }
+.page-recrutement .hero-photo img { width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  border-radius: 34% 66% 60% 40% / 46% 42% 58% 54%; box-shadow: 0 24px 48px rgba(1,60,30,.28); }
+@media (max-width: 880px) {
+  .page-recrutement .hero-top { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+  .page-recrutement .hero-top .hero-txt { text-align: center; }
+  .page-recrutement .hero-top .hero-txt .txt { margin-inline: auto; }
+  .page-recrutement .hero-photo { order: -1; }
+  .page-recrutement .hero-photo img { max-width: 460px; margin: 0 auto; aspect-ratio: 5/4; }
+}
+
+/* Surligneur au feutre (remplace la pastille) */
+.page-recrutement .hero-intro .accroche.c2 {
+  display: inline-block; background: none; box-shadow: none; transform: none; border-radius: 0;
+  padding: 2px 6px; margin: 14px 0 6px; color: var(--r-vert); font-family: var(--font-manu);
+  font-size: clamp(1.5rem, 4.2vw, 2.3rem); line-height: 1.35;
+  background-image: linear-gradient(100deg, rgba(241,135,0,.45), rgba(241,135,0,.6));
+  background-repeat: no-repeat; background-size: 100% 46%; background-position: 0 74%;
+}
+
+/* Bouton "Je postule" */
+.page-recrutement .btn-postuler { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+  background: var(--r-orange); color: #fff; font-weight: 800; font-size: 1.1rem; text-decoration: none;
+  padding: 15px 34px; border-radius: 50px; box-shadow: 0 10px 24px rgba(241,135,0,.4); transition: transform .2s, box-shadow .2s; }
+.page-recrutement .btn-postuler:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(241,135,0,.5); }
+
+/* Citation (remplace l'encadré jaune) */
+.page-recrutement .hero-intro .punch {
+  display: block; background: none; box-shadow: none; border-radius: 0; padding: 6px 0 6px 28px;
+  border-left: 4px solid var(--r-orange); max-width: 720px; margin: 34px auto; text-align: left;
+  color: var(--r-vert); font-family: var(--font-manu); font-size: clamp(1.5rem, 3.6vw, 2.1rem); line-height: 1.25; position: relative;
+}
+.page-recrutement .hero-intro .punch::before { content: "\201C"; position: absolute; left: 12px; top: -26px;
+  font-family: Georgia, serif; font-size: 4.6rem; color: var(--r-orange); opacity: .2; line-height: 1; }
+
+/* Vidéos : sur une ligne, formes "feuille", play "verre", légende dégradé */
+.page-recrutement .videos .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; max-width: 1080px; align-items: start; }
+.page-recrutement .videos .sep-titre { grid-column: 1 / -1; margin-bottom: 10px; }
+.page-recrutement .video-item { max-width: none; margin: 0; border: none; background: #000; box-shadow: 0 16px 34px rgba(0,0,0,.2); }
+.page-recrutement .video-item:nth-of-type(1) { border-radius: 42px 12px 42px 12px; }
+.page-recrutement .video-item:nth-of-type(2) { border-radius: 12px 42px 12px 42px; margin-top: 30px; }
+.page-recrutement .video-item:nth-of-type(3) { border-radius: 42px 12px 42px 12px; }
+.page-recrutement .video-item .vignette { aspect-ratio: 4/3; }
+.page-recrutement .video-item .vignette img { opacity: 1; }
+.page-recrutement .video-item .play { background: rgba(255,255,255,.24); color: #fff;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 2px solid rgba(255,255,255,.85); box-shadow: 0 6px 18px rgba(0,0,0,.3); }
+.page-recrutement .video-item:hover .play { background: rgba(255,255,255,.42); transform: scale(1.12); }
+.page-recrutement .video-item .legende { color: #fff; }
+@media (max-width: 780px) {
+  .page-recrutement .videos .wrap { grid-template-columns: 1fr; max-width: 460px; }
+  .page-recrutement .video-item:nth-of-type(2) { margin-top: 0; }
+}
+
+/* Bouton flottant "Je postule" */
+.page-recrutement .cta-flottant { position: fixed; right: 20px; bottom: 22px; z-index: 80; background: var(--r-orange);
+  color: #fff; font-weight: 800; text-decoration: none; padding: 14px 22px; border-radius: 50px;
+  box-shadow: 0 10px 28px rgba(241,135,0,.45); transition: transform .2s; }
+.page-recrutement .cta-flottant:hover { transform: translateY(-3px) scale(1.03); }
+@media (max-width: 520px) { .page-recrutement .cta-flottant { right: 14px; bottom: 14px; padding: 12px 18px; font-size: .9rem; } }
+
+/* Play "verre" sur les 3 vidéos (battre les règles nth-of-type) + surligneur ajusté */
+.page-recrutement .video-item .play,
+.page-recrutement .video-item:nth-of-type(2) .play,
+.page-recrutement .video-item:nth-of-type(3) .play {
+  background: rgba(255,255,255,.26); color: #fff; border: 2px solid rgba(255,255,255,.85);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+.page-recrutement .video-item:hover .play,
+.page-recrutement .video-item:nth-of-type(2):hover .play,
+.page-recrutement .video-item:nth-of-type(3):hover .play { background: rgba(255,255,255,.45); transform: scale(1.12); }
+.page-recrutement .hero-intro .accroche.c2 { background-size: 100% 40%; background-position: 0 82%; }
+
+/* ============================================================
+   RECRUTEMENT — Missions, Profil, FAQ, Offres
+   ============================================================ */
+.page-recrutement .section-missions { padding: 58px 20px; background: #fff; }
+.page-recrutement .section-missions .titre-manu,
+.page-recrutement .section-profil .titre-manu { font-family: var(--font-manu); color: var(--r-vert); font-size: clamp(1.9rem,4.6vw,2.7rem); text-align: center; margin: 0 0 16px; }
+.page-recrutement .missions-intro { max-width: 760px; margin: 0 auto 12px; text-align: center; color: #4b5a3f; line-height: 1.6; }
+.page-recrutement .missions-sous { max-width: 760px; margin: 0 auto 26px; text-align: center; font-weight: 700; color: var(--r-vert); }
+.page-recrutement .missions-liste { list-style: none; padding: 0; max-width: 840px; margin: 0 auto; display: grid; gap: 14px; }
+.page-recrutement .missions-liste li { display: flex; align-items: center; gap: 16px; background: #f6faee; border-radius: 16px; padding: 15px 20px; box-shadow: 0 6px 16px rgba(1,119,52,.06); }
+.page-recrutement .missions-liste .mi { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 1.5rem; }
+.page-recrutement .missions-liste .mi.c1 { background: #dcedd6; } .page-recrutement .missions-liste .mi.c2 { background: #fde7d3; } .page-recrutement .missions-liste .mi.c3 { background: #eef3c9; }
+
+.page-recrutement .section-profil { padding: 48px 20px 58px; background: linear-gradient(180deg,#f6faee,#eaf3e0); }
+.page-recrutement .profil-liste { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; max-width: 900px; margin: 20px auto 0; }
+.page-recrutement .profil-liste li { flex: 1 1 250px; max-width: 320px; background: #fff; border-radius: 16px; padding: 20px 22px; box-shadow: 0 8px 20px rgba(1,119,52,.08); font-weight: 700; color: var(--r-vert); display: flex; align-items: center; gap: 12px; }
+.page-recrutement .profil-liste li::before { content: "✔"; color: var(--r-orange); font-size: 1.35rem; flex: none; }
+
+.page-recrutement .faq-rec { padding: 56px 20px; background: #fff; }
+.page-recrutement .faq-rec .sep-titre h2 { font-family: var(--font-manu); color: var(--r-teal); font-size: clamp(1.9rem,4.6vw,2.8rem); }
+.page-recrutement .faq-list { max-width: 760px; margin: 26px auto 0; }
+.page-recrutement .faq-q { background: #f6faee; border-radius: 14px; margin-bottom: 12px; box-shadow: 0 6px 16px rgba(1,119,52,.07); overflow: hidden; }
+.page-recrutement .faq-q summary { cursor: pointer; padding: 16px 20px; font-weight: 800; color: var(--r-vert); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.page-recrutement .faq-q summary::-webkit-details-marker { display: none; }
+.page-recrutement .faq-q summary::after { content: "+"; color: var(--r-orange); font-size: 1.7rem; line-height: 1; transition: transform .2s; flex: none; }
+.page-recrutement .faq-q[open] summary::after { transform: rotate(45deg); }
+.page-recrutement .faq-q .rep { padding: 0 20px 18px; color: #4b5a3f; line-height: 1.65; }
+
+.page-recrutement .section-offres { padding: 60px 20px; text-align: center; background: linear-gradient(135deg, var(--r-vert), #015a28); color: #fff; }
+.page-recrutement .section-offres .titre-manu { font-family: var(--font-manu); color: #fff; font-size: clamp(1.9rem,4.6vw,2.8rem); margin: 0; }
+.page-recrutement .section-offres p { margin: 10px 0 24px; opacity: .96; }
+.page-recrutement .btn-offres { display: inline-block; background: #fff; color: var(--r-vert); font-weight: 800; font-size: 1.05rem; text-decoration: none; padding: 16px 40px; border-radius: 50px; box-shadow: 0 12px 28px rgba(0,0,0,.22); transition: transform .2s, box-shadow .2s; }
+.page-recrutement .btn-offres:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(0,0,0,.3); }
+
+/* FAQ recrutement : sous-titres de groupe + listes internes */
+.page-recrutement .faq-groupe { font-family: var(--font-manu); color: var(--r-orange); font-size: clamp(1.4rem,3.4vw,1.9rem); text-align: center; margin: 34px 0 14px; }
+.page-recrutement .faq-list + .faq-groupe { margin-top: 40px; }
+.page-recrutement .faq-q .rep .faq-puces { margin: 10px 0 0; padding-left: 22px; }
+.page-recrutement .faq-q .rep .faq-puces li { margin-bottom: 6px; }
+.page-recrutement .faq-q .rep .faq-villes { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 18px; }
+.page-recrutement .faq-q .rep .faq-villes li { position: relative; padding-left: 18px; font-weight: 600; color: var(--r-vert); }
+.page-recrutement .faq-q .rep .faq-villes li::before { content: "📍"; position: absolute; left: 0; font-size: .85rem; }
+
+/* ============================================================
+   RECRUTEMENT — HERO v2 (éditorial, humain, animé)
+   ============================================================ */
+.page-recrutement .hero2 {
+  position: relative; overflow: hidden; padding: 54px 20px 0;
+  background:
+    radial-gradient(60% 70% at 88% 18%, rgba(175,203,8,.20), transparent 65%),
+    radial-gradient(55% 60% at 6% 90%, rgba(241,135,0,.14), transparent 68%),
+    linear-gradient(150deg, #fffaf0 0%, #f4f9e8 46%, #e7f2da 100%);
+}
+.page-recrutement .hero2-wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr .95fr; gap: 50px; align-items: center; padding-bottom: 40px; }
+.page-recrutement .hero2-left { text-align: left; }
+.page-recrutement .hero2-eyebrow { display: inline-block; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; font-size: .82rem; color: var(--r-orange);
+  background: rgba(241,135,0,.12); padding: 7px 16px; border-radius: 50px; margin-bottom: 20px; }
+.page-recrutement .hero2-title { font-family: "Fraunces", Georgia, serif; font-weight: 700; color: var(--r-vert);
+  font-size: clamp(2.5rem, 6vw, 4.3rem); line-height: 1.02; letter-spacing: -.01em; margin: 0 0 22px; }
+.page-recrutement .hero2-title span { display: block; }
+.page-recrutement .hero2-title .accent { position: relative; color: var(--r-orange); width: fit-content; }
+.page-recrutement .hero2-title .accent::after { content: ""; position: absolute; left: -2px; right: -6px; bottom: .1em; height: .22em; z-index: -1;
+  background: rgba(241,135,0,.30); border-radius: 4px; transform: rotate(-1.2deg); }
+.page-recrutement .hero2-sub { max-width: 30em; color: #46543b; font-size: 1.12rem; line-height: 1.6; margin: 0 0 28px; }
+.page-recrutement .hero2-sub b { color: var(--r-vert); }
+
+.page-recrutement .hero2-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 24px; }
+.page-recrutement .hero2-btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none;
+  padding: 15px 30px; border-radius: 50px; transition: transform .2s, box-shadow .2s, background .2s; }
+.page-recrutement .hero2-btn:not(.ghost) { background: var(--r-orange); color: #fff; box-shadow: 0 12px 26px rgba(241,135,0,.42); }
+.page-recrutement .hero2-btn:not(.ghost):hover { transform: translateY(-3px); box-shadow: 0 18px 34px rgba(241,135,0,.55); }
+.page-recrutement .hero2-btn .arr { transition: transform .25s; }
+.page-recrutement .hero2-btn:not(.ghost):hover .arr { transform: translateX(5px); }
+.page-recrutement .hero2-btn.ghost { background: rgba(1,119,52,.07); color: var(--r-vert); }
+.page-recrutement .hero2-btn.ghost:hover { background: rgba(1,119,52,.14); transform: translateY(-3px); }
+
+.page-recrutement .hero2-args { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.page-recrutement .hero2-args li { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #3f5033; font-size: .95rem; }
+.page-recrutement .hero2-args li span { font-size: 1.15rem; }
+
+/* Colonne photo */
+.page-recrutement .hero2-right { position: relative; }
+.page-recrutement .hero2-photo { position: relative; margin: 0; border-radius: 40% 40% 42% 42% / 8% 8% 6% 6%;
+  border-radius: 220px 220px 28px 28px; overflow: hidden; box-shadow: 0 34px 60px rgba(1,60,30,.30); animation: heroFloat 7s ease-in-out infinite; }
+.page-recrutement .hero2-photo img { display: block; width: 100%; height: 100%; aspect-ratio: 4/4.4; object-fit: cover; object-position: 50% 22%; }
+.page-recrutement .hero2-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(1,55,28,.28)); }
+.page-recrutement .hero2-badge { position: absolute; left: 16px; bottom: 16px; z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #2b3a22; font-weight: 700; font-size: .82rem;
+  padding: 8px 14px; border-radius: 50px; box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+.page-recrutement .hero2-badge .dot { width: 9px; height: 9px; border-radius: 50%; background: #35c06a; box-shadow: 0 0 0 0 rgba(53,192,106,.6); animation: pulse 2s infinite; }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(53,192,106,.55)} 70%{box-shadow:0 0 0 9px rgba(53,192,106,0)} 100%{box-shadow:0 0 0 0 rgba(53,192,106,0)} }
+@keyframes heroFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+/* Mini-mosaïque "vie réelle" */
+.page-recrutement .hero2-stories { position: absolute; right: -14px; bottom: -26px; display: flex; gap: 10px; }
+.page-recrutement .hero2-stories .hs { width: 84px; height: 84px; border-radius: 18px; overflow: hidden; border: 4px solid #fff;
+  box-shadow: 0 12px 24px rgba(0,0,0,.18); animation: heroFloat 6s ease-in-out infinite; animation-delay: calc(var(--i) * -1.6s); }
+.page-recrutement .hero2-stories .hs img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Bandeau défilant de valeurs */
+.page-recrutement .hero2-marquee { margin-top: 22px; padding: 14px 0; background: var(--r-vert); overflow: hidden; }
+.page-recrutement .hero2-marquee .mq { display: inline-flex; align-items: center; gap: 26px; white-space: nowrap; padding-left: 100%; animation: marquee 26s linear infinite; }
+.page-recrutement .hero2-marquee span { color: #fff; font-family: "Fraunces", serif; font-weight: 600; font-size: 1.25rem; }
+.page-recrutement .hero2-marquee .mq { color: rgba(255,255,255,.5); font-size: 1rem; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* Animations d'apparition */
+.page-recrutement .reveal2 { opacity: 0; transform: translateY(22px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: var(--d, 0s); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .page-recrutement .hero2-wrap { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+  .page-recrutement .hero2-left { text-align: center; }
+  .page-recrutement .hero2-title .accent { margin: 0 auto; }
+  .page-recrutement .hero2-sub { margin-inline: auto; }
+  .page-recrutement .hero2-cta, .page-recrutement .hero2-args { justify-content: center; }
+  .page-recrutement .hero2-photo { max-width: 360px; margin: 0 auto; }
+  .page-recrutement .hero2-stories { right: 0; left: 0; justify-content: center; bottom: -30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-recrutement .hero2-photo, .page-recrutement .hero2-stories .hs, .page-recrutement .hero2-marquee .mq, .page-recrutement .reveal2, .page-recrutement .hero2-badge .dot { animation: none; }
+  .page-recrutement .reveal2 { opacity: 1; transform: none; }
+}
+
+/* Ajustements hero2 : vignettes à l'intérieur, légende plus compacte */
+.page-recrutement .hero2-right { padding-right: 44px; padding-bottom: 22px; }
+.page-recrutement .hero2-stories { right: -6px; bottom: -22px; gap: 8px; }
+.page-recrutement .hero2-stories .hs { width: 74px; height: 74px; }
+.page-recrutement .hero2-badge { left: 14px; bottom: 14px; max-width: 62%; font-size: .78rem; padding: 7px 12px; }
+@media (max-width: 900px) {
+  .page-recrutement .hero2-right { padding: 0; }
+  .page-recrutement .hero2-badge { max-width: none; }
+}
+
+/* ==== Citations vidéo en gris ==== */
+.page-recrutement .video-quote { color: #6b7280 !important; }
+
+/* ==== Uniformisation des 3 phrases (section 7 raisons) ==== */
+.page-recrutement .section-bleue .intro-ligne { font-family: var(--font-doux); color: #6b7280; font-weight: 600; font-style: normal; opacity: 1; }
+.page-recrutement .section-bleue .sous-h2 { font-family: var(--font-doux); color: #6b7280; font-weight: 600; font-style: normal; font-size: 1.1rem; opacity: 1; }
+
+/* ============================================================
+   MISSIONS — vague de surlignage animée (version d'origine)
+   ============================================================ */
+@keyframes hlwave { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.page-recrutement .missions-liste li {
+  --hl1: rgba(1,119,52,.10); --hl2: rgba(175,203,8,.24); --hl3: rgba(241,135,0,.20);
+  background: linear-gradient(100deg,
+      var(--hl1) 0%, var(--hl1) 18%,
+      var(--hl2) 34%, var(--hl3) 50%, var(--hl2) 66%,
+      var(--hl1) 82%, var(--hl1) 100%);
+  background-size: 260% 100%;
+  animation: hlwave 9s linear infinite;
+  transition: transform .2s, box-shadow .2s;
+}
+.page-recrutement .missions-liste li:nth-child(1){ animation-delay: 0s; }
+.page-recrutement .missions-liste li:nth-child(2){ animation-delay: -1.6s; }
+.page-recrutement .missions-liste li:nth-child(3){ animation-delay: -3.2s; }
+.page-recrutement .missions-liste li:nth-child(4){ animation-delay: -4.8s; }
+.page-recrutement .missions-liste li:nth-child(5){ animation-delay: -6.4s; }
+.page-recrutement .missions-liste li:hover { transform: translateX(4px); box-shadow: 0 10px 22px rgba(1,119,52,.12); }
+.page-recrutement .missions-liste .mi { background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.08); }
+/* Profil : pas d'animation */
+.page-recrutement .profil-liste li { animation: none; }
+@media (prefers-reduced-motion: reduce){ .page-recrutement .missions-liste li { animation: none; } }
+
+/* ============================================================
+   RECRUTEMENT — HERO VIDÉO (restauré)
+   ============================================================ */
+.page-recrutement .hero-video { position: relative; overflow: hidden; padding: 0; min-height: min(88vh, 760px);
+  display: flex; align-items: center; background: #0e3b22; }
+.page-recrutement .hero-video .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.page-recrutement .hero-video .hero-veil { position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(1,42,20,.88) 0%, rgba(1,42,20,.60) 40%, rgba(1,42,20,.14) 72%, rgba(1,42,20,.32) 100%),
+    linear-gradient(180deg, rgba(1,42,20,.30), transparent 26%, transparent 58%, rgba(1,42,20,.5)); }
+.page-recrutement .hero-video .hero2-wrap-v { position: relative; z-index: 2; max-width: 1180px; width: 100%; margin: 0 auto; padding: 40px 22px 76px; color: #fff; text-align: left; }
+
+.page-recrutement .hero-video .hero2-eyebrow { color: #fff; background: rgba(255,255,255,.16); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.page-recrutement .hero-video .hero2-title { color: #fff; max-width: 15ch; text-shadow: 0 3px 30px rgba(0,0,0,.35); }
+.page-recrutement .hero-video .hero2-title .accent { color: #ffce8a; }
+.page-recrutement .hero-video .hero2-title .accent::after { background: rgba(241,135,0,.55); }
+.page-recrutement .hero-video .hero2-sub { color: rgba(255,255,255,.95); max-width: 34ch; text-shadow: 0 1px 12px rgba(0,0,0,.4); }
+.page-recrutement .hero-video .hero2-sub b { color: #fff; }
+.page-recrutement .hero-video .hero2-btn.ghost { background: rgba(255,255,255,.14); color: #fff; border: 1.5px solid rgba(255,255,255,.55); }
+.page-recrutement .hero-video .hero2-btn.ghost:hover { background: rgba(255,255,255,.26); }
+.page-recrutement .hero-video .hero2-args li { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.4); }
+
+.page-recrutement .hero-video .hero2-marquee { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; margin: 0; background: rgba(1,90,40,.92); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+
+@media (max-width: 640px) {
+  .page-recrutement .hero-video { min-height: 82vh; }
+  .page-recrutement .hero-video .hero-veil { background: linear-gradient(180deg, rgba(1,42,20,.55), rgba(1,42,20,.35) 45%, rgba(1,42,20,.75)); }
+  .page-recrutement .hero-video .hero2-wrap-v { text-align: center; }
+  .page-recrutement .hero-video .hero2-title { margin-inline: auto; }
+  .page-recrutement .hero-video .hero2-title .accent { margin-inline: auto; }
+  .page-recrutement .hero-video .hero2-sub { margin-inline: auto; }
+  .page-recrutement .hero-video .hero2-cta, .page-recrutement .hero-video .hero2-args { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-recrutement .hero-video .hero-bg { display: none; }
+  .page-recrutement .hero-video { background: #0e3b22 url("../images/hero-poster.jpg") center/cover; }
+}
+
+/* ============================================================
+   VIDÉOS — Lightbox
+   ============================================================ */
+.video-lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
+  padding: 24px; background: rgba(7, 24, 14, .86); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .25s ease; }
+.video-lightbox.ouvert { display: flex; opacity: 1; }
+.video-lightbox .vlb-frame { width: min(1000px, 94vw); }
+.video-lightbox .vlb-ratio { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 16px;
+  overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: scale(.94); transition: transform .28s cubic-bezier(.2,.8,.2,1); }
+.video-lightbox.ouvert .vlb-ratio { transform: scale(1); }
+.video-lightbox .vlb-ratio iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-lightbox .vlb-close { position: absolute; top: 18px; right: 22px; width: 46px; height: 46px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.55); background: rgba(255,255,255,.12); color: #fff; font-size: 1.8rem; line-height: 1;
+  cursor: pointer; display: grid; place-items: center; transition: background .2s, transform .2s; }
+.video-lightbox .vlb-close:hover { background: rgba(255,255,255,.28); transform: rotate(90deg); }

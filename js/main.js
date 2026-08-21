@@ -71,23 +71,51 @@
     nombres.forEach(n => obs.observe(n));
 })();
 
-/* ---------- 4. Lecture des vidéos témoignages ---------- */
+/* ---------- 4. Vidéos témoignages — lightbox ---------- */
 (function () {
-  document.querySelectorAll('.video-item[data-video]').forEach(item => {
-    item.addEventListener('click', () => {
-      const src = item.dataset.video;
-      if (!src) { alert('Vidéo à venir : ajoutez l\'URL dans l\'attribut data-video.'); return; }
+  const lb = document.getElementById('videoLightbox');
+  if (!lb) return;
+  const ratio = lb.querySelector('#vlbRatio');
+  const closeBtn = lb.querySelector('.vlb-close');
+  let lastFocus = null;
 
-      item.innerHTML = `
-        <div class="vignette">
-          <iframe src="${src}?autoplay=1" title="Témoignage ADMR 21"
-                  style="width:100%;height:100%;border:0;"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen></iframe>
-        </div>`;
-      item.style.cursor = 'default';
+  const toEmbed = (src) => {
+    let url = src;
+    const yt = src.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=))([\w-]{6,})/);
+    if (yt) url = 'https://www.youtube-nocookie.com/embed/' + yt[1];
+    return url + (url.includes('?') ? '&' : '?') + 'autoplay=1&rel=0';
+  };
+
+  const open = (src) => {
+    if (!src) return;
+    lastFocus = document.activeElement;
+    ratio.innerHTML = '<iframe src="' + toEmbed(src) + '" title="Témoignage ADMR 21" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    lb.classList.add('ouvert');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  };
+  const close = () => {
+    lb.classList.remove('ouvert');
+    lb.setAttribute('aria-hidden', 'true');
+    ratio.innerHTML = '';
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  };
+
+  document.querySelectorAll('.video-item[data-video]').forEach(item => {
+    item.style.cursor = 'pointer';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.addEventListener('click', () => open(item.dataset.video));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(item.dataset.video); }
     });
   });
+
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('ouvert')) close(); });
 })();
 
 /* ---------- 5. Validation & envoi des formulaires ---------- */
