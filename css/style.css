@@ -1926,3 +1926,24 @@ body.page-recrutement {
   border: 2px solid rgba(255,255,255,.55); background: rgba(255,255,255,.12); color: #fff; font-size: 1.8rem; line-height: 1;
   cursor: pointer; display: grid; place-items: center; transition: background .2s, transform .2s; }
 .video-lightbox .vlb-close:hover { background: rgba(255,255,255,.28); transform: rotate(90deg); }
+
+/* ============================================================
+   Cartes antennes — boutons Itinéraire + Envoyer un mail (restauré)
+   ============================================================ */
+.carte-locale .itineraire,
+.carte-locale .mail-asso {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; vertical-align: top;
+  font-size: .82rem; font-weight: 700; text-decoration: none; line-height: 1.1; white-space: nowrap;
+  padding: 7px 14px; border-radius: 20px; transition: transform .15s, box-shadow .15s, background .15s, color .15s, filter .15s;
+}
+/* Itinéraire : contour à la couleur de la page */
+.carte-locale .itineraire { color: var(--admr-vert, #017734); border: 1.5px solid currentColor; background: transparent; }
+.carte-locale .itineraire:hover { background: var(--admr-vert, #017734); color: #fff; }
+/* Envoyer un mail : plein orange */
+.carte-locale .mail-asso { margin-left: 8px; color: #fff; background: var(--admr-orange, #f18700);
+  border: 1.5px solid transparent; box-shadow: 0 5px 12px rgba(241,135,0,.28); }
+.carte-locale .mail-asso:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 8px 16px rgba(241,135,0,.4); }
+/* Sur petit écran : boutons empilés, pleine largeur, plus de retour à la ligne moche */
+@media (max-width: 480px) {
+  .carte-locale .itineraire, .carte-locale .mail-asso { display: flex; justify-content: center; margin-left: 0; white-space: normal; }
+}
