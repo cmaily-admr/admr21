@@ -2111,3 +2111,86 @@ body.page-recrutement {
 .page-recrutement .rec-chiffre:nth-child(2) .n { color: #B99400 !important; } /* jaune foncé lisible */
 .page-recrutement .rec-chiffre:nth-child(3) .n { color: #44B06E !important; }
 .page-recrutement .rec-chiffre .l { color: #2c3a22 !important; text-shadow: none !important; }
+
+/* ============================================================
+   RECRUTEMENT — jaune d'interface -> BLEU #004B9C,
+   cartes 7 raisons (1-4 vert / 2-5-7 jaune / 3-6 bleu) + titres assortis,
+   cartes profil : 3 couleurs + titre assorti
+   ============================================================ */
+/* Interface : le "jaune" devient bleu (hero, chiffres) */
+.page-recrutement .hero-video .hero2-title .accent { color: #bcd2f0 !important; }
+.page-recrutement .hero-video .hero2-title .accent::after { background: rgba(0,75,156,.55) !important; }
+.page-recrutement .rec-chiffre:nth-child(2) .n { color: #004B9C !important; }
+
+/* ---- 7 RAISONS : schéma couleur demandé ----
+   vert #44B06E (1,4) · jaune #F3C300 (2,5,7) · bleu #004B9C (3,6) */
+.page-recrutement .carte-raison:nth-child(1){ --cc:#44B06E; --ct:#2E7D4F; }
+.page-recrutement .carte-raison:nth-child(2){ --cc:#F3C300; --ct:#9A7B00; }
+.page-recrutement .carte-raison:nth-child(3){ --cc:#004B9C; --ct:#004B9C; }
+.page-recrutement .carte-raison:nth-child(4){ --cc:#44B06E; --ct:#2E7D4F; }
+.page-recrutement .carte-raison:nth-child(5){ --cc:#F3C300; --ct:#9A7B00; }
+.page-recrutement .carte-raison:nth-child(6){ --cc:#004B9C; --ct:#004B9C; }
+.page-recrutement .carte-raison:nth-child(7){ --cc:#F3C300; --ct:#9A7B00; }
+/* badge, bordure haute, et TITRE prennent la couleur de la carte */
+.page-recrutement .carte-raison { border-top: 7px solid var(--cc) !important; }
+.page-recrutement .carte-raison::before { background: var(--cc) !important; color:#fff !important; }
+.page-recrutement .carte-raison:nth-child(2)::before,
+.page-recrutement .carte-raison:nth-child(5)::before,
+.page-recrutement .carte-raison:nth-child(7)::before { color:#4a3b00 !important; } /* chiffre lisible sur jaune */
+.page-recrutement .carte-raison h3 { color: var(--ct) !important; }
+
+/* ---- PROFIL : 3 couleurs + titre assorti ---- */
+.page-recrutement .profil-carte:nth-child(1) .pc-check { background:#44B06E; color:#fff; }
+.page-recrutement .profil-carte:nth-child(2) .pc-check { background:#F3C300; color:#4a3b00; }
+.page-recrutement .profil-carte:nth-child(3) .pc-check { background:#004B9C; color:#fff; }
+.page-recrutement .profil-carte:nth-child(1) h3 { color:#2E7D4F !important; }
+.page-recrutement .profil-carte:nth-child(2) h3 { color:#9A7B00 !important; }
+.page-recrutement .profil-carte:nth-child(3) h3 { color:#004B9C !important; }
+
+/* pastille mission c2 : neutre (on retire le fond jauni d'interface) */
+.page-recrutement .missions-liste .mi.c2 { background:#dfe9f6; }
+
+/* ============================================================
+   RECRUTEMENT — UNIFORMISATION DES FONDS
+   Rythme simple : crème (#f6faee) / blanc en alternance,
+   séparation par un filet fin. Suppression des dégradés/teals parasites.
+   ============================================================ */
+/* on neutralise tous les fonds hétéroclites hérités */
+.page-recrutement .videos,
+.page-recrutement .section-bleue,
+.page-recrutement .section-missions,
+.page-recrutement .section-profil,
+.page-recrutement .section-candidater,
+.page-recrutement .section-locaux,
+.page-recrutement .faq-rec {
+  background: #fff !important;
+  background-image: none !important;
+}
+/* alternance crème / blanc (1 section sur 2 en crème léger) */
+.page-recrutement .section-bleue,          /* 7 raisons */
+.page-recrutement .section-profil,         /* profil */
+.page-recrutement .section-locaux {        /* antennes */
+  background: #f6faee !important;
+}
+/* filet de séparation fin et discret entre les grandes sections */
+.page-recrutement .videos,
+.page-recrutement .section-bleue,
+.page-recrutement .section-missions,
+.page-recrutement .section-profil,
+.page-recrutement .section-candidater,
+.page-recrutement .section-locaux,
+.page-recrutement .faq-rec {
+  border-top: 1px solid #e7eede;
+}
+/* padding vertical homogène pour un rythme régulier */
+.page-recrutement .videos,
+.page-recrutement .section-bleue,
+.page-recrutement .section-missions,
+.page-recrutement .section-profil,
+.page-recrutement .section-candidater,
+.page-recrutement .section-locaux,
+.page-recrutement .faq-rec {
+  padding-top: 64px; padding-bottom: 64px;
+}
+/* les bandes vertes (chiffres, offres) n'ont pas de filet : elles ponctuent */
+.page-recrutement .rec-stats, .page-recrutement .section-offres { border-top: none; }
