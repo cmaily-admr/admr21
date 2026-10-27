@@ -2194,3 +2194,63 @@ body.page-recrutement {
 }
 /* les bandes vertes (chiffres, offres) n'ont pas de filet : elles ponctuent */
 .page-recrutement .rec-stats, .page-recrutement .section-offres { border-top: none; }
+
+/* ============================================================
+   RECRUTEMENT — retouches couleurs ciblées
+   ============================================================ */
+/* 1) "du sens ?" en JAUNE */
+.page-recrutement .hero-video .hero2-title .accent { color: #ffe9a3 !important; }
+.page-recrutement .hero-video .hero2-title .accent::after { background: rgba(243,195,0,.65) !important; }
+
+/* 2) "Ou laissez-nous vos coordonnées" en BLEU */
+.page-recrutement .bloc-rappel h2 { color: #004B9C !important; }
+
+/* 3) Titres FAQ (Qui sommes-nous ? / Travailler à l'ADMR) en BLEU */
+.page-recrutement .faq-groupe { color: #004B9C !important; }
+
+/* 4) Section "Envie de nous rejoindre ?" en fond PASTEL (au lieu du vert plein) */
+.page-recrutement .section-offres {
+  background: #eaf3e0 !important;
+  color: #2c3a22 !important;
+}
+.page-recrutement .section-offres .titre-manu { color: #2E7D4F !important; }
+.page-recrutement .section-offres p { color: #4b5540 !important; opacity: 1; }
+.page-recrutement .btn-offres { background: #44B06E !important; color: #fff !important; box-shadow: 0 10px 24px rgba(68,176,110,.3) !important; }
+
+/* 5) Bouton "Je postule" en JAUNE sans ombre (texte foncé pour lisibilité) */
+.page-recrutement .hero2-btn:not(.ghost),
+.page-recrutement .btn-postuler,
+.page-recrutement .cta-flottant {
+  background: #F3C300 !important;
+  color: #4a3b00 !important;
+  box-shadow: none !important;
+}
+.page-recrutement .hero2-btn:not(.ghost):hover,
+.page-recrutement .btn-postuler:hover,
+.page-recrutement .cta-flottant:hover {
+  background: #e0b400 !important; box-shadow: none !important;
+}
+.page-recrutement .hero2-btn:not(.ghost) .arr { color: #4a3b00 !important; }
+
+/* ============================================================
+   RECRUTEMENT — barre de chiffres : fond pastel, sans cartes,
+   chiffres tous en vert, labels en foncé
+   ============================================================ */
+.page-recrutement .rec-stats { background: #eaf3e0 !important; padding: 36px 20px !important; }
+/* supprimer les cartes blanches (fond, ombre, bordure, padding) */
+.page-recrutement .rec-chiffre {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+/* chiffres TOUS en vert */
+.page-recrutement .rec-chiffre .n,
+.page-recrutement .rec-chiffre:nth-child(2) .n,
+.page-recrutement .rec-chiffre:nth-child(3) .n {
+  color: #2E7D4F !important;
+  text-shadow: none !important;
+}
+/* labels en couleur foncée */
+.page-recrutement .rec-chiffre .l { color: #2c3a22 !important; text-shadow: none !important; }
