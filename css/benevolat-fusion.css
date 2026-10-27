@@ -468,3 +468,26 @@
 /* Priorité renforcée (battre .page-benevolat .section-missions ...) */
 .page-benevolat .section-missions .types-titre { margin-bottom: 30px; }
 .page-benevolat .section-missions .role-texte p { text-align: justify; font-family: var(--font-doux); font-style: normal; }
+
+/* ==========================================================================
+   TÉMOIGNAGES — version sans photo (icône personnage) + citation
+   ========================================================================== */
+.page-benevolat .section-temoignages { background: rgba(241,250,248,.86); }
+.page-benevolat .section-temoignages .sec-intro { text-align: center; max-width: 640px; margin: 0 auto 10px; }
+/* l'avatar devient une pastille icône à la couleur ADMR */
+.page-benevolat .section-temoignages .avatar-photo {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--admr-vert, #017734); border: none;
+  display: grid; place-items: center; color: #fff; flex: none;
+  box-shadow: 0 4px 12px rgba(1,119,52,.22);
+}
+.page-benevolat .section-temoignages .ph-temoin:nth-child(2) .avatar-photo { background: #6f8004; }
+.page-benevolat .section-temoignages .ph-temoin:nth-child(3) .avatar-photo { background: var(--admr-orange, #f18700); box-shadow: 0 4px 12px rgba(241,135,0,.26); }
+.page-benevolat .section-temoignages .ph-temoin .guill { background: var(--admr-orange, #f18700); }
+.page-benevolat .section-temoignages .ph-temoin:nth-child(2) .guill { background: #6f8004; }
+.page-benevolat .section-temoignages .ph-temoin:nth-child(3) .guill { background: var(--admr-vert, #017734); }
+.page-benevolat .section-temoignages .meta .nom { font-family: var(--font-titre); font-weight: 700; color: var(--admr-vert, #017734); font-size: 1.1rem; line-height: 1.2; }
+.page-benevolat .section-temoignages .meta .role { color: #6a7860; font-size: .82rem; margin-top: 2px; }
+.page-benevolat .section-temoignages .temoignage { text-align: left; color: #3f4d34; line-height: 1.62; font-size: .95rem; margin: 14px 0 0; font-style: normal; }
+.page-benevolat .section-temoignages .temoignage-cite { margin: 12px 0 0; padding-top: 12px; border-top: 1px dashed rgba(1,119,52,.22); font-size: .9rem; color: #5b6a50; line-height: 1.5; }
+.page-benevolat .section-temoignages .temoignage-cite strong { color: var(--admr-vert, #017734); }
