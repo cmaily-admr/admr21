@@ -59,8 +59,8 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .heure-hero{font-family:var(--plume);font-style:italic;font-size:1.5rem;color:#e9f1c4;margin:0 0 14px;display:flex;align-items:center;gap:12px}
 .heure-hero::before{content:"";width:46px;height:2px;background:var(--lime)}
 .hero h1{font-family:var(--titre);font-weight:800;font-size:clamp(2.8rem,6.4vw,5.6rem);line-height:.95;letter-spacing:-.035em;margin:0 0 26px;font-variation-settings:"wdth" 90}
-.hero h1 .mot{position:relative;display:inline-block;color:#f3f7d9}
-.hero h1 .mot svg{position:absolute;left:-2%;bottom:-.16em;width:104%;height:.42em}
+.hero h1 .merci{position:relative;display:inline-block;color:#f3f7d9}
+.hero h1 .merci svg{position:absolute;left:-2%;bottom:-.16em;width:104%;height:.42em}
 .hero .chapo{font-size:1.15rem;max-width:30em;margin:0 0 32px;color:rgba(255,255,255,.92)}
 .hero .actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
 .mono-hero{justify-self:end;width:min(300px,100%);opacity:.95}
@@ -174,17 +174,41 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .mercis-titre .mk{position:relative;display:inline-block;font-family:var(--plume);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--vert);font-size:1.12em}
 .mercis-titre .mk svg{position:absolute;left:-2%;bottom:-.1em;width:104%;height:.36em}
 .mur{columns:3 260px;column-gap:22px}
-.mot{break-inside:avoid;display:inline-block;width:100%;box-sizing:border-box;margin:10px 0 22px;background:#fff;border-radius:6px 22px 22px 22px;padding:26px 24px 20px;position:relative;box-shadow:0 14px 30px rgba(120,90,10,.08)}
-.mot::before{content:"";position:absolute;left:22px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t);opacity:.9}
-.mot:nth-child(3n+1){transform:rotate(-1.2deg)}
-.mot:nth-child(3n+2){transform:rotate(.8deg)}
-.mot.fade.on:nth-child(3n+1){transform:rotate(-1.2deg)}
-.mot.fade.on:nth-child(3n+2){transform:rotate(.8deg)}
-.mot blockquote{margin:0 0 14px;font-family:var(--plume);font-style:italic;font-size:1.42rem;line-height:1.22;color:var(--encre)}
-.mot figcaption{font-weight:700;font-size:.85rem;color:var(--encre)}
-.mot figcaption span{display:block;font-weight:500;color:var(--gris);font-size:.8rem}
+.merci{break-inside:avoid;display:inline-block;width:100%;box-sizing:border-box;margin:10px 0 22px;background:#fff;border-radius:6px 22px 22px 22px;padding:26px 24px 20px;position:relative;box-shadow:0 14px 30px rgba(120,90,10,.08)}
+.merci::before{content:"";position:absolute;left:22px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t);opacity:.9}
+.merci:nth-child(3n+1){transform:rotate(-1.2deg)}
+.merci:nth-child(3n+2){transform:rotate(.8deg)}
+.merci.fade.on:nth-child(3n+1){transform:rotate(-1.2deg)}
+.merci.fade.on:nth-child(3n+2){transform:rotate(.8deg)}
+.merci blockquote{margin:0 0 14px;font-family:var(--plume);font-style:italic;font-size:1.42rem;line-height:1.22;color:var(--encre)}
+.merci figcaption{font-weight:700;font-size:.85rem;color:var(--encre)}
+.merci figcaption span{display:block;font-weight:500;color:var(--gris);font-size:.8rem}
 .mercis-pied{margin:16px 0 0;font-size:.82rem;color:#8a7a52}
+
+/* chapitre 10 h épuré + vidéos */
+.recit-large{max-width:40em;margin-bottom:44px}
+.chap.c2 .grid2{align-items:center}
+.videos{margin-top:80px;padding-top:44px;border-top:1px solid rgba(127,32,130,.15)}
+.videos-sur{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--violet);margin:0 0 24px}
+.videos-sur svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linejoin:round}
+.videos-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.vid{all:unset;cursor:pointer;display:block;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 18px 40px rgba(60,20,60,.10);transition:transform .25s,box-shadow .25s}
+.vid:hover,.vid:focus-visible{transform:translateY(-4px);box-shadow:0 26px 50px rgba(60,20,60,.16)}
+.vid:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.vid-img{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#2a1a2b}
+.vid-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.vid:hover .vid-img img{transform:scale(1.04)}
+.vid-play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--jaune);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.vid-play svg{width:24px;height:24px;fill:var(--encre);margin-left:3px}
+.vid-txt{display:block;padding:18px 20px 20px;font-size:.88rem;color:var(--gris);line-height:1.4}
+.vid-txt b{display:block;font-family:var(--titre);font-size:1.15rem;font-weight:800;color:var(--encre);letter-spacing:-.02em;margin-bottom:2px}
+.lb{position:fixed;inset:0;background:rgba(20,12,20,.88);display:none;place-items:center;z-index:100;padding:24px}
+.lb.ouvert{display:grid}
+.lb-cadre{width:min(1000px,100%);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000}
+.lb-cadre iframe{width:100%;height:100%;border:0;display:block}
+.lb-fermer{position:absolute;top:18px;right:22px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;font-size:1.8rem;line-height:1;cursor:pointer;color:var(--encre)}
 @media (max-width:900px){
+  .videos-grille{grid-template-columns:1fr}
   .mercis{padding-left:70px}.legende-collage{right:6px;bottom:-40px}.chap-postuler{position:static;margin-top:36px}.chap{padding-bottom:90px}.etapes{grid-template-columns:1fr 1fr}}
 @media (max-width:900px){
   .photo-tall{position:relative;top:auto}
@@ -216,6 +240,7 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
     <symbol id="i-coeur" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
     <symbol id="i-equipe" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     <symbol id="i-fleche" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4z"/></symbol>
     <symbol id="i-droite" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   </defs>
 </svg>
@@ -315,22 +340,37 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
     <span class="pastille"><svg><use href="#i-coeur"/></svg></span>
     <p class="heure fade">10<small>h00</small></p>
     <h2 class="fade">Le temps d'une conversation</h2>
-    <p class="citation fade">Le rythme est soutenu. Mais le lien que vous allez créer est <em>unique.</em></p>
-    <p class="citation-sig fade"><i></i>Une intervenante ADMR</p>
+    <p class="recit recit-large fade">Entre deux tâches, il y a ce moment où l'on feuillette l'album de famille, où l'on lit le journal ensemble. Pour certaines personnes, vous êtes le seul visage de la journée.</p>
     <div class="grid2">
       <div class="collage fade">
         <figure class="p1"><img src="images/j-album.jpg" alt="Une intervenante regarde un album photo avec une bénéficiaire"></figure>
         <figure class="p2"><img src="images/j-lecture.jpg" alt="Une intervenante lit avec un bénéficiaire"></figure>
-        <p class="legende legende-collage">« C'est comme un rayon de soleil dans notre vie, même les jours de pluie. »<b>— Une famille, <span style="white-space:nowrap">Pontailler-sur-Saône</span></b></p>
         <svg class="mono-coin trait draw" viewBox="60 60 360 470"><path pathLength="1" stroke="#7F2082" stroke-width="10" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/><path pathLength="1" stroke="#7F2082" stroke-width="10" d="M132 354 C 210 282, 330 252, 398 292"/></svg>
       </div>
       <div>
-        <p class="recit fade">Entre deux tâches, il y a ce moment où l'on feuillette l'album de famille, où l'on lit le journal ensemble. Pour certaines personnes, vous êtes le seul visage de la journée.</p>
         <div class="raison-sig fade" style="--rc:#7F2082">
           <div class="rs-top"><span class="rs-num">Bonne raison n°2 sur 7</span><span class="rs-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
           <p class="rs-phrase">Devenez le <span class="mk">rayon de soleil<svg class="trait draw" viewBox="0 0 200 24" preserveAspectRatio="none"><path pathLength="1" stroke="#F9B004" stroke-width="4" d="M3 15 C 60 5, 130 5, 197 12"/></svg></span> de leur quotidien&nbsp;: un métier avec du sens.</p>
           <p class="rs-txt">Plus qu'une aide, vous apportez du sourire et de l'autonomie. En permettant à nos aînés de rester chez eux, vous exercez l'une des plus belles missions&nbsp;: créer du lien là où on en a le plus besoin.</p>
         </div>
+      </div>
+    </div>
+
+    <div class="videos">
+      <p class="videos-sur fade"><svg><use href="#i-play"/></svg>En vidéo · Elles racontent leur quotidien</p>
+      <div class="videos-grille">
+        <button class="vid fade" type="button" data-id="LoLJrqBSt6A" aria-label="Regarder le témoignage n°1">
+          <span class="vid-img"><img src="https://img.youtube.com/vi/LoLJrqBSt6A/hqdefault.jpg" alt="" loading="lazy"><span class="vid-play"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span></span>
+          <span class="vid-txt"><b>Témoignage n°1</b>Une intervenante ADMR raconte son métier</span>
+        </button>
+        <button class="vid fade" type="button" data-id="pTe4XGmxtDw" aria-label="Regarder le témoignage n°2">
+          <span class="vid-img"><img src="https://img.youtube.com/vi/pTe4XGmxtDw/hqdefault.jpg" alt="" loading="lazy"><span class="vid-play"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span></span>
+          <span class="vid-txt"><b>Témoignage n°2</b>Une intervenante ADMR raconte son métier</span>
+        </button>
+        <button class="vid fade" type="button" data-id="ZHJWWUVQSQE" aria-label="Regarder le témoignage n°3">
+          <span class="vid-img"><img src="https://img.youtube.com/vi/ZHJWWUVQSQE/hqdefault.jpg" alt="" loading="lazy"><span class="vid-play"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span></span>
+          <span class="vid-txt"><b>Témoignage n°3</b>Une intervenante ADMR raconte son métier</span>
+        </button>
       </div>
     </div>
     <a class="chap-postuler" href="#">Je postule <svg><use href="#i-droite"/></svg></a>
@@ -345,15 +385,16 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
       <span class="mk">merci.<svg class="trait draw" viewBox="0 0 200 30" preserveAspectRatio="none"><path pathLength="1" stroke="#AFCA11" stroke-width="5" d="M3 19 C 50 8, 120 6, 197 14"/><path pathLength="1" stroke="#F9B004" stroke-width="3" d="M14 26 C 70 17, 140 16, 190 22"/></svg></span>
     </h2>
     <div class="mur">
-        <figure class="mot fade" style="--t:var(--jaune)"><blockquote>«&nbsp;Elle m'a apporté de bons conseils et la joie de vivre. Elle me remonte le moral.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Arnay-le-Duc</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--vert)"><blockquote>«&nbsp;Si nous devions lui donner une note, ce serait 22 sur 20.&nbsp;»</blockquote><figcaption>Une famille<span>Mirebeau-sur-Bèze</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--violet)"><blockquote>«&nbsp;Je ne voudrais pas l'échanger. J'ai déjà peur du jour où elle prendra sa retraite.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Gevrey-Chambertin – Nuits-Saint-Georges</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--bleu)"><blockquote>«&nbsp;Elles sont patientes et pleines de gentillesse. Grâce à elles, mes parents vivent encore tranquillement chez eux. Un immense merci.&nbsp;»</blockquote><figcaption>Une famille<span>Montbard – Semur</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--violet)"><blockquote>«&nbsp;Avec elle, j'ai noué un degré de confiance irréprochable.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Montbard – Semur</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--orange)"><blockquote>«&nbsp;Merci d'être là. Pour que les personnes âgées restent à domicile.&nbsp;»</blockquote><figcaption>Un bénéficiaire<span>Vitteaux</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--lime)"><blockquote>«&nbsp;Travailleuse, disponible, ponctuelle, à l'écoute&nbsp;: pleine de qualités.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Seurre</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--vert)"><blockquote>«&nbsp;Merci pour tout, à tous, y compris aux personnes que nous ne croisons pas.&nbsp;»</blockquote><figcaption>Une famille<span>Dijon Métropole</span></figcaption></figure>
-        <figure class="mot fade" style="--t:var(--jaune)"><blockquote>«&nbsp;Que du bien, et que rien ne change. Merci.&nbsp;»</blockquote><figcaption>Un bénéficiaire<span>Pontailler-sur-Saône</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--jaune)"><blockquote>«&nbsp;C'est comme un rayon de soleil dans notre vie, même les jours de pluie.&nbsp;»</blockquote><figcaption>Une famille<span>Pontailler-sur-Saône</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--orange)"><blockquote>«&nbsp;Elle m'a apporté de bons conseils et la joie de vivre. Elle me remonte le moral.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Arnay-le-Duc</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--vert)"><blockquote>«&nbsp;Si nous devions lui donner une note, ce serait 22 sur 20.&nbsp;»</blockquote><figcaption>Une famille<span>Mirebeau-sur-Bèze</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--violet)"><blockquote>«&nbsp;Je ne voudrais pas l'échanger. J'ai déjà peur du jour où elle prendra sa retraite.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Gevrey-Chambertin – Nuits-Saint-Georges</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--bleu)"><blockquote>«&nbsp;Elles sont patientes et pleines de gentillesse. Grâce à elles, mes parents vivent encore tranquillement chez eux. Un immense merci.&nbsp;»</blockquote><figcaption>Une famille<span>Montbard – Semur</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--violet)"><blockquote>«&nbsp;Avec elle, j'ai noué un degré de confiance irréprochable.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Montbard – Semur</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--orange)"><blockquote>«&nbsp;Merci d'être là. Pour que les personnes âgées restent à domicile.&nbsp;»</blockquote><figcaption>Un bénéficiaire<span>Vitteaux</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--lime)"><blockquote>«&nbsp;Travailleuse, disponible, ponctuelle, à l'écoute&nbsp;: pleine de qualités.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Seurre</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--vert)"><blockquote>«&nbsp;Merci pour tout, à tous, y compris aux personnes que nous ne croisons pas.&nbsp;»</blockquote><figcaption>Une famille<span>Dijon Métropole</span></figcaption></figure>
+        <figure class="merci fade" style="--t:var(--jaune)"><blockquote>«&nbsp;Que du bien, et que rien ne change. Merci.&nbsp;»</blockquote><figcaption>Un bénéficiaire<span>Pontailler-sur-Saône</span></figcaption></figure>
     </div>
     <p class="mercis-pied fade">Les noms des intervenantes ont été retirés. Ces mots sont adressés à nos équipes partout en Côte-d'Or.</p>
   </section>
@@ -371,6 +412,11 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
   </div>
 </div>
 
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Lecture de la vidéo">
+  <button class="lb-fermer" type="button" aria-label="Fermer">×</button>
+  <div class="lb-cadre" id="lbCadre"></div>
+</div>
+
 <script>
 // barre du haut
 const barre=document.getElementById('barre');
@@ -382,6 +428,16 @@ document.querySelectorAll('.fade:not(.on),.draw').forEach(el=>io.observe(el));
 const rail=document.getElementById('rail'),jour=document.getElementById('journee');
 const majRail=()=>{const r=jour.getBoundingClientRect();const p=Math.min(1,Math.max(0,(window.innerHeight*.6-r.top)/r.height));rail.style.setProperty('--prog',(p*100)+'%')};
 addEventListener('scroll',()=>{majBarre();majRail()},{passive:true});majBarre();majRail();
+
+// vidéos : lecture dans une fenêtre (youtube-nocookie)
+const lb=document.getElementById('lb'),lbC=document.getElementById('lbCadre');
+document.querySelectorAll('.vid').forEach(v=>v.addEventListener('click',()=>{
+  lbC.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.dataset.id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="Témoignage ADMR"></iframe>';
+  lb.classList.add('ouvert');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}));
+const fermerLb=()=>{lb.classList.remove('ouvert');lb.setAttribute('aria-hidden','true');lbC.innerHTML='';document.body.style.overflow=''};
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-fermer'))fermerLb()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fermerLb()});
 </script>
 </body>
 </html>
