@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Maquette — Une journée avec l'ADMR</title>
+<style>
+@font-face{font-family:'Bricolage';src:url('fonts/Bricolage.ttf');font-weight:200 800;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/Inter.ttf');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Instrument';src:url('fonts/InstrumentSerif-Italic.ttf');font-style:italic;font-display:swap}
+:root{
+  --vert:#017734;--vert-fonce:#014a20;--vert-vif:#2fae5e;--vert-pale:#ebf4ef;
+  --lime:#AFCA11;--lime-fonce:#5f6f08;--lime-pale:#f6f9e6;
+  --orange:#F18700;--jaune:#F9B004;--jaune-pale:#fff8e8;
+  --bleu:#0184A5;--bleu-texte:#016E8A;--bleu-pale:#eaf5f8;
+  --violet:#7F2082;--violet-pale:#f6eef6;
+  --gris:#4B4A49;--encre:#21201e;--fond:#FAF8F3;
+  --titre:'Bricolage',system-ui,sans-serif;--texte:'Inter',system-ui,sans-serif;--plume:'Instrument',Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+html,body{overflow-x:clip}
+body{margin:0;overflow-x:hidden;background:var(--fond);color:var(--gris);font-family:var(--texte);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* tracé animé : chaque path a pathLength="1" */
+.draw path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.65,0,.35,1)}
+.draw.on path{stroke-dashoffset:0}
+.draw.on path:nth-child(2){transition-delay:.25s}
+.draw.on path:nth-child(3){transition-delay:.5s}
+.draw.on path:nth-child(4){transition-delay:.75s}
+.draw.on path:nth-child(5){transition-delay:1s}
+.fade{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.fade.on{opacity:1;transform:none}
+
+/* ---------- barre du haut ---------- */
+.barre{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;transition:background .3s,box-shadow .3s}
+.barre.plein{background:rgba(250,248,243,.92);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.marque{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--titre);font-weight:800;font-size:1.05rem;color:#fff;letter-spacing:-.01em;transition:color .3s}
+.barre.plein .marque{color:var(--vert)}
+.marque svg{width:30px;height:38px}
+.marque small{font-family:var(--texte);font-weight:500;font-size:.8rem;opacity:.75}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--texte);font-weight:700;font-size:.95rem;text-decoration:none;border-radius:999px;padding:13px 24px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-j{background:var(--jaune);color:var(--encre)}
+.btn-j:hover{background:#ffbf1f}
+.btn-l{color:#fff;padding-left:4px}
+.btn-l .rond{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center}
+.btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;color:#fff;background:#0f3a22}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .voile{position:absolute;inset:0;background:linear-gradient(95deg,rgba(6,40,22,.86) 0%,rgba(6,40,22,.55) 45%,rgba(6,40,22,.08) 80%),linear-gradient(0deg,rgba(6,40,22,.55),transparent 45%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1240px;margin:0 auto;padding:0 28px 74px;display:grid;grid-template-columns:1.25fr .75fr;align-items:end;gap:40px}
+.heure-hero{font-family:var(--plume);font-style:italic;font-size:1.5rem;color:#e9f1c4;margin:0 0 14px;display:flex;align-items:center;gap:12px}
+.heure-hero::before{content:"";width:46px;height:2px;background:var(--lime)}
+.hero h1{font-family:var(--titre);font-weight:800;font-size:clamp(2.8rem,6.4vw,5.6rem);line-height:.95;letter-spacing:-.035em;margin:0 0 26px;font-variation-settings:"wdth" 90}
+.hero h1 .mot{position:relative;display:inline-block;color:#f3f7d9}
+.hero h1 .mot svg{position:absolute;left:-2%;bottom:-.16em;width:104%;height:.42em}
+.hero .chapo{font-size:1.15rem;max-width:30em;margin:0 0 32px;color:rgba(255,255,255,.92)}
+.hero .actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.mono-hero{justify-self:end;width:min(300px,100%);opacity:.95}
+.mono-hero svg{width:100%;height:auto}
+
+/* ---------- manifeste ---------- */
+.manifeste{padding:120px 28px 110px;text-align:center;position:relative}
+.manifeste p{font-family:var(--titre);font-weight:700;font-size:clamp(1.9rem,4.4vw,3.6rem);line-height:1.12;letter-spacing:-.03em;color:var(--encre);max-width:20em;margin:0 auto;font-variation-settings:"wdth" 92}
+.manifeste .n{position:relative;display:inline-block;color:var(--vert);font-variation-settings:"wdth" 92;font-weight:800}
+.manifeste .n svg{position:absolute;left:-6%;top:-14%;width:112%;height:128%}
+.manifeste .sous{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;margin-top:46px;font-weight:600;color:var(--gris)}
+.manifeste .sous span{display:inline-flex;align-items:center;gap:10px}
+.manifeste .sous i{width:22px;height:4px;border-radius:2px;display:inline-block}
+
+/* ---------- la journée ---------- */
+.journee{position:relative;max-width:1240px;margin:0 auto;padding:0 28px}
+.rail{position:absolute;left:62px;top:0;bottom:0;width:22px;pointer-events:none}
+.rail i{position:absolute;top:0;width:3px;border-radius:3px;height:var(--prog,0%);transition:height .15s linear}
+.rail i:nth-child(1){left:0;background:var(--vert)}
+.rail i:nth-child(2){left:6px;background:var(--jaune)}
+.rail i:nth-child(3){left:12px;background:var(--orange)}
+.rail i:nth-child(4){left:18px;background:var(--bleu)}
+.rail::before{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.06) 0 3px,transparent 3px 6px)}
+
+.chap{position:relative;padding:90px 0 100px 150px}
+.chap::before{content:"";position:absolute;inset:0 -9999px;background:var(--teinte);z-index:-1}
+.chap.c1{--teinte:var(--lime-pale);--acc:var(--lime-fonce)}
+.chap.c2{--teinte:var(--violet-pale);--acc:var(--violet)}
+.pastille{position:absolute;left:46px;top:96px;width:54px;height:54px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px var(--teinte);display:grid;place-items:center;z-index:2}
+.pastille svg{width:24px;height:24px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.heure{font-family:var(--titre);font-weight:800;font-size:clamp(4.5rem,11vw,9.5rem);line-height:.8;letter-spacing:-.05em;color:var(--acc);margin:0;font-variation-settings:"wdth" 80}
+.heure small{font-size:.42em;letter-spacing:-.02em;vertical-align:.95em;margin-left:.14em}
+.chap h2{font-family:var(--titre);font-weight:800;font-size:clamp(1.7rem,3.2vw,2.6rem);line-height:1.05;letter-spacing:-.03em;color:var(--encre);margin:18px 0 18px;max-width:16em}
+.recit{font-size:1.12rem;max-width:32em;margin:0 0 30px}
+.grid1{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:start}
+
+/* photo + légende manuscrite */
+.photo-tall{position:sticky;top:110px;margin:0}
+.photo-tall img{border-radius:28px 28px 28px 120px;aspect-ratio:9/11;object-fit:cover;width:100%;box-shadow:0 30px 60px rgba(40,50,20,.18)}
+.photo-tall .mono-coin{position:absolute;right:-26px;top:-34px;width:96px}
+.legende{position:absolute;left:-46px;bottom:38px;max-width:250px;background:#fff;border-radius:18px;padding:16px 18px;font-family:var(--plume);font-style:italic;font-size:1.32rem;line-height:1.2;color:var(--encre);box-shadow:0 16px 34px rgba(0,0,0,.1);transform:rotate(-3deg)}
+.legende b{display:block;font-family:var(--texte);font-style:normal;font-size:.75rem;font-weight:700;color:var(--gris);margin-top:8px;letter-spacing:.02em}
+
+/* missions carnet */
+.carnet{list-style:none;padding:0;margin:0 0 30px;border-top:1px solid rgba(0,0,0,.08)}
+.carnet li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.08)}
+.carnet li svg{width:26px;height:26px;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.carnet li b{color:var(--encre);font-weight:700}
+.carnet li span{display:block;font-size:.93rem}
+.note{position:relative;background:#fff;border-radius:20px;padding:22px 24px 22px 26px;max-width:32em;box-shadow:0 10px 26px rgba(0,0,0,.05)}
+.note::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:4px;border-radius:4px;background:linear-gradient(var(--vert),var(--jaune),var(--orange),var(--bleu))}
+.note strong{color:var(--encre)}
+
+/* chapitre 2 : citation + collage */
+.citation{font-family:var(--titre);font-weight:700;font-size:clamp(2rem,4.6vw,3.9rem);line-height:1.04;letter-spacing:-.035em;color:var(--encre);margin:26px 0 36px;max-width:15em;font-variation-settings:"wdth" 92}
+.citation em{font-family:var(--plume);font-weight:400;font-style:italic;color:var(--violet);letter-spacing:-.01em;font-size:1.08em}
+.citation-sig{display:flex;align-items:center;gap:12px;font-weight:600;margin:-14px 0 46px}
+.citation-sig i{width:36px;height:3px;background:var(--violet);border-radius:2px}
+.grid2{display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center}
+.collage{position:relative;height:520px}
+.collage figure{position:absolute;margin:0;border-radius:24px;overflow:hidden;box-shadow:0 26px 50px rgba(60,20,60,.18);border:8px solid #fff}
+.collage .p1{left:0;top:0;width:72%;transform:rotate(-2.5deg)}
+.collage .p2{right:0;bottom:0;width:62%;transform:rotate(3deg)}
+.collage img{aspect-ratio:3/2;object-fit:cover;width:100%}
+.collage .mono-coin{position:absolute;left:58%;top:40%;width:110px;z-index:3}
+.raisons{display:grid;gap:14px;margin-top:28px}
+.raison{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;background:#fff;border-radius:20px;padding:20px 22px}
+.raison .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center}
+.raison .ic svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.raison h3{font-family:var(--titre);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;color:var(--encre);margin:2px 0 4px}
+.raison p{margin:0;font-size:.95rem}
+
+/* suite */
+.suite{position:relative;padding:80px 0 110px 150px}
+.suite h3{font-family:var(--titre);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;color:var(--encre);margin:0 0 22px}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.etape{background:#fff;border-radius:20px;padding:20px;border:1px dashed rgba(0,0,0,.12)}
+.etape .h{font-family:var(--titre);font-weight:800;font-size:2rem;letter-spacing:-.04em;line-height:1;color:var(--c)}
+.etape b{display:block;color:var(--encre);margin:8px 0 4px;font-size:1rem}
+.etape span{font-size:.88rem}
+.tag-maquette{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--encre);color:#fff;border-radius:6px;padding:4px 9px;margin-left:10px;vertical-align:middle}
+
+
+/* phrases-signatures des 7 raisons */
+.raison-sig{position:relative;margin:38px 0 0;padding:28px 0 0;border-top:1px solid rgba(0,0,0,.09);max-width:34em}
+.rs-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+.rs-num{font-size:.74rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--rc)}
+.rs-dots{display:flex;gap:6px}
+.rs-dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--rc);opacity:.45}
+.rs-dots i.on{background:var(--rc);opacity:1}
+.rs-phrase{font-family:var(--plume);font-style:italic;font-weight:400;font-size:clamp(2.1rem,3.8vw,3.1rem);line-height:1.04;letter-spacing:-.01em;color:var(--rc);margin:0 0 16px}
+.rs-phrase .mk{position:relative;display:inline-block;white-space:nowrap}
+.rs-phrase .mk svg{position:absolute;left:-2%;bottom:-.06em;width:104%;height:.32em}
+.rs-txt{margin:0;font-size:1rem}
+/* bouton discret « Je postule » à chaque heure */
+.chap{padding-bottom:140px}
+.chap-postuler{position:absolute;right:0;bottom:44px;display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.88rem;color:var(--encre);text-decoration:none;padding:9px 16px 9px 14px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.08);transition:background .2s,transform .2s}
+.chap-postuler::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--jaune)}
+.chap-postuler svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chap-postuler:hover{background:var(--jaune);transform:translateY(-2px)}
+.etapes{grid-template-columns:repeat(5,1fr)}
+
+@media (max-width:900px){.chap-postuler{position:static;margin-top:36px}.chap{padding-bottom:90px}.etapes{grid-template-columns:1fr 1fr}}
+@media (max-width:900px){
+  .photo-tall{position:relative;top:auto}
+  .hero-in{grid-template-columns:1fr}.mono-hero{display:none}
+  .rail{left:22px}.pastille{left:6px}
+  .chap,.suite{padding-left:70px}
+  .grid1,.grid2{grid-template-columns:1fr;gap:40px}
+  .legende{left:10px}
+  .collage{height:400px}
+  .etapes{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .draw path{stroke-dashoffset:0;transition:none}.fade{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Monogramme réutilisable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-lever" viewBox="0 0 24 24"><path d="M7 21v-5a5 5 0 0 1 10 0v5"/><circle cx="12" cy="6" r="3"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-douche" viewBox="0 0 24 24"><path d="M4 4l2.5 2.5"/><path d="M13.5 6.5a4.95 4.95 0 0 0-7 7"/><path d="M15 5 5 15"/><path d="M14 17v.01M10 16v.01M13 13v.01M16 10v.01M11 20v.01M17 14v.01M20 11v.01"/></symbol>
+    <symbol id="i-maison" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-bras" viewBox="0 0 24 24"><circle cx="9" cy="4.5" r="2"/><path d="M9 7v6l-3 8M9 13l3 8M5 10h8"/><path d="M15 21v-8l3-2"/></symbol>
+    <symbol id="i-panier" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+    <symbol id="i-soleil" viewBox="0 0 24 24"><path d="M12 2v2M4.93 4.93l1.41 1.41M20 12h2M19.07 4.93l-1.41 1.41M15.95 15.95a5 5 0 0 0-7.9 0M2 12h2M12 18v4M8 22h8"/></symbol>
+    <symbol id="i-cafe" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></symbol>
+    <symbol id="i-coeur" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-equipe" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-fleche" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-droite" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </defs>
+</svg>
+
+<header class="barre" id="barre">
+  <a class="marque" href="#">
+    <svg class="trait" viewBox="60 60 360 470"><path stroke="#2fae5e" stroke-width="16" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/><path stroke="#F9B004" stroke-width="16" d="M200 122 L 234 406 M200 122 C 302 158, 348 248, 332 302 C 318 356, 272 392, 234 406"/><path stroke="#F18700" stroke-width="16" d="M95 442 L 148 170 L 174 300 L 286 192 L 252 332 L 128 498"/><path stroke="#0184A5" stroke-width="16" d="M104 456 L 119 342 C 127 316, 176 316, 183 346 C 189 376, 160 410, 128 426 L 242 500"/></svg>
+    <span>ADMR <small>Côte-d'Or</small></span>
+  </a>
+  <a class="btn btn-j" href="#">Je postule <svg><use href="#i-droite"/></svg></a>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <video autoplay muted loop playsinline poster="images/hero-poster.jpg" aria-hidden="true">
+    <source src="images/hero-video.webm" type="video/webm">
+    <source src="images/hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="voile"></div>
+  <div class="hero-in">
+    <div>
+      <p class="heure-hero fade on">7 h 30, quelque part en Côte-d'Or</p>
+      <h1 class="fade on">Et si votre métier avait enfin
+        <span class="mot">du sens&nbsp;?
+          <svg class="trait draw" viewBox="0 0 200 30" preserveAspectRatio="none"><path pathLength="1" stroke="#AFCA11" stroke-width="5" d="M3 19 C 50 8, 120 6, 197 14"/><path pathLength="1" stroke="#F9B004" stroke-width="3" d="M14 26 C 70 17, 140 16, 190 22"/></svg>
+        </span>
+      </h1>
+      <p class="chapo fade on">Suivez la journée d'une aide à domicile ADMR. Demain, ce sera peut-être la vôtre&nbsp;: sans diplôme, formé·e par nos équipes, près de chez vous.</p>
+      <div class="actions fade on">
+        <a class="btn btn-j" href="#">Je postule <svg><use href="#i-droite"/></svg></a>
+        <a class="btn btn-l" href="#journee"><span class="rond"><svg><use href="#i-fleche"/></svg></span>Vivre la journée</a>
+      </div>
+    </div>
+    <div class="mono-hero">
+      <svg class="trait draw" viewBox="60 60 360 470">
+        <path pathLength="1" stroke="#2fae5e" stroke-width="7" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/>
+        <path pathLength="1" stroke="#2fae5e" stroke-width="7" d="M132 354 C 210 282, 330 252, 398 292"/>
+        <path pathLength="1" stroke="#F9B004" stroke-width="7" d="M200 122 L 234 406 M200 122 C 302 158, 348 248, 332 302 C 318 356, 272 392, 234 406"/>
+        <path pathLength="1" stroke="#F18700" stroke-width="7" d="M95 442 L 148 170 L 174 300 L 286 192 L 252 332 L 128 498"/>
+        <path pathLength="1" stroke="#20b4d8" stroke-width="7" d="M104 456 L 119 342 C 127 316, 176 316, 183 346 C 189 376, 160 410, 128 426 L 242 500"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MANIFESTE ================= -->
+<section class="manifeste">
+  <p class="fade">Ici, on est
+    <span class="n">800
+      <svg class="trait draw" viewBox="0 0 120 70" preserveAspectRatio="none"><path pathLength="1" stroke="#AFCA11" stroke-width="3.5" d="M60 6 C 20 4, 4 24, 8 40 C 13 60, 60 68, 96 58 C 122 50, 118 18, 86 8 C 70 3, 50 6, 40 12"/></svg>
+    </span>
+    collègues, dans 22 antennes, avec une seule façon de travailler&nbsp;: prendre soin.</p>
+  <div class="sous fade">
+    <span><i style="background:var(--vert)"></i>Aucun diplôme requis</span>
+    <span><i style="background:var(--jaune)"></i>Formé·e en interne</span>
+    <span><i style="background:var(--orange)"></i>Près de chez vous</span>
+    <span><i style="background:var(--bleu)"></i>Planning adapté à votre vie</span>
+  </div>
+</section>
+
+<!-- ================= LA JOURNÉE ================= -->
+<div class="journee" id="journee">
+  <div class="rail" id="rail"><i></i><i></i><i></i><i></i></div>
+
+  <!-- 7 h 30 -->
+  <section class="chap c1">
+    <span class="pastille"><svg><use href="#i-cafe"/></svg></span>
+    <div class="grid1">
+      <div>
+        <p class="heure fade">7<small>h30</small></p>
+        <h2 class="fade">Le premier rendez-vous de la journée</h2>
+        <p class="recit fade">Lucienne vous attend, le café déjà prêt. Vous l'aidez à se lever, à faire sa toilette, à préparer son petit-déjeuner. Des gestes simples qui lui permettent de rester chez elle, dans ses habitudes.</p>
+        <ul class="carnet fade">
+          <li><svg style="stroke:var(--vert)"><use href="#i-lever"/></svg><div><b>Les gestes du quotidien</b><span>Lever, coucher, déplacements</span></div></li>
+          <li><svg style="stroke:var(--bleu)"><use href="#i-douche"/></svg><div><b>L'hygiène corporelle</b><span>Toilette, douche, dans le respect de chacun</span></div></li>
+          <li><svg style="stroke:var(--orange)"><use href="#i-maison"/></svg><div><b>Un intérieur agréable</b><span>Linge, vaisselle, sols</span></div></li>
+          <li><svg style="stroke:var(--violet)"><use href="#i-bras"/></svg><div><b>Les sorties et rendez-vous</b><span>Médecin, loisirs, promenade</span></div></li>
+          <li><svg style="stroke:var(--lime-fonce)"><use href="#i-panier"/></svg><div><b>Les courses</b><span>Et les petits déplacements nécessaires</span></div></li>
+        </ul>
+        <div class="raison-sig fade" style="--rc:#017734">
+          <div class="rs-top"><span class="rs-num">Bonne raison n°1 sur 7</span><span class="rs-dots" aria-hidden="true"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
+          <p class="rs-phrase">Devenez un(e) <span class="mk">expert(e)<svg class="trait draw" viewBox="0 0 200 24" preserveAspectRatio="none"><path pathLength="1" stroke="#AFCA11" stroke-width="4" d="M3 15 C 60 5, 130 5, 197 12"/></svg></span>, grâce à notre appartement pédagogique et au tutorat.</p>
+          <p class="rs-txt">Peu importe votre parcours, nous vous donnons les clés de la réussite. Trois jours à l'Appartement Pédagogique, puis un accompagnement en binôme&nbsp;: vous apprenez les gestes professionnels en toute sérénité avant de vous lancer.</p>
+        </div>
+      </div>
+      <figure class="photo-tall fade">
+        <img src="images/j-coiffure.jpg" alt="Une aide à domicile ADMR coiffe une bénéficiaire">
+        <svg class="mono-coin trait draw" viewBox="60 60 360 470"><path pathLength="1" stroke="#017734" stroke-width="10" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/><path pathLength="1" stroke="#F9B004" stroke-width="10" d="M200 122 L 234 406 M200 122 C 302 158, 348 248, 332 302 C 318 356, 272 392, 234 406"/><path pathLength="1" stroke="#F18700" stroke-width="10" d="M95 442 L 148 170 L 174 300 L 286 192 L 252 332 L 128 498"/><path pathLength="1" stroke="#0184A5" stroke-width="10" d="M104 456 L 119 342 C 127 316, 176 316, 183 346 C 189 376, 160 410, 128 426 L 242 500"/></svg>
+        <figcaption class="legende">« Elle m'attend toujours avec le café prêt. »<b>— Une aide à domicile, Côte-d'Or</b></figcaption>
+      </figure>
+    </div>
+    <a class="chap-postuler" href="#">Je postule <svg><use href="#i-droite"/></svg></a>
+  </section>
+
+  <!-- 10 h -->
+  <section class="chap c2">
+    <span class="pastille"><svg><use href="#i-coeur"/></svg></span>
+    <p class="heure fade">10<small>h00</small></p>
+    <h2 class="fade">Le temps d'une conversation</h2>
+    <p class="citation fade">Le rythme est soutenu. Mais le lien que vous allez créer est <em>unique.</em></p>
+    <p class="citation-sig fade"><i></i>Une intervenante ADMR</p>
+    <div class="grid2">
+      <div class="collage fade">
+        <figure class="p1"><img src="images/j-album.jpg" alt="Une intervenante regarde un album photo avec une bénéficiaire"></figure>
+        <figure class="p2"><img src="images/j-lecture.jpg" alt="Une intervenante lit avec un bénéficiaire"></figure>
+        <svg class="mono-coin trait draw" viewBox="60 60 360 470"><path pathLength="1" stroke="#7F2082" stroke-width="10" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/><path pathLength="1" stroke="#7F2082" stroke-width="10" d="M132 354 C 210 282, 330 252, 398 292"/></svg>
+      </div>
+      <div>
+        <p class="recit fade">Entre deux tâches, il y a ce moment où l'on feuillette l'album de famille, où l'on lit le journal ensemble. Pour certaines personnes, vous êtes le seul visage de la journée.</p>
+        <div class="raison-sig fade" style="--rc:#7F2082">
+          <div class="rs-top"><span class="rs-num">Bonne raison n°2 sur 7</span><span class="rs-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span></div>
+          <p class="rs-phrase">Devenez le <span class="mk">rayon de soleil<svg class="trait draw" viewBox="0 0 200 24" preserveAspectRatio="none"><path pathLength="1" stroke="#F9B004" stroke-width="4" d="M3 15 C 60 5, 130 5, 197 12"/></svg></span> de leur quotidien&nbsp;: un métier avec du sens.</p>
+          <p class="rs-txt">Plus qu'une aide, vous apportez du sourire et de l'autonomie. En permettant à nos aînés de rester chez eux, vous exercez l'une des plus belles missions&nbsp;: créer du lien là où on en a le plus besoin.</p>
+        </div>
+      </div>
+    </div>
+    <a class="chap-postuler" href="#">Je postule <svg><use href="#i-droite"/></svg></a>
+  </section>
+
+
+  <!-- suite -->
+  <div class="suite">
+    <h3>La suite de la journée <span class="tag-maquette">dans la version complète</span></h3>
+    <div class="etapes">
+      <div class="etape" style="--c:var(--orange)"><div class="h">12h30</div><b>La pause entre collègues</b><span>Raisons n°3 et 4 · 800 collègues, 80 ans d'expertise</span></div>
+      <div class="etape" style="--c:var(--bleu-texte)"><div class="h">14h00</div><b>Sur la route</b><span>Raisons n°5 et 6 · nos 22 antennes et leurs itinéraires</span></div>
+      <div class="etape" style="--c:var(--lime-fonce)"><div class="h">16h30</div><b>Votre vie compte aussi</b><span>Raison n°7 · un planning qui s'adapte à vous</span></div>
+      <div class="etape" style="--c:var(--vert)"><div class="h">18h00</div><b>Fin de tournée</b><span>Le profil recherché · CV ou rappel · nos offres</span></div>
+      <div class="etape" style="--c:var(--violet)"><div class="h">Et après&nbsp;?</div><b>Vos questions</b><span>La FAQ complète</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// barre du haut
+const barre=document.getElementById('barre');
+const majBarre=()=>barre.classList.toggle('plein',window.scrollY>window.innerHeight*.75);
+// apparitions + tracés
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.25});
+document.querySelectorAll('.fade:not(.on),.draw').forEach(el=>io.observe(el));
+// rail de la journée : progression au scroll
+const rail=document.getElementById('rail'),jour=document.getElementById('journee');
+const majRail=()=>{const r=jour.getBoundingClientRect();const p=Math.min(1,Math.max(0,(window.innerHeight*.6-r.top)/r.height));rail.style.setProperty('--prog',(p*100)+'%')};
+addEventListener('scroll',()=>{majBarre();majRail()},{passive:true});majBarre();majRail();
+</script>
+</body>
+</html>

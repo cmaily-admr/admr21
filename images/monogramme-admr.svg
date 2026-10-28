@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 60 360 470" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- feuille verte -->
+  <path class="m-g" stroke="#017734" stroke-width="9" d="M238 442 C 332 384, 384 232, 332 78 C 268 104, 176 192, 150 322"/>
+  <path class="m-g2" stroke="#017734" stroke-width="9" d="M132 354 C 210 282, 330 252, 398 292"/>
+  <!-- D jaune -->
+  <path class="m-y" stroke="#F9B004" stroke-width="9" d="M200 122 L 234 406 M200 122 C 302 158, 348 248, 332 302 C 318 356, 272 392, 234 406"/>
+  <!-- M orange -->
+  <path class="m-o" stroke="#F18700" stroke-width="9" d="M95 442 L 148 170 L 174 300 L 286 192 L 252 332 L 128 498"/>
+  <!-- R bleu -->
+  <path class="m-b" stroke="#0184A5" stroke-width="9" d="M104 456 L 119 342 C 127 316, 176 316, 183 346 C 189 376, 160 410, 128 426 L 242 500"/>
+</svg>
