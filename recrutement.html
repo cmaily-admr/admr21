@@ -246,7 +246,7 @@
       </div>
     </div>
 
-    <div class="antennes">
+    <div class="antennes" data-recherche-antennes>
       <div class="antennes-tete">
         <div class="fade">
           <p class="sous-titre"><svg aria-hidden="true"><use href="#i-pin"/></svg>Nos points d'accueil</p>
@@ -255,15 +255,15 @@
         </div>
         <div class="recherche-zone fade">
           <label class="recherche" for="filtre-antennes"><svg class="ico" aria-hidden="true"><use href="#i-loupe"/></svg>
-            <input type="text" id="filtre-antennes" placeholder="Votre commune ou code postal…" autocomplete="off" spellcheck="false"
+            <input type="text" class="ra-input" id="filtre-antennes" placeholder="Votre commune ou code postal…" autocomplete="off" spellcheck="false"
               role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions" aria-label="Rechercher votre commune ou votre code postal">
-            <button class="effacer" type="button" id="effacer-recherche" aria-label="Effacer la recherche" hidden>×</button>
+            <button class="effacer ra-effacer" type="button" aria-label="Effacer la recherche" hidden>×</button>
           </label>
-          <ul class="suggestions" id="suggestions" role="listbox" aria-label="Communes correspondantes" hidden></ul>
+          <ul class="suggestions ra-suggestions" id="suggestions" role="listbox" aria-label="Communes correspondantes" hidden></ul>
         </div>
       </div>
-      <div class="resultat" id="resultat-commune" role="status" aria-live="polite" hidden></div>
-      <div class="grille-antennes replie" id="grille-antennes">
+      <div class="resultat ra-resultat" role="status" aria-live="polite" hidden></div>
+      <div class="grille-antennes ra-grille replie">
         <article class="antenne" data-code="18">
           <h4>Arnay-le-Duc</h4>
           <p class="asso">ADMR Arnay le Duc</p>
@@ -485,8 +485,8 @@
           </div>
         </article>
       </div>
-      <button class="voir-tout" type="button" id="voir-antennes">Voir les 22 antennes</button>
-      <p class="aucun" id="aucune-antenne">Nous ne trouvons pas cette commune dans notre liste. Vérifiez l'orthographe, essayez votre code postal, ou <a href="#candidature">laissez-nous vos coordonnées</a>.</p>
+      <button class="voir-tout ra-voir-tout" type="button">Voir les 22 antennes</button>
+      <p class="aucun ra-aucun">Nous ne trouvons pas cette commune dans notre liste. Vérifiez l'orthographe, essayez votre code postal, ou <a href="#candidature">laissez-nous vos coordonnées</a>.</p>
     </div>
     <a class="chap-postuler" href="#candidature">Je postule <svg aria-hidden="true"><use href="#i-droite"/></svg></a>
   </section>
@@ -711,6 +711,7 @@
 <iframe name="fs-frame" class="cache-iframe" title="Traitement du formulaire" aria-hidden="true" tabindex="-1"></iframe>
 
 <script src="js/communes-admr21.js"></script>
+<script src="js/recherche-antennes.js"></script>
 <script src="js/recrutement-journee.js"></script>
 </body>
 </html>

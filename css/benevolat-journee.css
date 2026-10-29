@@ -1,0 +1,113 @@
+/* =========================================================
+   ADMR Côte-d'Or — Page bénévolat
+   Complète css/recrutement-journee.css (même visuel : palette,
+   typographies, chapitres, monogramme). Charger APRÈS celui-ci.
+   ========================================================= */
+
+/* ---------- hero : photo fixe au lieu de la vidéo ---------- */
+.hero .fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-logo{display:block;width:210px;height:auto;margin:0 0 26px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+
+/* ---------- repère de chapitre (numéro au lieu de l'heure) ---------- */
+.heure.num-chap small{font-family:var(--texte);font-size:.15em;font-weight:800;letter-spacing:.16em;text-transform:uppercase;vertical-align:3.6em;margin-left:.9em}
+
+/* ---------- texte + photo ---------- */
+.duo{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;margin-top:20px}
+.duo + .duo{margin-top:70px}
+.duo.inverse .duo-media{order:-1}
+.duo-media{margin:0;position:relative}
+.duo-media img{width:100%;border-radius:28px 120px 28px 28px;aspect-ratio:4/3;object-fit:cover;box-shadow:0 30px 60px rgba(30,40,20,.16)}
+.duo.inverse .duo-media img{border-radius:120px 28px 28px 28px}
+.duo-media.portrait img{aspect-ratio:4/5}
+.duo p{margin:0 0 16px}
+.duo .rs-phrase{font-size:clamp(1.9rem,3.2vw,2.6rem)}
+
+/* ---------- en résumé : 4 cartes ---------- */
+.resume{margin-top:80px;padding-top:50px;border-top:1px solid rgba(0,0,0,.09)}
+.resume-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.resume-carte{background:#fff;border-radius:22px;padding:22px 20px}
+.resume-carte b{display:block;font-family:var(--titre);font-weight:800;font-size:2.6rem;line-height:1;letter-spacing:-.05em;color:var(--lime-fonce);margin-bottom:10px;font-variation-settings:"wdth" 85}
+.resume-carte h3{font-family:var(--titre);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;color:var(--encre);margin:0 0 6px;line-height:1.15}
+.resume-carte p{margin:0;font-size:.93rem;line-height:1.5}
+
+/* ---------- les rôles : 3 groupes de missions ---------- */
+.groupes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:70px}
+.groupe{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 18px 40px rgba(60,20,60,.07)}
+.groupe-tete{margin:0;display:flex;align-items:center;gap:10px;padding:18px 22px;color:#fff;font-family:var(--titre);font-weight:800;font-size:1.12rem;letter-spacing:-.01em}
+.groupe-tete svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.groupe ul{list-style:none;margin:0;padding:6px 22px 10px}
+.groupe li{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.groupe li:last-child{border-bottom:0}
+.groupe li svg{width:24px;height:24px;fill:none;stroke:var(--gc);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.groupe li b{display:block;color:var(--encre);font-weight:700;margin-bottom:3px}
+.groupe li span{display:block;font-size:.9rem;line-height:1.5}
+
+/* ---------- accessible : repères ---------- */
+.c3 .reperes span::before{background:var(--orange)}
+
+/* ---------- témoignages ---------- */
+.temoins{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}
+.temoin-carte{position:relative;background:#fff;border-radius:6px 24px 24px 24px;padding:30px 28px 26px;box-shadow:0 14px 30px rgba(1,60,80,.07);margin:0}
+.temoin-carte::before{content:"";position:absolute;left:24px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t)}
+.temoin-carte:nth-child(odd){transform:rotate(-.6deg)}
+.temoin-carte:nth-child(even){transform:rotate(.5deg)}
+.temoin-carte blockquote{margin:0 0 20px;font-family:var(--plume);font-style:italic;font-size:1.38rem;line-height:1.28;color:var(--encre)}
+.temoin-carte figcaption{display:flex;align-items:center;gap:12px}
+.initiale{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--t);color:#fff;font-family:var(--titre);font-weight:800;font-size:1.2rem;flex:none}
+.temoin-carte figcaption b{display:block;color:var(--encre)}
+.temoin-carte figcaption span{font-size:.85rem}
+
+/* ---------- missions près de chez vous ---------- */
+.widget{background:#fff;border-radius:24px;padding:18px;box-shadow:0 18px 40px rgba(20,60,40,.07);margin-top:10px}
+.widget iframe{display:block;width:100%;min-height:320px;border:0}
+.referentes{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center;margin-top:90px;padding-top:50px;border-top:1px solid rgba(0,0,0,.09)}
+.referentes-carte{margin:0}
+.referentes-carte img{width:100%;max-width:400px;margin:0 auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.12))}
+.referentes h3{font-family:var(--titre);font-weight:800;font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.03em;color:var(--encre);margin:0 0 10px;line-height:1.1}
+.referentes > div > p{margin:0 0 22px}
+.ref-liste{display:grid;gap:12px}
+.ref{display:flex;align-items:center;gap:16px;background:#fff;border-radius:20px;padding:16px 18px;border-left:6px solid var(--z)}
+.ref .initiale{background:var(--z)}
+.ref div{flex:1;line-height:1.35}
+.ref b{display:block;color:var(--encre);font-size:1.05rem}
+.ref span{font-size:.86rem}
+.ref a{font-family:var(--titre);font-weight:800;font-size:1.05rem;color:var(--encre);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.ref a .ico{width:16px;height:16px;color:var(--z)}
+.ref a:hover{color:var(--vert)}
+.c5 .antennes .sous-titre,.c5 .recherche,.c5 .antenne .liens a{--bleu-texte:#016E8A}
+
+/* référente sous le numéro de l'antenne */
+.antenne .tel{margin-bottom:8px}
+.ref-ant{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 10px;margin:0 0 6px;padding:7px 10px 7px 12px;border-radius:12px;background:var(--fond);border-left:4px solid var(--z);font-size:.82rem;line-height:1.3}
+.ref-ant b{color:var(--encre)}
+.ref-ant a{font-weight:800;color:var(--encre);text-decoration:none;white-space:nowrap}
+.ref-ant a:hover{color:var(--vert)}
+.antenne .ref-ant + .liens,.antenne .ref-ant:last-of-type{margin-bottom:12px}
+
+/* ---------- s'engager (bloc vert foncé) ---------- */
+.candidature .engager-grille{margin-top:40px}
+.engager-grille{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.engager-txt p{color:rgba(255,255,255,.88);margin:0 0 14px;font-size:1.06rem}
+.engager-txt .fort{font-family:var(--plume);font-style:italic;font-size:1.6rem;line-height:1.2;color:var(--jaune);margin-top:22px}
+.engager-photo{margin:30px 0 0}
+.engager-photo img{width:100%;border-radius:24px;aspect-ratio:16/10;object-fit:cover}
+.direct{margin:18px 0 0;font-size:.9rem;color:var(--gris)}
+.direct a{color:var(--vert);font-weight:700}
+
+/* ---------- FAQ : badge ---------- */
+.badge-avenir{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--violet-pale);color:var(--violet);border-radius:999px;padding:6px 12px;margin-left:12px;vertical-align:middle}
+.faq-une{max-width:760px}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .duo,.referentes,.engager-grille,.temoins,.groupes{grid-template-columns:1fr;gap:28px}
+  .duo.inverse .duo-media{order:0}
+  .resume-grille{grid-template-columns:1fr 1fr}
+  .groupes,.referentes{margin-top:50px}
+}
+@media (max-width:560px){
+  .resume-grille{grid-template-columns:1fr}
+  .hero-logo{width:120px}
+  .ref{flex-wrap:wrap}
+  .temoin-carte blockquote{font-size:1.25rem}
+}
