@@ -251,11 +251,20 @@
         <div class="fade">
           <p class="sous-titre"><svg aria-hidden="true"><use href="#i-pin"/></svg>Nos points d'accueil</p>
           <h3>22 antennes en Côte-d'Or. Laquelle est la vôtre&nbsp;?</h3>
+          <p>Tapez votre commune&nbsp;: on vous indique l'antenne qui la couvre.</p>
         </div>
-        <label class="recherche fade"><svg class="ico" aria-hidden="true"><use href="#i-loupe"/></svg><input type="search" id="filtre-antennes" placeholder="Tapez votre ville…" aria-label="Rechercher une antenne par ville" autocomplete="off"></label>
+        <div class="recherche-zone fade">
+          <label class="recherche" for="filtre-antennes"><svg class="ico" aria-hidden="true"><use href="#i-loupe"/></svg>
+            <input type="text" id="filtre-antennes" placeholder="Votre commune ou code postal…" autocomplete="off" spellcheck="false"
+              role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions" aria-label="Rechercher votre commune ou votre code postal">
+            <button class="effacer" type="button" id="effacer-recherche" aria-label="Effacer la recherche" hidden>×</button>
+          </label>
+          <ul class="suggestions" id="suggestions" role="listbox" aria-label="Communes correspondantes" hidden></ul>
+        </div>
       </div>
+      <div class="resultat" id="resultat-commune" role="status" aria-live="polite" hidden></div>
       <div class="grille-antennes replie" id="grille-antennes">
-        <article class="antenne">
+        <article class="antenne" data-code="18">
           <h4>Arnay-le-Duc</h4>
           <p class="asso">ADMR Arnay le Duc</p>
           <p class="adr">7 rue Président Carnot</p>
@@ -265,7 +274,7 @@
             <a href="mailto:arnayleduc@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Arnay-le-Duc"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="11">
           <h4>Auxonne</h4>
           <p class="asso">ADMR Genlis/Auxonne</p>
           <p class="adr">60 rue Masson</p>
@@ -275,7 +284,7 @@
             <a href="mailto:genlisauxonne@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Auxonne"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="19">
           <h4>Beaune</h4>
           <p class="asso">ADMR Sud Côte d'Or</p>
           <p class="adr">2b Avenue Roger Duchet</p>
@@ -285,7 +294,7 @@
             <a href="mailto:sudcotedor@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Beaune"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="1">
           <h4>Châtillon-sur-Seine</h4>
           <p class="asso">ADMR Pays Chatillonnais</p>
           <p class="adr">2 rue de la Libération</p>
@@ -295,7 +304,7 @@
             <a href="mailto:payschatillonnais@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Châtillon-sur-Seine"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="8">
           <h4>Chenôve</h4>
           <p class="asso">ADMR Dijon métropole</p>
           <p class="adr">60F avenue du 14 juillet</p>
@@ -305,7 +314,7 @@
             <a href="mailto:dijonmetropole@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Chenôve"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="12">
           <h4>Genlis</h4>
           <p class="asso">ADMR Genlis/Auxonne</p>
           <p class="adr">4 bis rue de la Gare</p>
@@ -315,7 +324,7 @@
             <a href="mailto:genlisauxonne@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Genlis"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="13">
           <h4>Gevrey-Chambertin</h4>
           <p class="asso">ADMR Gevrey/Nuits</p>
           <p class="adr">10 rue de Lattre de Tassigny</p>
@@ -325,7 +334,7 @@
             <a href="mailto:gevreynuits@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Gevrey-Chambertin"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="6">
           <h4>Is-sur-Tille</h4>
           <p class="asso">ADMR 3 Rivières</p>
           <p class="adr">16 place Général Leclerc</p>
@@ -335,7 +344,7 @@
             <a href="mailto:3rivieres@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Is-sur-Tille"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="2">
           <h4>Laignes</h4>
           <p class="asso">ADMR Laignes</p>
           <p class="adr">Grande Rue</p>
@@ -345,7 +354,7 @@
             <a href="mailto:laignes@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Laignes"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="16">
           <h4>Liernais</h4>
           <p class="asso">ADMR Liernais</p>
           <p class="adr">Place Martin dosse</p>
@@ -355,7 +364,7 @@
             <a href="mailto:liernais@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Liernais"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="7">
           <h4>Mirebeau-sur-Bèze</h4>
           <p class="asso">ADMR Mirebeau sur Bèze</p>
           <p class="adr">8 Place Général Viard</p>
@@ -365,7 +374,7 @@
             <a href="mailto:mirebeau@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Mirebeau-sur-Bèze"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="3">
           <h4>Montbard</h4>
           <p class="asso">ADMR Montbard/Semur</p>
           <p class="adr">3 bis Rue carnot</p>
@@ -375,7 +384,7 @@
             <a href="mailto:montbardsemur@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Montbard"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="14">
           <h4>Nuits-Saint-Georges</h4>
           <p class="asso">ADMR Gevrey/Nuits</p>
           <p class="adr">3 rue Jean Moulin</p>
@@ -385,7 +394,7 @@
             <a href="mailto:gevreynuits@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Nuits-Saint-Georges"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="9">
           <h4>Pontailler-sur-Saône</h4>
           <p class="asso">ADMR Pontailler sur Saône</p>
           <p class="adr">1 rue du 8 mai 1945</p>
@@ -395,7 +404,7 @@
             <a href="mailto:pontailler@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Pontailler-sur-Saône"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="15">
           <h4>Pouilly-en-Auxois</h4>
           <p class="asso">ADMR Pouilly en Auxois</p>
           <p class="adr">place Pierre et Marie Curie</p>
@@ -405,7 +414,7 @@
             <a href="mailto:pouilly@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Pouilly-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="20">
           <h4>Saint-Jean-de-Losne</h4>
           <p class="asso">ADMR St Jean de Losne</p>
           <p class="adr">19 allée du Bastion des Charmilles</p>
@@ -415,7 +424,7 @@
             <a href="mailto:stjean@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saint-Jean-de-Losne"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="5">
           <h4>Saint-Seine-l'Abbaye</h4>
           <p class="asso">ADMR St Seine l'Abbaye</p>
           <p class="adr">24 rue Carnot</p>
@@ -425,7 +434,7 @@
             <a href="mailto:stseine@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saint-Seine-l'Abbaye"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="17">
           <h4>Saulieu</h4>
           <p class="asso">ADMR Saulieu</p>
           <p class="adr">3 rue du Tour des Fossés</p>
@@ -435,7 +444,7 @@
             <a href="mailto:saulieu@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saulieu"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="3">
           <h4>Semur-en-Auxois</h4>
           <p class="asso">ADMR Montbard/Semur</p>
           <p class="adr">2ter Avenue de Ciney</p>
@@ -445,7 +454,7 @@
             <a href="mailto:montbardsemur@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Semur-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="21">
           <h4>Seurre</h4>
           <p class="asso">ADMR Seurre</p>
           <p class="adr">22 rue du faubourg Saint-Georges</p>
@@ -455,7 +464,7 @@
             <a href="mailto:seurre@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Seurre"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="4">
           <h4>Venarey-les-Laumes</h4>
           <p class="asso">ADMR Venarey les Laumes</p>
           <p class="adr">5 avenue Jean Jaurès</p>
@@ -465,7 +474,7 @@
             <a href="mailto:venarey@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Venarey-les-Laumes"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
           </div>
         </article>
-        <article class="antenne">
+        <article class="antenne" data-code="10">
           <h4>Vitteaux</h4>
           <p class="asso">ADMR Vitteaux</p>
           <p class="adr">21 rue Edmé Millot</p>
@@ -477,7 +486,7 @@
         </article>
       </div>
       <button class="voir-tout" type="button" id="voir-antennes">Voir les 22 antennes</button>
-      <p class="aucun" id="aucune-antenne">Aucune antenne à ce nom. Toutes les communes de Côte-d'Or sont couvertes&nbsp;: appelez l'antenne la plus proche ou <a href="#candidature">laissez-nous vos coordonnées</a>.</p>
+      <p class="aucun" id="aucune-antenne">Nous ne trouvons pas cette commune dans notre liste. Vérifiez l'orthographe, essayez votre code postal, ou <a href="#candidature">laissez-nous vos coordonnées</a>.</p>
     </div>
     <a class="chap-postuler" href="#candidature">Je postule <svg aria-hidden="true"><use href="#i-droite"/></svg></a>
   </section>
@@ -660,7 +669,7 @@
     </div>
     <div class="fade">
       <p class="faq-groupe">Qui sommes-nous&nbsp;?</p>
-      <details><summary>Combien de salariés travaillent à l'ADMR&nbsp;?</summary><div class="rep">Nous avons 800 salariés sur le département, et 94&nbsp;000 au niveau national.</div></details>
+      <details><summary>Combien de salariés travaillent à l'ADMR&nbsp;?</summary><div class="rep">Nous avons 950 salariés sur le département, et 94&nbsp;000 au niveau national.</div></details>
       <details><summary>Où intervenons-nous&nbsp;?</summary><div class="rep">On intervient sur tout le département de la Côte-d'Or. Nous sommes situés dans les villes suivantes&nbsp;:<ul class="villes"><li>Arnay-le-Duc</li><li>Auxonne</li><li>Beaune</li><li>Chenôve</li><li>Châtillon-sur-Seine</li><li>Genlis</li><li>Gevrey-Chambertin</li><li>Is-sur-Tille</li><li>Laignes</li><li>Liernais</li><li>Mirebeau-sur-Bèze</li><li>Montbard</li><li>Semur-en-Auxois</li><li>Nuits-Saint-Georges</li><li>Pontailler-sur-Saône</li><li>Pouilly-en-Auxois</li><li>Saint-Jean-de-Losne</li><li>Saint-Seine-l'Abbaye</li><li>Saulieu</li><li>Seurre</li><li>Venarey-les-Laumes</li><li>Vitteaux</li></ul></div></details>
       <details><summary>Quels services proposons-nous&nbsp;?</summary><div class="rep">Tous les services à la personne comme&nbsp;: entretien du logement et du linge, aide aux courses, aide au repas, aide au lever et au coucher, aide à la toilette, livraison de repas à domicile, téléassistance, SSIAD…</div></details>
       <details><summary>Quand a été créée la première association&nbsp;?</summary><div class="rep">L'ADMR a été créée en 1945.</div></details>
@@ -701,6 +710,7 @@
 </div>
 <iframe name="fs-frame" class="cache-iframe" title="Traitement du formulaire" aria-hidden="true" tabindex="-1"></iframe>
 
+<script src="js/communes-admr21.js"></script>
 <script src="js/recrutement-journee.js"></script>
 </body>
 </html>

@@ -197,6 +197,23 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .aucun{display:none;margin:10px 0 0;font-weight:600}
 .aucun.visible{display:block}
 
+
+/* recherche par commune : suggestions + résultat */
+.recherche-zone{position:relative;min-width:min(360px,100%)}
+.recherche-zone .recherche{min-width:0;width:100%}
+.effacer{flex:none;width:28px;height:28px;border-radius:50%;border:0;background:var(--bleu-pale);color:var(--bleu-texte);font-size:1.2rem;line-height:1;cursor:pointer}
+.suggestions{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:20;list-style:none;margin:0;padding:6px;background:#fff;border-radius:20px;box-shadow:0 22px 50px rgba(1,60,80,.18);max-height:360px;overflow-y:auto}
+.suggestions li{display:flex;flex-direction:column;gap:1px;padding:10px 14px;border-radius:14px;cursor:pointer}
+.suggestions li:hover,.suggestions li[aria-selected="true"]{background:var(--bleu-pale)}
+.s-nom{font-weight:700;color:var(--encre)}
+.s-nom small{font-weight:500;color:var(--gris);font-size:.82rem;margin-left:4px}
+.s-ant{font-size:.82rem;color:var(--bleu-texte)}
+.resultat{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--bleu-texte);color:#fff;border-radius:20px;padding:16px 20px;margin:0 0 14px}
+.resultat[hidden]{display:none}
+.resultat > .ico{width:24px;height:24px}
+.resultat p{margin:0;flex:1;min-width:220px;line-height:1.45}
+.voir-toutes{font:inherit;font-weight:700;font-size:.85rem;color:var(--bleu-texte);background:#fff;border:0;border-radius:999px;padding:9px 16px;cursor:pointer}
+
 /* ---------- 16 h 30 : repères planning ---------- */
 .reperes{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
 .reperes span{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:9px 16px;font-size:.92rem;font-weight:600;color:var(--encre)}
