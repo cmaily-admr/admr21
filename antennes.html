@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Trouver mon antenne ADMR — Côte-d'Or</title>
+<!--
+  =========================================================
+  ADMR Côte-d'Or — Module « Trouver mon antenne » (à intégrer en iframe)
+
+  Adresse : https://admr-21.fr/antennes
+  Option  : https://admr-21.fr/antennes?referentes  → affiche aussi les
+            référentes vie associative (pour une page bénévolat)
+
+  Code à coller sur le site officiel :
+  <iframe src="https://admr-21.fr/antennes" id="admr-antennes"
+          title="Trouver mon antenne ADMR en Côte-d'Or"
+          style="width:100%;border:0;height:900px" loading="lazy"></iframe>
+  <script>
+  window.addEventListener('message', function (e) {
+    if (e.origin !== 'https://admr-21.fr' || !e.data || e.data.type !== 'admr-antennes-hauteur') return;
+    document.getElementById('admr-antennes').style.height = e.data.hauteur + 'px';
+  });
+  </script>
+
+  Données : js/communes-admr21.js (communes) + les cartes ci-dessous.
+  Outil   : js/recherche-antennes.js (le même que sur recrutement et bénévolat).
+  =========================================================
+-->
+<style>
+@font-face{font-family:'Inter';src:url('fonts/Inter.ttf');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Bricolage';src:url('fonts/Bricolage.ttf');font-weight:200 800;font-display:swap}
+:root{--vert:#017734;--vert-fonce:#014a20;--vert-pale:#ebf4ef;--bleu-texte:#016E8A;--bleu-pale:#eaf5f8;--jaune:#F9B004;--gris:#4B4A49;--encre:#21201e;--fond:#FAF8F3;--titre:'Bricolage',system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--gris);-webkit-font-smoothing:antialiased;padding:4px 4px 12px}
+a{color:inherit}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tete{margin:0 0 18px}
+.tete h2{font-family:var(--titre);font-weight:800;font-size:clamp(1.35rem,3.2vw,1.9rem);letter-spacing:-.025em;color:var(--encre);margin:0 0 4px;line-height:1.15}
+.tete p{margin:0}
+.lien-carte{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:.9rem;font-weight:700;color:var(--vert);text-decoration:none;border-bottom:1.5px solid rgba(1,119,52,.3);padding-bottom:1px}
+.lien-carte:hover{border-color:var(--vert)}
+.lien-carte .ico{width:16px;height:16px}
+.recherche-zone{position:relative;max-width:520px;margin:0 0 16px}
+.recherche{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid rgba(1,110,138,.3);border-radius:999px;padding:12px 18px;color:var(--bleu-texte)}
+.recherche:focus-within{border-color:var(--bleu-texte);box-shadow:0 0 0 3px rgba(1,110,138,.12)}
+.recherche input{border:0;outline:0;font:inherit;font-size:1rem;width:100%;background:transparent;color:var(--encre)}
+.effacer{flex:none;width:28px;height:28px;border-radius:50%;border:0;background:var(--bleu-pale);color:var(--bleu-texte);font-size:1.2rem;line-height:1;cursor:pointer}
+.suggestions{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:20;list-style:none;margin:0;padding:6px;background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(1,60,80,.18);max-height:340px;overflow-y:auto}
+.suggestions li{display:flex;flex-direction:column;gap:1px;padding:10px 14px;border-radius:12px;cursor:pointer}
+.suggestions li:hover,.suggestions li[aria-selected="true"]{background:var(--bleu-pale)}
+.s-nom{font-weight:700;color:var(--encre)}
+.s-nom small{font-weight:500;color:var(--gris);font-size:.82rem;margin-left:4px}
+.s-ant{font-size:.82rem;color:var(--bleu-texte)}
+.resultat{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--bleu-texte);color:#fff;border-radius:18px;padding:14px 18px;margin:0 0 14px}
+.resultat[hidden]{display:none}
+.resultat > .ico{width:22px;height:22px}
+.resultat p{margin:0;flex:1;min-width:200px;line-height:1.45}
+.resultat a{color:#fff}
+.voir-toutes{font:inherit;font-weight:700;font-size:.85rem;color:var(--bleu-texte);background:#fff;border:0;border-radius:999px;padding:9px 16px;cursor:pointer}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.antenne{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:18px;padding:16px 16px 12px;display:flex;flex-direction:column}
+.antenne h4{margin:0;font-family:var(--titre);font-weight:800;font-size:1.08rem;letter-spacing:-.02em;color:var(--encre);line-height:1.15}
+.antenne .asso{font-size:.8rem;color:var(--bleu-texte);font-weight:600;margin:2px 0 8px}
+.antenne .adr{font-size:.88rem;margin:0 0 6px;line-height:1.4}
+.antenne .tel{display:inline-flex;align-items:center;gap:8px;font-family:var(--titre);font-weight:800;font-size:1.05rem;color:var(--encre);text-decoration:none;margin:0 0 10px}
+.antenne .tel .ico{width:16px;height:16px;color:var(--bleu-texte)}
+.antenne .liens{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.antenne .liens a{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;text-decoration:none;color:var(--bleu-texte);background:var(--bleu-pale);border-radius:999px;padding:7px 12px}
+.antenne .liens a:hover{background:var(--bleu-texte);color:#fff}
+.antenne .liens .ico{width:15px;height:15px}
+.ref-ant{display:none;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 10px;margin:0 0 6px;padding:7px 10px 7px 12px;border-radius:12px;background:var(--fond);border-left:4px solid var(--z);font-size:.82rem;line-height:1.3}
+.avec-referentes .ref-ant{display:flex}
+.avec-referentes .ref-ant:last-of-type{margin-bottom:12px}
+.ref-ant b,.ref-ant a{color:var(--encre)}
+.ref-ant a{font-weight:800;text-decoration:none;white-space:nowrap}
+.aucun{display:none;margin:10px 0 0;font-weight:600}
+.aucun.visible{display:block}
+.voir-tout{display:none;margin:14px auto 0;font:inherit;font-weight:700;font-size:.92rem;color:var(--bleu-texte);background:#fff;border:1.5px solid rgba(1,110,138,.3);border-radius:999px;padding:11px 20px;cursor:pointer}
+@media (max-width:560px){
+  .grille.replie .antenne:nth-child(n+7){display:none}
+  .grille.replie ~ .voir-tout{display:block}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-loupe" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8 9.6a16 16 0 0 0 6 6l1.02-1.02a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.9z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+</defs></svg>
+
+<main data-recherche-antennes>
+  <div class="tete">
+    <h2>Trouvez votre antenne ADMR</h2>
+    <p>Tapez votre commune ou votre code postal&nbsp;: on vous indique l'antenne qui intervient chez vous.</p>
+    <a class="lien-carte" href="https://carte.admr-21.fr" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Voir aussi la carte interactive de nos services</a>
+  </div>
+  <div class="recherche-zone">
+    <label class="recherche"><svg class="ico" aria-hidden="true"><use href="#i-loupe"/></svg>
+      <input type="text" class="ra-input" placeholder="Votre commune ou code postal…" autocomplete="off" spellcheck="false" aria-label="Rechercher votre commune ou votre code postal">
+      <button class="effacer ra-effacer" type="button" aria-label="Effacer la recherche" hidden>×</button>
+    </label>
+    <ul class="suggestions ra-suggestions" aria-label="Communes correspondantes" hidden></ul>
+  </div>
+  <div class="resultat ra-resultat" role="status" aria-live="polite" hidden></div>
+  <div class="grille ra-grille replie">
+      <article class="antenne" data-code="18" data-referentes="Christelle|06 30 90 53 10">
+          <h4>Arnay-le-Duc</h4>
+          <p class="asso">ADMR Arnay le Duc</p>
+          <p class="adr">7 rue Président Carnot</p>
+          <a class="tel" href="tel:+33380848739"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 84 87 39</a>
+          <p class="ref-ant" style="--z:#F18700"><span>Référente bénévolat&nbsp;: <b>Christelle</b></span><a href="tel:+33630905310">06 30 90 53 10</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CXEPtCFTbEXzEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Arnay-le-Duc"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:arnayleduc@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Arnay-le-Duc"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="11" data-referentes="Marine|06 84 05 89 03">
+          <h4>Auxonne</h4>
+          <p class="asso">ADMR Genlis/Auxonne</p>
+          <p class="adr">60 rue Masson</p>
+          <a class="tel" href="tel:+33380655334"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 65 53 34</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CUQdTgYT5HFoEBM/" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Auxonne"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:genlisauxonne@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Auxonne"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="19" data-referentes="Christelle|06 30 90 53 10">
+          <h4>Beaune</h4>
+          <p class="asso">ADMR Sud Côte d'Or</p>
+          <p class="adr">2b Avenue Roger Duchet</p>
+          <a class="tel" href="tel:+33380263710"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 26 37 10</a>
+          <p class="ref-ant" style="--z:#F18700"><span>Référente bénévolat&nbsp;: <b>Christelle</b></span><a href="tel:+33630905310">06 30 90 53 10</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CdXdV2lmMwAlEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Beaune"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:sudcotedor@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Beaune"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="1" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Châtillon-sur-Seine</h4>
+          <p class="asso">ADMR Pays Chatillonnais</p>
+          <p class="adr">2 rue de la Libération</p>
+          <a class="tel" href="tel:+33380910916"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 91 09 16</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CX4AGwUxFAo4EBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Châtillon-sur-Seine"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:payschatillonnais@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Châtillon-sur-Seine"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="8" data-referentes="Alexandra|06 24 20 33 92;Marine|06 84 05 89 03">
+          <h4>Chenôve</h4>
+          <p class="asso">ADMR Dijon métropole</p>
+          <p class="adr">60F avenue du 14 juillet</p>
+          <a class="tel" href="tel:+33380516981"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 51 69 81</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CW8_mLjhV0mSEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Chenôve"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:dijonmetropole@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Chenôve"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="12" data-referentes="Marine|06 84 05 89 03">
+          <h4>Genlis</h4>
+          <p class="asso">ADMR Genlis/Auxonne</p>
+          <p class="adr">4 bis rue de la Gare</p>
+          <a class="tel" href="tel:+33380479536"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 47 95 36</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CQJfh7SRFZIREBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Genlis"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:genlisauxonne@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Genlis"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="13" data-referentes="Marine|06 84 05 89 03">
+          <h4>Gevrey-Chambertin</h4>
+          <p class="asso">ADMR Gevrey/Nuits</p>
+          <p class="adr">10 rue de Lattre de Tassigny</p>
+          <a class="tel" href="tel:+33380397582"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 39 75 82</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CYSeHBEh1V6aEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Gevrey-Chambertin"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:gevreynuits@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Gevrey-Chambertin"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="6" data-referentes="Marine|06 84 05 89 03">
+          <h4>Is-sur-Tille</h4>
+          <p class="asso">ADMR 3 Rivières</p>
+          <p class="adr">16 place Général Leclerc</p>
+          <a class="tel" href="tel:+33380855112"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 85 51 12</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CT5Up-LU8-ThEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Is-sur-Tille"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:3rivieres@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Is-sur-Tille"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="2" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Laignes</h4>
+          <p class="asso">ADMR Laignes</p>
+          <p class="adr">Grande Rue</p>
+          <a class="tel" href="tel:+33380814873"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 81 48 73</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CZNzk7oIOVDEEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Laignes"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:laignes@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Laignes"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="16" data-referentes="Christelle|06 30 90 53 10">
+          <h4>Liernais</h4>
+          <p class="asso">ADMR Liernais</p>
+          <p class="adr">Place Martin dosse</p>
+          <a class="tel" href="tel:+33380844956"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 84 49 56</a>
+          <p class="ref-ant" style="--z:#F18700"><span>Référente bénévolat&nbsp;: <b>Christelle</b></span><a href="tel:+33630905310">06 30 90 53 10</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CWze-0f1SzHBEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Liernais"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:liernais@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Liernais"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="7" data-referentes="Marine|06 84 05 89 03">
+          <h4>Mirebeau-sur-Bèze</h4>
+          <p class="asso">ADMR Mirebeau sur Bèze</p>
+          <p class="adr">8 Place Général Viard</p>
+          <a class="tel" href="tel:+33380365774"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 36 57 74</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/Cej_oTkPU3vxEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Mirebeau-sur-Bèze"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:mirebeau@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Mirebeau-sur-Bèze"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="3" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Montbard</h4>
+          <p class="asso">ADMR Montbard/Semur</p>
+          <p class="adr">3 bis Rue carnot</p>
+          <a class="tel" href="tel:+33380963370"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 96 33 70</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CXC4ZtYx4STdEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Montbard"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:montbardsemur@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Montbard"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="14" data-referentes="Marine|06 84 05 89 03">
+          <h4>Nuits-Saint-Georges</h4>
+          <p class="asso">ADMR Gevrey/Nuits</p>
+          <p class="adr">3 rue Jean Moulin</p>
+          <a class="tel" href="tel:+33380613730"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 61 37 30</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CVUdz5qb3j4fEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Nuits-Saint-Georges"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:gevreynuits@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Nuits-Saint-Georges"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="9" data-referentes="Marine|06 84 05 89 03">
+          <h4>Pontailler-sur-Saône</h4>
+          <p class="asso">ADMR Pontailler sur Saône</p>
+          <p class="adr">1 rue du 8 mai 1945</p>
+          <a class="tel" href="tel:+33380361976"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 36 19 76</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/Cfr61kOM2Eg3EBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Pontailler-sur-Saône"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:pontailler@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Pontailler-sur-Saône"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="15" data-referentes="Christelle|06 30 90 53 10">
+          <h4>Pouilly-en-Auxois</h4>
+          <p class="asso">ADMR Pouilly en Auxois</p>
+          <p class="adr">place Pierre et Marie Curie</p>
+          <a class="tel" href="tel:+33380906476"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 90 64 76</a>
+          <p class="ref-ant" style="--z:#F18700"><span>Référente bénévolat&nbsp;: <b>Christelle</b></span><a href="tel:+33630905310">06 30 90 53 10</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CYK6SktusT-bEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Pouilly-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:pouilly@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Pouilly-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="20" data-referentes="Marine|06 84 05 89 03">
+          <h4>Saint-Jean-de-Losne</h4>
+          <p class="asso">ADMR St Jean de Losne</p>
+          <p class="adr">19 allée du Bastion des Charmilles</p>
+          <a class="tel" href="tel:+33380290143"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 29 01 43</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CeHNjnEi5-OlEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Saint-Jean-de-Losne"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:stjean@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saint-Jean-de-Losne"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="5" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Saint-Seine-l'Abbaye</h4>
+          <p class="asso">ADMR St Seine l'Abbaye</p>
+          <p class="adr">24 rue Carnot</p>
+          <a class="tel" href="tel:+33380351219"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 35 12 19</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CbF12PRSBhZiEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Saint-Seine-l'Abbaye"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:stseine@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saint-Seine-l'Abbaye"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="17" data-referentes="Christelle|06 30 90 53 10">
+          <h4>Saulieu</h4>
+          <p class="asso">ADMR Saulieu</p>
+          <p class="adr">3 rue du Tour des Fossés</p>
+          <a class="tel" href="tel:+33380642168"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 64 21 68</a>
+          <p class="ref-ant" style="--z:#F18700"><span>Référente bénévolat&nbsp;: <b>Christelle</b></span><a href="tel:+33630905310">06 30 90 53 10</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CSSS-Ir8uAOPEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Saulieu"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:saulieu@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Saulieu"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="3" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Semur-en-Auxois</h4>
+          <p class="asso">ADMR Montbard/Semur</p>
+          <p class="adr">2ter Avenue de Ciney</p>
+          <a class="tel" href="tel:+33380915822"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 91 58 22</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CZvf5xNQdZkEEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Semur-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:montbardsemur@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Semur-en-Auxois"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="21" data-referentes="Marine|06 84 05 89 03">
+          <h4>Seurre</h4>
+          <p class="asso">ADMR Seurre</p>
+          <p class="adr">22 rue du faubourg Saint-Georges</p>
+          <a class="tel" href="tel:+33380204958"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 20 49 58</a>
+          <p class="ref-ant" style="--z:#8aa30a"><span>Référente bénévolat&nbsp;: <b>Marine</b></span><a href="tel:+33684058903">06 84 05 89 03</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CSaBarrNDZBXEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Seurre"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:seurre@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Seurre"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="4" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Venarey-les-Laumes</h4>
+          <p class="asso">ADMR Venarey les Laumes</p>
+          <p class="adr">5 avenue Jean Jaurès</p>
+          <a class="tel" href="tel:+33380891793"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 89 17 93</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CfKl-LgRH8DlEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Venarey-les-Laumes"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:venarey@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Venarey-les-Laumes"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+      <article class="antenne" data-code="10" data-referentes="Alexandra|06 24 20 33 92">
+          <h4>Vitteaux</h4>
+          <p class="asso">ADMR Vitteaux</p>
+          <p class="adr">21 rue Edmé Millot</p>
+          <a class="tel" href="tel:+33380496980"><svg class="ico" aria-hidden="true"><use href="#i-tel"/></svg>03 80 49 69 80</a>
+          <p class="ref-ant" style="--z:#0184A5"><span>Référente bénévolat&nbsp;: <b>Alexandra</b></span><a href="tel:+33624203392">06 24 20 33 92</a></p>
+          <div class="liens">
+            <a href="https://g.page/r/CRJFQPx9Bw9OEBM" target="_blank" rel="noopener" aria-label="Itinéraire vers l'antenne de Vitteaux"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>Itinéraire</a>
+            <a href="mailto:vitteaux@admr21.fr?subject=Contact%20via%20le%20site%20ADMR%2021" aria-label="Écrire à l'antenne de Vitteaux"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Mail</a>
+          </div>
+        </article>
+  </div>
+  <button class="voir-tout ra-voir-tout" type="button">Voir les 22 antennes</button>
+  <p class="aucun ra-aucun">Nous ne trouvons pas cette commune. Vérifiez l'orthographe ou essayez votre code postal.</p>
+</main>
+
+<script>
+/* Option ?referentes : affiche les référentes vie associative (sinon on les retire du résultat) */
+(function () {
+  if (/[?&]referentes\b/.test(location.search)) { document.body.classList.add('avec-referentes'); return; }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-referentes]'), function (c) { c.removeAttribute('data-referentes'); });
+})();
+/* Liens : ouvrir hors de l'iframe */
+Array.prototype.forEach.call(document.querySelectorAll('a[href^="http"]'), function (a) { a.target = '_blank'; a.rel = 'noopener'; });
+</script>
+<script src="js/communes-admr21.js"></script>
+<script src="js/recherche-antennes.js"></script>
+<script>
+/* Hauteur automatique : envoie la hauteur de la page au site qui l'intègre */
+(function () {
+  if (window.parent === window) return;
+  var derniere = 0;
+  function envoyer() {
+    var h = document.body.offsetHeight;
+    var s = document.querySelector('.ra-suggestions');
+    if (s && !s.hidden) h = Math.max(h, s.getBoundingClientRect().bottom + window.scrollY + 16);
+    h = Math.ceil(h);
+    if (h !== derniere) { derniere = h; window.parent.postMessage({ type: 'admr-antennes-hauteur', hauteur: h }, '*'); }
+  }
+  new MutationObserver(envoyer).observe(document.body, { subtree: true, childList: true, attributes: true });
+  window.addEventListener('resize', envoyer);
+  window.addEventListener('load', envoyer);
+  document.addEventListener('input', function () { setTimeout(envoyer, 30); });
+  envoyer();
+})();
+</script>
+</body>
+</html>
