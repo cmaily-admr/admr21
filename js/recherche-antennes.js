@@ -15,7 +15,13 @@
      <p class="ra-aucun">                    ← message « introuvable »
    </div>
 
-   Sur chaque carte .antenne :
+   Réglages facultatifs sur le conteneur [data-recherche-antennes] :
+     data-carte=".asso-carte"   sélecteur des cartes (défaut : .antenne)
+     data-nom=".asso-nom"       élément qui porte le nom (défaut : h4)
+     data-mot="association"     mot employé dans le résultat (défaut : antenne)
+
+   Sur chaque carte :
+     data-ville="Beaune"        (facultatif : nom affiché dans le résultat)
      data-code="12"                (obligatoire, code secteur de la carte)
      data-referentes="Marine|06 84 05 89 03"   (facultatif : ajoute la ou les
        référentes au résultat ; plusieurs séparées par « ; »)
@@ -60,16 +66,21 @@
     var aucune = zone.querySelector('.ra-aucun');
     if (!champ || !grille) return;
 
-    var cartes = Array.prototype.slice.call(grille.querySelectorAll('.antenne'));
+    var selCarte = zone.dataset.carte || '.antenne';
+    var selNom = zone.dataset.nom || 'h4';
+    var mot = zone.dataset.mot || 'antenne';
+    var cartes = Array.prototype.slice.call(grille.querySelectorAll(selCarte));
     var parCode = {};
     cartes.forEach(function (c) {
       c._texte = norm(c.textContent);
       (parCode[c.dataset.code] = parCode[c.dataset.code] || []).push(c);
     });
-    function villes(code) { return (parCode[code] || []).map(function (c) { return c.querySelector('h4').textContent; }); }
+    function villes(code) {
+      return (parCode[code] || []).map(function (c) { return c.dataset.ville || (c.querySelector(selNom) || c).textContent.trim(); });
+    }
     function libelle(code) {
       var v = villes(code);
-      return v.length > 1 ? 'antennes de ' + v.join(' et de ') : 'antenne de ' + (v[0] || '?');
+      return v.length > 1 ? mot + 's de ' + v.join(' et de ') : mot + ' de ' + (v[0] || '?');
     }
 
     liste.id = liste.id || 'ra-suggestions-' + numero;
@@ -85,6 +96,7 @@
       cartes.forEach(function (c) {
         var ok = !codes || codes[c.dataset.code] || (qTexte && c._texte.indexOf(qTexte) !== -1);
         c.hidden = !ok;
+        c.style.display = ok ? '' : 'none';
         if (ok) n++;
       });
       if (aucune) aucune.classList.toggle('visible', n === 0);
@@ -140,7 +152,7 @@
             return '<b>' + echapper(r.nom) + '</b>' + (r.tel ? ', <a href="tel:+33' + r.tel.replace(/\D/g, '').replace(/^0/, '') + '">' + echapper(r.tel) + '</a>' : '');
           }).join(' ou ') + '.';
       }
-      html += '</p><button type="button" class="voir-toutes">Voir toutes les antennes</button>';
+      html += '</p><button type="button" class="voir-toutes">Voir toutes les ' + mot + 's</button>';
       resultat.innerHTML = html;
       resultat.hidden = false;
       resultat.querySelector('.voir-toutes').addEventListener('click', reinitialiser);

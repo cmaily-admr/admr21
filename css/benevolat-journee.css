@@ -46,16 +46,19 @@
 .c3 .reperes span::before{background:var(--orange)}
 
 /* ---------- témoignages ---------- */
-.temoins{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}
-.temoin-carte{position:relative;background:#fff;border-radius:6px 24px 24px 24px;padding:30px 28px 26px;box-shadow:0 14px 30px rgba(1,60,80,.07);margin:0}
+.temoins-intro{margin:-30px 0 36px;font-size:1.08rem;max-width:36em}
+.temoins{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+.temoin-carte{position:relative;background:#fff;border-radius:6px 24px 24px 24px;padding:30px 26px 26px;box-shadow:0 14px 30px rgba(120,90,10,.08);margin:10px 0 0;display:flex;flex-direction:column}
 .temoin-carte::before{content:"";position:absolute;left:24px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t)}
-.temoin-carte:nth-child(odd){transform:rotate(-.6deg)}
-.temoin-carte:nth-child(even){transform:rotate(.5deg)}
-.temoin-carte blockquote{margin:0 0 20px;font-family:var(--plume);font-style:italic;font-size:1.38rem;line-height:1.28;color:var(--encre)}
-.temoin-carte figcaption{display:flex;align-items:center;gap:12px}
+.temoin-carte:nth-child(3n+1){transform:rotate(-.7deg)}
+.temoin-carte:nth-child(3n+2){transform:rotate(.5deg)}
+.temoin-carte figcaption{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .initiale{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--t);color:#fff;font-family:var(--titre);font-weight:800;font-size:1.2rem;flex:none}
-.temoin-carte figcaption b{display:block;color:var(--encre)}
-.temoin-carte figcaption span{font-size:.85rem}
+.temoin-carte figcaption b{display:block;color:var(--encre);font-size:1.02rem}
+.temoin-carte figcaption div span{display:block;font-size:.8rem;line-height:1.35}
+.temoin-carte blockquote{margin:0 0 18px;font-family:var(--plume);font-style:italic;font-size:1.3rem;line-height:1.28;color:var(--encre)}
+.temoin-cite{margin:0;padding-top:16px;border-top:1px dashed rgba(0,0,0,.14);font-size:.9rem;line-height:1.45}
+.temoin-cite strong{color:var(--vert)}
 
 /* ---------- missions près de chez vous ---------- */
 .widget{background:#fff;border-radius:24px;padding:18px;box-shadow:0 18px 40px rgba(20,60,40,.07);margin-top:10px}
@@ -101,6 +104,7 @@
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .duo,.referentes,.engager-grille,.temoins,.groupes{grid-template-columns:1fr;gap:28px}
+  .temoins-intro{margin-top:-20px}
   .duo.inverse .duo-media{order:0}
   .resume-grille{grid-template-columns:1fr 1fr}
   .groupes,.referentes{margin-top:50px}
