@@ -30,7 +30,9 @@ function json(data, maxAge) {
 
 export async function onRequestGet({ env, request, waitUntil }) {
   const cache = caches.default;
-  const cleCache = new Request(new URL('/api/actus', request.url).toString(), { method: 'GET' });
+  // VERSION_CACHE : à augmenter pour ignorer une ancienne réponse gardée en cache
+  const VERSION_CACHE = 2;
+  const cleCache = new Request(new URL('/api/actus?cache=' + VERSION_CACHE, request.url).toString(), { method: 'GET' });
   const enCache = await cache.match(cleCache);
   if (enCache) return enCache;
 
