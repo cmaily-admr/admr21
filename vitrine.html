@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>L'ADMR de Côte-d'Or en bref</title>
+<!--
+  =========================================================
+  ADMR Côte-d'Or — Module « vitrine » pour la page d'accueil du site officiel
+  Chiffres clés · Avis de nos bénéficiaires · Actualités Facebook
+
+  Adresse : https://admr-21.fr/vitrine
+
+  Code à coller sur le site officiel :
+  <iframe src="https://admr-21.fr/vitrine" id="admr-vitrine"
+          title="L'ADMR de Côte-d'Or : chiffres, avis et actualités"
+          style="width:100%;border:0;height:1500px" loading="lazy"></iframe>
+  <script>
+  window.addEventListener('message', function (e) {
+    if (e.origin !== 'https://admr-21.fr' || !e.data || e.data.type !== 'admr-vitrine-hauteur') return;
+    document.getElementById('admr-vitrine').style.height = e.data.hauteur + 'px';
+  });
+  </script>
+
+  Pour modifier :
+   - les chiffres : section « CHIFFRES » ci-dessous (attribut data-cible = nombre affiché) ;
+   - les avis : section « AVIS » (une <figure> par avis) ;
+   - les actualités : rien à faire, elles viennent de la page Facebook
+     (fichier functions/api/actus.js, réglages dans Cloudflare).
+  =========================================================
+-->
+<style>
+@font-face{font-family:'Inter';src:url('fonts/Inter.ttf');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Bricolage';src:url('fonts/Bricolage.ttf');font-weight:200 800;font-display:swap}
+@font-face{font-family:'Instrument';src:url('fonts/InstrumentSerif-Italic.ttf');font-style:italic;font-display:swap}
+:root{
+  --vert:#017734;--vert-fonce:#014a20;--vert-pale:#ebf4ef;--lime:#AFCA11;--lime-pale:#f6f9e6;
+  --orange:#F18700;--jaune:#F9B004;--bleu:#0184A5;--violet:#7F2082;
+  --gris:#4B4A49;--encre:#21201e;--fond:#FAF8F3;
+  --titre:'Bricolage',system-ui,sans-serif;--plume:'Instrument',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--gris);-webkit-font-smoothing:antialiased;padding:8px 16px 24px}
+main{max-width:1180px;margin:0 auto}
+a{color:inherit}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+section{margin:0 0 64px}
+section:last-child{margin-bottom:0}
+.sur{display:block;text-align:center;font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--vert);margin:0 0 8px}
+h2{font-family:var(--titre);font-weight:800;font-size:clamp(1.6rem,3.6vw,2.4rem);letter-spacing:-.03em;line-height:1.08;color:var(--encre);text-align:center;margin:0 0 30px}
+h2 em{font-family:var(--plume);font-weight:400;font-style:italic;color:var(--vert);letter-spacing:-.01em;font-size:1.08em;position:relative;white-space:nowrap}
+h2 em::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.02em;height:.14em;border-radius:99px;background:var(--lime);opacity:.75;z-index:-1}
+h2 em{z-index:0}
+
+/* ---------- chiffres ---------- */
+.chiffres{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.chiffre{position:relative;background:#fff;border-radius:22px;padding:26px 20px 22px;text-align:center;box-shadow:0 10px 26px rgba(1,74,32,.06);border:1px solid rgba(1,74,32,.07);overflow:hidden}
+.chiffre::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--c)}
+.chiffre b{display:block;font-family:var(--titre);font-weight:800;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1;letter-spacing:-.05em;color:var(--vert-fonce);font-variation-settings:"wdth" 85}
+.chiffre span{display:block;margin-top:8px;font-weight:600;color:var(--encre);line-height:1.3}
+.chiffre small{display:block;font-size:.8rem;color:var(--gris);margin-top:2px}
+
+/* ---------- avis ---------- */
+.avis-cadre{position:relative}
+.avis{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:14px 4px 22px;scrollbar-width:none}
+.avis::-webkit-scrollbar{display:none}
+.mot{flex:0 0 calc((100% - 40px)/3);scroll-snap-align:start;position:relative;background:#fff;border-radius:6px 22px 22px 22px;padding:28px 24px 22px;box-shadow:0 12px 28px rgba(1,74,32,.08);margin:0;display:flex;flex-direction:column}
+.mot::before{content:"";position:absolute;left:22px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t)}
+.mot blockquote{margin:0 0 16px;font-family:var(--plume);font-style:italic;font-size:1.4rem;line-height:1.24;color:var(--encre);flex:1}
+.mot figcaption{font-weight:700;font-size:.86rem;color:var(--encre)}
+.mot figcaption span{display:block;font-weight:500;color:var(--gris);font-size:.8rem}
+.fleches{display:flex;justify-content:center;gap:10px;margin-top:6px}
+.fleches button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lime);background:#fff;color:var(--vert-fonce);cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.fleches button:hover{background:var(--lime-pale)}
+.fleches svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.note-avis{text-align:center;font-size:.8rem;color:#7a786f;margin:12px 0 0}
+
+/* ---------- actualités ---------- */
+.actus{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.actu{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 10px 26px rgba(1,74,32,.07);border:1px solid rgba(1,74,32,.07);transition:transform .25s,box-shadow .25s}
+.actu:hover,.actu:focus-visible{transform:translateY(-4px);box-shadow:0 18px 36px rgba(1,74,32,.12)}
+.actu:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.actu-img{aspect-ratio:4/3;background:var(--lime-pale);overflow:hidden}
+.actu-img img{width:100%;height:100%;object-fit:cover;display:block}
+.actu-img.sans{display:grid;place-items:center;color:var(--vert)}
+.actu-img.sans svg{width:44px;height:44px;opacity:.5;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.actu-txt{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.actu-date{font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--vert);margin:0 0 8px}
+.actu-txt p{margin:0 0 14px;color:var(--encre);line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.actu-lire{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.88rem;color:var(--vert-fonce)}
+.actu.squelette{min-height:340px;background:linear-gradient(100deg,#fff 40%,#f3f5ee 50%,#fff 60%) 0 0/200% 100%;animation:brille 1.4s linear infinite}
+@keyframes brille{to{background-position:-200% 0}}
+.bouton-fb{display:flex;justify-content:center;margin-top:26px}
+.bouton-fb a{display:inline-flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:#fff;background:var(--vert-fonce);border-radius:999px;padding:13px 24px;transition:background .2s}
+.bouton-fb a:hover{background:var(--vert)}
+.bouton-fb svg{width:20px;height:20px;fill:currentColor}
+
+@media (max-width:900px){
+  .chiffres{grid-template-columns:repeat(2,1fr)}
+  .mot{flex-basis:calc((100% - 20px)/2)}
+  .actus{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  body{padding:8px 12px 20px}
+  section{margin-bottom:48px}
+  .chiffres{gap:10px}
+  .chiffre{padding:20px 12px 18px}
+  .mot{flex-basis:86%}
+  .mot blockquote{font-size:1.28rem}
+  .actus{grid-template-columns:1fr}
+  .actus .actu:nth-child(n+4){display:none}
+}
+@media (prefers-reduced-motion:reduce){.avis{scroll-behavior:auto}.actu,.actu.squelette{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-g" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-d" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-fl" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></symbol>
+</defs></svg>
+
+<main>
+
+  <!-- ================= CHIFFRES ================= -->
+  <section aria-labelledby="t-chiffres">
+    <span class="sur">L'ADMR de Côte-d'Or</span>
+    <h2 id="t-chiffres">Près de chez vous, <em>depuis toujours.</em></h2>
+    <div class="chiffres">
+      <div class="chiffre" style="--c:var(--vert)"><b data-cible="800">800</b><span>salariés</span><small>formés et accompagnés</small></div>
+      <div class="chiffre" style="--c:var(--jaune)"><b data-cible="215">215</b><span>bénévoles</span><small>engagés dans nos communes</small></div>
+      <div class="chiffre" style="--c:var(--orange)"><b data-cible="22">22</b><span>antennes</span><small>partout en Côte-d'Or</small></div>
+      <div class="chiffre" style="--c:var(--bleu)"><b data-cible="50" data-suffixe="&nbsp;%">50&nbsp;%</b><span>de crédit d'impôt</span><small>sur nos services à domicile</small></div>
+    </div>
+  </section>
+
+  <!-- ================= AVIS ================= -->
+  <section aria-labelledby="t-avis">
+    <span class="sur">Ils nous font confiance</span>
+    <h2 id="t-avis">Ce sont eux qui <em>en parlent le mieux.</em></h2>
+    <div class="avis-cadre">
+      <div class="avis" id="avis" tabindex="0" aria-label="Avis de nos bénéficiaires (faire défiler)">
+        <figure class="mot" style="--t:var(--jaune)"><blockquote>«&nbsp;C'est comme un rayon de soleil dans notre vie, même les jours de pluie.&nbsp;»</blockquote><figcaption>Une famille<span>Pontailler-sur-Saône</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--vert)"><blockquote>«&nbsp;Si nous devions lui donner une note, ce serait 22 sur 20.&nbsp;»</blockquote><figcaption>Une famille<span>Mirebeau-sur-Bèze</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--violet)"><blockquote>«&nbsp;Je ne voudrais pas l'échanger. J'ai déjà peur du jour où elle prendra sa retraite.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Gevrey-Chambertin – Nuits-Saint-Georges</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--bleu)"><blockquote>«&nbsp;Elles sont patientes et pleines de gentillesse. Grâce à elles, mes parents vivent encore tranquillement chez eux. Un immense merci.&nbsp;»</blockquote><figcaption>Une famille<span>Montbard – Semur</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--orange)"><blockquote>«&nbsp;Elle m'a apporté de bons conseils et la joie de vivre. Elle me remonte le moral.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Arnay-le-Duc</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--lime)"><blockquote>«&nbsp;Travailleuse, disponible, ponctuelle, à l'écoute&nbsp;: pleine de qualités.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Seurre</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--vert)"><blockquote>«&nbsp;Merci pour tout, à tous, y compris aux personnes que nous ne croisons pas.&nbsp;»</blockquote><figcaption>Une famille<span>Dijon Métropole</span></figcaption></figure>
+        <figure class="mot" style="--t:var(--jaune)"><blockquote>«&nbsp;Elle m'apprend même plein de recettes de cuisine. Et je suis en plein progrès&nbsp;!&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Laignes</span></figcaption></figure>
+      </div>
+      <div class="fleches">
+        <button type="button" id="avis-prec" aria-label="Avis précédents"><svg aria-hidden="true"><use href="#i-g"/></svg></button>
+        <button type="button" id="avis-suiv" aria-label="Avis suivants"><svg aria-hidden="true"><use href="#i-d"/></svg></button>
+      </div>
+      <p class="note-avis">Extraits de nos questionnaires de satisfaction.</p>
+    </div>
+  </section>
+
+  <!-- ================= ACTUALITÉS ================= -->
+  <section aria-labelledby="t-actus">
+    <span class="sur">Actualités</span>
+    <h2 id="t-actus">La vie de nos <em>associations.</em></h2>
+    <div class="actus" id="actus" aria-live="polite">
+      <div class="actu squelette" aria-hidden="true"></div>
+      <div class="actu squelette" aria-hidden="true"></div>
+      <div class="actu squelette" aria-hidden="true"></div>
+    </div>
+    <div class="bouton-fb"><a href="https://www.facebook.com/fdadmr21/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-fb"/></svg>Toute notre actualité sur Facebook</a></div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- chiffres : comptage quand ils apparaissent ---------- */
+  var chiffres = document.querySelectorAll('.chiffre b[data-cible]');
+  var reduit = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function compter(el) {
+    var cible = +el.dataset.cible, suf = el.dataset.suffixe || '', t0 = null, duree = 1200;
+    function pas(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(cible * e) + suf;
+      if (p < 1) requestAnimationFrame(pas);
+    }
+    requestAnimationFrame(pas);
+  }
+  if (!reduit && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { compter(e.target); io.unobserve(e.target); } });
+    }, { threshold: .4 });
+    chiffres.forEach(function (c) { io.observe(c); });
+  }
+
+  /* ---------- avis : flèches + défilement automatique doux ---------- */
+  var liste = document.getElementById('avis');
+  function decaler(sens) {
+    var carte = liste.querySelector('.mot');
+    var pas = carte ? carte.getBoundingClientRect().width + 20 : 300;
+    var fin = liste.scrollLeft + liste.clientWidth >= liste.scrollWidth - 5;
+    if (sens > 0 && fin) liste.scrollTo({ left: 0 });
+    else if (sens < 0 && liste.scrollLeft <= 5) liste.scrollTo({ left: liste.scrollWidth });
+    else liste.scrollBy({ left: sens * pas });
+  }
+  document.getElementById('avis-prec').addEventListener('click', function () { decaler(-1); });
+  document.getElementById('avis-suiv').addEventListener('click', function () { decaler(1); });
+  var pause = false;
+  ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { liste.parentNode.addEventListener(ev, function () { pause = true; }, { passive: true }); });
+  ['mouseleave', 'focusout'].forEach(function (ev) { liste.parentNode.addEventListener(ev, function () { pause = false; }); });
+  if (!reduit) setInterval(function () { if (!pause && !document.hidden) decaler(1); }, 6000);
+
+  /* ---------- actualités : posts Facebook via /api/actus ---------- */
+  var zone = document.getElementById('actus');
+  function echapper(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function dateFr(iso) {
+    try { return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return ''; }
+  }
+  function resume(t) { t = t.replace(/\s+/g, ' ').trim(); return t.length > 220 ? t.slice(0, 217).replace(/\s\S*$/, '') + '…' : t; }
+  fetch('/api/actus', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : { posts: [] }; })
+    .catch(function () { return { posts: [] }; })
+    .then(function (d) {
+      var posts = (d && d.posts) || [];
+      if (!posts.length) { zone.remove(); envoyerHauteur(); return; }   // seul le bouton Facebook reste
+      zone.innerHTML = posts.map(function (p) {
+        var img = p.image
+          ? '<div class="actu-img"><img src="' + echapper(p.image) + '" alt="" loading="lazy" onerror="this.parentNode.className=\'actu-img sans\';this.outerHTML=\'<svg aria-hidden=true><use href=#i-photo /></svg>\'"></div>'
+          : '<div class="actu-img sans"><svg aria-hidden="true"><use href="#i-photo"/></svg></div>';
+        return '<a class="actu" href="' + echapper(p.lien) + '" target="_blank" rel="noopener">' + img +
+          '<div class="actu-txt"><p class="actu-date">' + echapper(dateFr(p.date)) + '</p>' + (p.texte ? '<p>' + echapper(resume(p.texte)) + '</p>' : '') +
+          '<span class="actu-lire">' + (p.texte ? 'Lire la suite sur Facebook' : 'Voir la publication') + ' <svg class="ico" aria-hidden="true"><use href="#i-fl"/></svg></span></div></a>';
+      }).join('');
+      zone.querySelectorAll('img').forEach(function (i) { i.addEventListener('load', envoyerHauteur); });
+      envoyerHauteur();
+    });
+
+  /* ---------- hauteur automatique pour l'iframe ---------- */
+  var derniere = 0;
+  function envoyerHauteur() {
+    if (window.parent === window) return;
+    var h = Math.ceil(document.body.offsetHeight);
+    if (h !== derniere) { derniere = h; window.parent.postMessage({ type: 'admr-vitrine-hauteur', hauteur: h }, '*'); }
+  }
+  window.envoyerHauteur = envoyerHauteur;
+  if (window.parent !== window) {
+    new MutationObserver(envoyerHauteur).observe(document.body, { subtree: true, childList: true });
+    window.addEventListener('resize', envoyerHauteur);
+    window.addEventListener('load', envoyerHauteur);
+    envoyerHauteur();
+  }
+})();
+</script>
+</body>
+</html>
