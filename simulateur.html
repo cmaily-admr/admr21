@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Simulateur de crédit d'impôt — ADMR de Côte-d'Or</title>
+<!--
+  =========================================================
+  ADMR Côte-d'Or — Module « Simulateur de crédit d'impôt » (iframe)
+
+  Adresse : https://admr-21.fr/simulateur
+
+  Code à coller sur le site officiel :
+  <iframe src="https://admr-21.fr/simulateur" id="admr-simulateur"
+          title="Simulateur de crédit d'impôt ADMR"
+          style="width:100%;border:0;height:620px" loading="lazy"></iframe>
+  <script>
+  window.addEventListener('message', function (e) {
+    if (e.origin !== 'https://admr-21.fr' || !e.data || e.data.type !== 'admr-simulateur-hauteur') return;
+    document.getElementById('admr-simulateur').style.height = e.data.hauteur + 'px';
+  });
+  </script>
+
+  Réglages (dans le script en bas) : TAUX, PLAFOND, MIN, MAX, PAS, DEPART,
+  et l'adresse du bouton de devis (LIEN_DEVIS).
+  =========================================================
+-->
+<style>
+@font-face{font-family:'Inter';src:url('fonts/Inter.ttf');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Bricolage';src:url('fonts/Bricolage.ttf');font-weight:200 800;font-display:swap}
+@font-face{font-family:'Instrument';src:url('fonts/InstrumentSerif-Italic.ttf');font-style:italic;font-display:swap}
+:root{--vert:#017734;--vert-fonce:#014a20;--vert-pale:#ebf4ef;--lime:#AFCA11;--lime-pale:#f6f9e6;--jaune:#F9B004;--gris:#4B4A49;--encre:#21201e;--titre:'Bricolage',system-ui,sans-serif;--plume:'Instrument',Georgia,serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--gris);-webkit-font-smoothing:antialiased;padding:8px 16px 20px}
+.bloc{position:relative;max-width:1180px;margin:0 auto;background:var(--vert-fonce);color:#fff;border-radius:28px;padding:48px 48px;overflow:hidden;display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center}
+.bloc::before{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;border:28px solid rgba(175,202,17,.12);pointer-events:none}
+.sur{display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin:0 0 10px}
+.gros{font-family:var(--titre);font-weight:800;font-size:clamp(4.2rem,10vw,7rem);line-height:.85;letter-spacing:-.05em;color:var(--lime);font-variation-settings:"wdth" 82}
+.gros small{display:block;font-size:.26em;letter-spacing:-.01em;color:#fff;margin-top:10px;font-weight:700}
+h2{font-family:var(--titre);font-weight:800;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.1;letter-spacing:-.03em;margin:22px 0 12px}
+h2 em{font-family:var(--plume);font-weight:400;font-style:italic;color:var(--jaune);font-size:1.08em;letter-spacing:-.01em}
+.texte p{margin:0 0 14px;color:rgba(255,255,255,.9)}
+.points{list-style:none;margin:16px 0 0;padding:0}
+.points li{display:flex;gap:10px;margin:0 0 10px;color:rgba(255,255,255,.92)}
+.points svg{width:20px;height:20px;flex:none;stroke:var(--lime);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.carte{position:relative;background:#fff;color:var(--gris);border-radius:22px;padding:30px 30px 26px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.carte h3{font-family:var(--titre);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;color:var(--encre);margin:0 0 4px}
+.aide{font-size:.9rem;margin:0 0 22px}
+.ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:700;color:var(--encre);margin-bottom:10px}
+.montant{display:flex;align-items:center;gap:8px}
+.montant button{width:34px;height:34px;border-radius:50%;border:2px solid var(--lime);background:#fff;color:var(--vert-fonce);font-size:1.2rem;font-weight:700;line-height:1;cursor:pointer}
+.montant button:hover{background:var(--lime-pale)}
+.montant output{font-family:var(--titre);font-weight:800;font-size:1.6rem;color:var(--vert-fonce);min-width:4.2em;text-align:center}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--lime) var(--p,25%),#e7ebe0 var(--p,25%));outline:none;margin:6px 0 4px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--vert-fonce);border:4px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.25);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--vert-fonce);border:4px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.25);cursor:pointer}
+input[type=range]:focus-visible{box-shadow:0 0 0 4px rgba(175,202,17,.35)}
+.bornes{display:flex;justify-content:space-between;font-size:.78rem;color:#8a887f;margin-bottom:20px}
+.resultats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.case{border-radius:16px;padding:16px 14px;text-align:center}
+.case span{display:block;font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gris)}
+.case strong{display:block;font-family:var(--titre);font-weight:800;font-size:1.9rem;letter-spacing:-.03em;line-height:1.1;margin-top:4px}
+.case.credit{background:var(--lime-pale);border:1px solid rgba(175,202,17,.6)}
+.case.credit strong{color:var(--vert)}
+.case.reel{background:var(--vert-pale)}
+.case.reel strong{color:var(--vert-fonce)}
+.phrase{margin:16px 0 0;font-size:.95rem;color:var(--encre);text-align:center}
+.phrase b{color:var(--vert)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:.95rem;text-decoration:none;border-radius:999px;padding:13px 18px;transition:transform .2s,background .2s;text-align:center}
+.btn:hover{transform:translateY(-2px)}
+.btn-j{background:var(--jaune);color:var(--encre)}
+.btn-l{border:2px solid var(--lime);color:var(--vert-fonce)}
+.btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.mention{font-size:.74rem;line-height:1.45;color:#7a786f;margin:16px 0 0}
+@media (max-width:860px){.bloc{grid-template-columns:1fr;padding:36px 24px;gap:30px}}
+@media (max-width:460px){body{padding:6px 10px 16px}.carte{padding:24px 18px 20px}.case strong{font-size:1.55rem}.montant output{font-size:1.35rem}.actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="bloc">
+  <div class="texte">
+    <span class="sur">Avantage fiscal</span>
+    <div class="gros">50&nbsp;%<small>de crédit d'impôt</small></div>
+    <h2>Nos services à domicile, <em>deux fois plus accessibles.</em></h2>
+    <p>Ménage, aide à domicile, garde d'enfants… nos prestations ouvrent droit à un crédit d'impôt de 50&nbsp;% des sommes engagées, selon la législation en vigueur.</p>
+    <ul class="points">
+      <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Pour 100&nbsp;€ dépensés, 50&nbsp;€ vous reviennent.</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>C'est un <strong>crédit</strong> d'impôt&nbsp;: il bénéficie aussi aux foyers non imposables.</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Une attestation fiscale annuelle vous est remise pour votre déclaration.</span></li>
+    </ul>
+  </div>
+
+  <div class="carte" aria-labelledby="sim-titre">
+    <h3 id="sim-titre">Estimez votre coût réel</h3>
+    <p class="aide">Faites glisser le curseur selon votre budget mensuel.</p>
+    <div class="ligne">
+      <label for="sim">Dépense mensuelle</label>
+      <div class="montant">
+        <button type="button" id="moins" aria-label="Diminuer de 10 euros">−</button>
+        <output id="sortie" for="sim" aria-live="polite">200&nbsp;€</output>
+        <button type="button" id="plus" aria-label="Augmenter de 10 euros">+</button>
+      </div>
+    </div>
+    <input type="range" id="sim" min="20" max="800" step="10" value="200" aria-describedby="phrase">
+    <div class="bornes"><span>20&nbsp;€</span><span>800&nbsp;€</span></div>
+    <div class="resultats">
+      <div class="case credit"><span>Crédit d'impôt / an</span><strong id="credit">1&nbsp;200&nbsp;€</strong></div>
+      <div class="case reel"><span>Coût réel / mois</span><strong id="reel">100&nbsp;€</strong></div>
+    </div>
+    <p class="phrase" id="phrase">Pour <b id="p-depense">200&nbsp;€</b> par mois, vous ne payez réellement que <b id="p-reel">100&nbsp;€</b>.</p>
+    <div class="actions">
+      <a class="btn btn-j" id="lien-devis" href="https://www.fede21.admr.org/#demande-devis" target="_top">Devis gratuit <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-l" href="https://menage.admr-21.fr" target="_blank" rel="noopener">Le ménage ADMR</a>
+    </div>
+    <p class="mention">Simulation indicative. Crédit d'impôt de 50&nbsp;% des dépenses de services à la personne (art. 199 sexdecies du CGI), dans la limite d'un plafond annuel de dépenses de 12&nbsp;000&nbsp;€, majoré selon la composition du foyer. Selon la législation en vigueur.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* ---------- réglages ---------- */
+  var TAUX = 0.5;          // 50 % de crédit d'impôt
+  var PLAFOND = 12000;     // plafond annuel de dépenses (cas général)
+  var PAS = 10;
+
+  var r = document.getElementById('sim');
+  var fmt = function (n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; };
+  function maj() {
+    var m = +r.value;
+    var annuel = Math.min(m * 12, PLAFOND);
+    var credit = annuel * TAUX;
+    var reelMois = m - credit / 12;
+    document.getElementById('sortie').textContent = fmt(m);
+    document.getElementById('credit').textContent = fmt(credit);
+    document.getElementById('reel').textContent = fmt(reelMois);
+    document.getElementById('p-depense').textContent = fmt(m);
+    document.getElementById('p-reel').textContent = fmt(reelMois);
+    r.style.setProperty('--p', ((m - r.min) / (r.max - r.min) * 100) + '%');
+    r.setAttribute('aria-valuetext', fmt(m) + ' par mois');
+  }
+  function changer(d) { r.value = Math.min(+r.max, Math.max(+r.min, +r.value + d)); maj(); }
+  r.addEventListener('input', maj);
+  document.getElementById('moins').addEventListener('click', function () { changer(-PAS); });
+  document.getElementById('plus').addEventListener('click', function () { changer(PAS); });
+  maj();
+
+  /* ---------- hauteur automatique pour l'iframe ---------- */
+  if (window.parent !== window) {
+    var derniere = 0;
+    var envoyer = function () {
+      var h = Math.ceil(document.body.offsetHeight);
+      if (h !== derniere) { derniere = h; window.parent.postMessage({ type: 'admr-simulateur-hauteur', hauteur: h }, '*'); }
+    };
+    window.addEventListener('resize', envoyer);
+    window.addEventListener('load', envoyer);
+    envoyer();
+  }
+})();
+</script>
+</body>
+</html>
