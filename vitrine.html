@@ -8,13 +8,13 @@
 <!--
   =========================================================
   ADMR Côte-d'Or — Module « vitrine » pour la page d'accueil du site officiel
-  Chiffres clés · Avis de nos bénéficiaires · Actualités Facebook
+  Chiffres clés · Actualités Facebook (les avis sont dans simulateur.html)
 
   Adresse : https://admr-21.fr/vitrine
 
   Code à coller sur le site officiel :
   <iframe src="https://admr-21.fr/vitrine" id="admr-vitrine"
-          title="L'ADMR de Côte-d'Or : chiffres, avis et actualités"
+          title="L'ADMR de Côte-d'Or : chiffres et actualités"
           style="width:100%;border:0;height:1500px" loading="lazy"></iframe>
   <script>
   window.addEventListener('message', function (e) {
@@ -25,7 +25,6 @@
 
   Pour modifier :
    - les chiffres : section « CHIFFRES » ci-dessous (attribut data-cible = nombre affiché) ;
-   - les avis : section « AVIS » (une <figure> par avis) ;
    - les actualités : rien à faire, elles viennent de la page Facebook
      (fichier functions/api/actus.js, réglages dans Cloudflare).
   =========================================================
@@ -62,21 +61,6 @@ h2 em{z-index:0}
 .chiffre span{display:block;margin-top:8px;font-weight:600;color:var(--encre);line-height:1.3}
 .chiffre small{display:block;font-size:.8rem;color:var(--gris);margin-top:2px}
 
-/* ---------- avis ---------- */
-.avis-cadre{position:relative}
-.avis{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:14px 4px 22px;scrollbar-width:none}
-.avis::-webkit-scrollbar{display:none}
-.mot{flex:0 0 calc((100% - 40px)/3);scroll-snap-align:start;position:relative;background:#fff;border-radius:6px 22px 22px 22px;padding:28px 24px 22px;box-shadow:0 12px 28px rgba(1,74,32,.08);margin:0;display:flex;flex-direction:column}
-.mot::before{content:"";position:absolute;left:22px;top:-6px;width:56px;height:12px;border-radius:3px;background:var(--t)}
-.mot blockquote{margin:0 0 16px;font-family:var(--plume);font-style:italic;font-size:1.4rem;line-height:1.24;color:var(--encre);flex:1}
-.mot figcaption{font-weight:700;font-size:.86rem;color:var(--encre)}
-.mot figcaption span{display:block;font-weight:500;color:var(--gris);font-size:.8rem}
-.fleches{display:flex;justify-content:center;gap:10px;margin-top:6px}
-.fleches button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lime);background:#fff;color:var(--vert-fonce);cursor:pointer;display:grid;place-items:center;transition:background .2s}
-.fleches button:hover{background:var(--lime-pale)}
-.fleches svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.note-avis{text-align:center;font-size:.8rem;color:#7a786f;margin:12px 0 0}
-
 /* ---------- actualités ---------- */
 .actus{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .actu{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 10px 26px rgba(1,74,32,.07);border:1px solid rgba(1,74,32,.07);transition:transform .25s,box-shadow .25s}
@@ -100,7 +84,6 @@ h2 em{z-index:0}
 
 @media (max-width:900px){
   .chiffres{grid-template-columns:repeat(2,1fr)}
-  .mot{flex-basis:calc((100% - 20px)/2)}
   .actus{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:600px){
@@ -108,8 +91,6 @@ h2 em{z-index:0}
   section{margin-bottom:48px}
   .chiffres{gap:10px}
   .chiffre{padding:20px 12px 18px}
-  .mot{flex-basis:86%}
-  .mot blockquote{font-size:1.28rem}
   .actus{grid-template-columns:1fr}
   .actus .actu:nth-child(n+4){display:none}
 }
@@ -136,29 +117,6 @@ h2 em{z-index:0}
       <div class="chiffre" style="--c:var(--jaune)"><b data-cible="215">215</b><span>bénévoles</span><small>engagés dans nos communes</small></div>
       <div class="chiffre" style="--c:var(--orange)"><b data-cible="22">22</b><span>antennes</span><small>partout en Côte-d'Or</small></div>
       <div class="chiffre" style="--c:var(--bleu)"><b data-cible="50" data-suffixe="&nbsp;%">50&nbsp;%</b><span>de crédit d'impôt</span><small>sur nos services à domicile</small></div>
-    </div>
-  </section>
-
-  <!-- ================= AVIS ================= -->
-  <section aria-labelledby="t-avis">
-    <span class="sur">Ils nous font confiance</span>
-    <h2 id="t-avis">Ce sont eux qui <em>en parlent le mieux.</em></h2>
-    <div class="avis-cadre">
-      <div class="avis" id="avis" tabindex="0" aria-label="Avis de nos bénéficiaires (faire défiler)">
-        <figure class="mot" style="--t:var(--jaune)"><blockquote>«&nbsp;C'est comme un rayon de soleil dans notre vie, même les jours de pluie.&nbsp;»</blockquote><figcaption>Une famille<span>Pontailler-sur-Saône</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--vert)"><blockquote>«&nbsp;Si nous devions lui donner une note, ce serait 22 sur 20.&nbsp;»</blockquote><figcaption>Une famille<span>Mirebeau-sur-Bèze</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--violet)"><blockquote>«&nbsp;Je ne voudrais pas l'échanger. J'ai déjà peur du jour où elle prendra sa retraite.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Gevrey-Chambertin – Nuits-Saint-Georges</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--bleu)"><blockquote>«&nbsp;Elles sont patientes et pleines de gentillesse. Grâce à elles, mes parents vivent encore tranquillement chez eux. Un immense merci.&nbsp;»</blockquote><figcaption>Une famille<span>Montbard – Semur</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--orange)"><blockquote>«&nbsp;Elle m'a apporté de bons conseils et la joie de vivre. Elle me remonte le moral.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Arnay-le-Duc</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--lime)"><blockquote>«&nbsp;Travailleuse, disponible, ponctuelle, à l'écoute&nbsp;: pleine de qualités.&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Seurre</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--vert)"><blockquote>«&nbsp;Merci pour tout, à tous, y compris aux personnes que nous ne croisons pas.&nbsp;»</blockquote><figcaption>Une famille<span>Dijon Métropole</span></figcaption></figure>
-        <figure class="mot" style="--t:var(--jaune)"><blockquote>«&nbsp;Elle m'apprend même plein de recettes de cuisine. Et je suis en plein progrès&nbsp;!&nbsp;»</blockquote><figcaption>Une bénéficiaire<span>Laignes</span></figcaption></figure>
-      </div>
-      <div class="fleches">
-        <button type="button" id="avis-prec" aria-label="Avis précédents"><svg aria-hidden="true"><use href="#i-g"/></svg></button>
-        <button type="button" id="avis-suiv" aria-label="Avis suivants"><svg aria-hidden="true"><use href="#i-d"/></svg></button>
-      </div>
-      <p class="note-avis">Extraits de nos questionnaires de satisfaction.</p>
     </div>
   </section>
 
@@ -199,23 +157,6 @@ h2 em{z-index:0}
     }, { threshold: .4 });
     chiffres.forEach(function (c) { io.observe(c); });
   }
-
-  /* ---------- avis : flèches + défilement automatique doux ---------- */
-  var liste = document.getElementById('avis');
-  function decaler(sens) {
-    var carte = liste.querySelector('.mot');
-    var pas = carte ? carte.getBoundingClientRect().width + 20 : 300;
-    var fin = liste.scrollLeft + liste.clientWidth >= liste.scrollWidth - 5;
-    if (sens > 0 && fin) liste.scrollTo({ left: 0 });
-    else if (sens < 0 && liste.scrollLeft <= 5) liste.scrollTo({ left: liste.scrollWidth });
-    else liste.scrollBy({ left: sens * pas });
-  }
-  document.getElementById('avis-prec').addEventListener('click', function () { decaler(-1); });
-  document.getElementById('avis-suiv').addEventListener('click', function () { decaler(1); });
-  var pause = false;
-  ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { liste.parentNode.addEventListener(ev, function () { pause = true; }, { passive: true }); });
-  ['mouseleave', 'focusout'].forEach(function (ev) { liste.parentNode.addEventListener(ev, function () { pause = false; }); });
-  if (!reduit) setInterval(function () { if (!pause && !document.hidden) decaler(1); }, 6000);
 
   /* ---------- actualités : posts Facebook via /api/actus ---------- */
   var zone = document.getElementById('actus');
