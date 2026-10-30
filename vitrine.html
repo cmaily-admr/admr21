@@ -87,7 +87,8 @@ h2 em{z-index:0}
 .actu-img.sans{display:grid;place-items:center;color:var(--vert)}
 .actu-img.sans svg{width:44px;height:44px;opacity:.5;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .actu-txt{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
-.actu-date{font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--vert);margin:0 0 8px}
+.actu-date{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--vert);margin:0 0 10px}
+.actu-tag{display:inline-block;background:var(--lime-pale);border:1px solid rgba(175,202,17,.6);color:var(--vert-fonce);border-radius:999px;padding:3px 10px;letter-spacing:.06em}
 .actu-txt p{margin:0 0 14px;color:var(--encre);line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .actu-lire{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.88rem;color:var(--vert-fonce)}
 .actu.squelette{min-height:340px;background:linear-gradient(100deg,#fff 40%,#f3f5ee 50%,#fff 60%) 0 0/200% 100%;animation:brille 1.4s linear infinite}
@@ -222,6 +223,14 @@ h2 em{z-index:0}
   function dateFr(iso) {
     try { return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return ''; }
   }
+  // « [É V È N E M E N T S] texte… » → étiquette « Évènements » + texte sans l'intitulé
+  function separer(t) {
+    var m = /^\s*\[([^\]]{2,40})\]\s*/.exec(t || '');
+    if (!m) return { tag: '', texte: t || '' };
+    var tag = m[1].replace(/\s+/g, '').toLowerCase();
+    tag = tag.charAt(0).toUpperCase() + tag.slice(1);
+    return { tag: tag, texte: t.slice(m[0].length) };
+  }
   function resume(t) { t = t.replace(/\s+/g, ' ').trim(); return t.length > 220 ? t.slice(0, 217).replace(/\s\S*$/, '') + '…' : t; }
   fetch('/api/actus', { headers: { 'Accept': 'application/json' } })
     .then(function (r) { return r.ok ? r.json() : { posts: [] }; })
@@ -230,12 +239,13 @@ h2 em{z-index:0}
       var posts = (d && d.posts) || [];
       if (!posts.length) { zone.remove(); envoyerHauteur(); return; }   // seul le bouton Facebook reste
       zone.innerHTML = posts.map(function (p) {
+        var s = separer(p.texte);
         var img = p.image
           ? '<div class="actu-img"><img src="' + echapper(p.image) + '" alt="" loading="lazy" onerror="this.parentNode.className=\'actu-img sans\';this.outerHTML=\'<svg aria-hidden=true><use href=#i-photo /></svg>\'"></div>'
           : '<div class="actu-img sans"><svg aria-hidden="true"><use href="#i-photo"/></svg></div>';
         return '<a class="actu" href="' + echapper(p.lien) + '" target="_blank" rel="noopener">' + img +
-          '<div class="actu-txt"><p class="actu-date">' + echapper(dateFr(p.date)) + '</p>' + (p.texte ? '<p>' + echapper(resume(p.texte)) + '</p>' : '') +
-          '<span class="actu-lire">' + (p.texte ? 'Lire la suite sur Facebook' : 'Voir la publication') + ' <svg class="ico" aria-hidden="true"><use href="#i-fl"/></svg></span></div></a>';
+          '<div class="actu-txt"><p class="actu-date">' + (s.tag ? '<span class="actu-tag">' + echapper(s.tag) + '</span>' : '') + echapper(dateFr(p.date)) + '</p>' + (s.texte ? '<p>' + echapper(resume(s.texte)) + '</p>' : '') +
+          '<span class="actu-lire">' + (s.texte ? 'Lire la suite sur Facebook' : 'Voir la publication') + ' <svg class="ico" aria-hidden="true"><use href="#i-fl"/></svg></span></div></a>';
       }).join('');
       zone.querySelectorAll('img').forEach(function (i) { i.addEventListener('load', envoyerHauteur); });
       envoyerHauteur();
