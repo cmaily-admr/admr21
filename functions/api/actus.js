@@ -39,17 +39,24 @@ export async function onRequestGet({ env, request, waitUntil }) {
   }
 
   const version = env.FB_API_VERSION || 'v23.0';
-  const champs = 'message,full_picture,permalink_url,created_time,status_type';
-  const url = `https://graph.facebook.com/${version}/${encodeURIComponent(env.FB_PAGE_ID)}/posts` +
-    `?fields=${champs}&limit=20&access_token=${encodeURIComponent(env.FB_TOKEN)}`;
+  const champs = 'message,full_picture,permalink_url,created_time';
+  const base = `https://graph.facebook.com/${version}/${encodeURIComponent(env.FB_PAGE_ID)}`;
+  const jeton = encodeURIComponent(env.FB_TOKEN);
 
-  let posts = [];
-  try {
-    const r = await fetch(url, { cf: { cacheTtl: 0 } });
+  async function lire(edge) {
+    const r = await fetch(`${base}/${edge}?fields=${champs}&limit=20&access_token=${jeton}`, { cf: { cacheTtl: 0 } });
     const data = await r.json();
     if (!r.ok || data.error) throw new Error((data.error && data.error.message) || ('HTTP ' + r.status));
+    return data.data || [];
+  }
 
-    posts = (data.data || [])
+  let posts = [], brut = [], source = 'posts';
+  try {
+    // « posts » d'abord ; si vide, « published_posts » puis « feed » (selon le type de page)
+    brut = await lire('posts');
+    if (!brut.length) { source = 'published_posts'; brut = await lire('published_posts'); }
+    if (!brut.length) { source = 'feed'; brut = await lire('feed'); }
+    posts = brut
       .filter(p => p.permalink_url && (p.message || p.full_picture)) // posts avec texte et/ou photo
       .slice(0, NB_POSTS)
       .map(p => ({
@@ -60,7 +67,12 @@ export async function onRequestGet({ env, request, waitUntil }) {
       }));
   } catch (e) {
     // jeton expiré, page introuvable… : on renvoie une liste vide, sans casser la page
-    return json({ posts: [], info: 'facebook indisponible' }, 120);
+    return json({ posts: [], info: 'facebook indisponible', detail: String(e.message || e).slice(0, 160) }, 120);
+  }
+
+  // rien trouvé : on ne garde pas ce résultat longtemps en cache (pour pouvoir corriger vite)
+  if (!posts.length) {
+    return json({ posts: [], info: 'aucun post lisible', recus: brut.length, source }, 60);
   }
 
   const reponse = json({ posts, maj: new Date().toISOString() }, CACHE_SECONDES);
