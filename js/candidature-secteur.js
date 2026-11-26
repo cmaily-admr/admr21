@@ -15,6 +15,10 @@ var CANDIDATURE_REGLAGES = {
   // Adresse utilisée quand la ville n'est pas reconnue
   parDefaut: 'communication@admr21.fr',
 
+  // false = TOUT arrive à parDefaut (le mail indique quand même l'antenne et le cadre concerné)
+  // true  = chaque candidature part directement au cadre de secteur
+  envoiDirect: false,
+
   // Copie de chaque candidature (mettre '' pour ne pas en recevoir)
   copie: 'communication@admr21.fr',
 
@@ -102,7 +106,7 @@ var CANDIDATURE_REGLAGES = {
     var cadre = lettre && R.cadres[lettre];
     var antenne = R.nomsAntennes[commune.code] || '—';
     if (!cadre || !emailValide(cadre.email)) return { email: R.parDefaut, cadre: 'Non attribué', antenne: antenne };
-    return { email: cadre.email, cadre: cadre.nom, antenne: antenne };
+    return { email: R.envoiDirect ? cadre.email : R.parDefaut, cadre: cadre.nom, antenne: antenne };
   }
 
   function champCache(form, nom) {
