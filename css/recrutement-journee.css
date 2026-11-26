@@ -369,3 +369,13 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
   html{scroll-behavior:auto}
   .draw path{stroke-dashoffset:0;transition:none}.fade{opacity:1;transform:none;transition:none}
 }
+
+/* ---------- champ « Ville de résidence » (suggestions) ---------- */
+.ville-saisie{position:relative}
+.ville-suggestions{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;list-style:none;margin:0;padding:6px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;box-shadow:0 16px 36px rgba(0,0,0,.16);max-height:260px;overflow-y:auto}
+.ville-suggestions li{padding:9px 12px;border-radius:10px;cursor:pointer;color:var(--encre)}
+.ville-suggestions li small{color:var(--gris);margin-left:4px}
+.ville-suggestions li:hover,.ville-suggestions li[aria-selected="true"]{background:var(--vert-pale)}
+.ville-info{margin:6px 0 0;font-size:.8rem;min-height:1.2em;color:var(--gris)}
+.ville-info.ok{color:var(--vert);font-weight:600}
+.ville-info.ok::before{content:"✓ "}

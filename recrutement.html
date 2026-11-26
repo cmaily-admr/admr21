@@ -613,13 +613,21 @@
             <label for="cv-nom">Vos nom et prénom <span class="opt">(facultatif)</span></label>
             <input type="text" id="cv-nom" name="Nom et prénom" placeholder="Ex. Marie Dupont" autocomplete="name">
           </div>
+          <div class="champ champ-ville">
+            <label for="cv-ville">Ville de résidence <span class="req">*</span></label>
+            <div class="ville-saisie">
+              <input type="text" id="cv-ville" name="Ville de résidence" data-ville required placeholder="Ex. Beaune ou 21200" autocomplete="off" spellcheck="false">
+              <ul class="ville-suggestions" aria-label="Communes correspondantes" hidden></ul>
+            </div>
+            <p class="ville-info" aria-live="polite"></p>
+          </div>
           <div class="fichier">
             <input type="file" id="cv-file" name="CV" accept=".pdf,.doc,.docx,.odt" required>
             <label class="btn-fichier" for="cv-file"><svg class="ico" aria-hidden="true"><use href="#i-trombone"/></svg>Choisir mon CV</label>
             <span class="nom-fichier" id="cv-nom-fichier">Aucun fichier choisi</span>
           </div>
           <button type="submit" class="btn btn-v">Envoyer mon CV</button>
-          <p class="ptr">Formats&nbsp;: PDF, Word (max ~5&nbsp;Mo). Envoi vers communication@admr21.fr.</p>
+          <p class="ptr">Formats&nbsp;: PDF, Word (max ~5&nbsp;Mo). Votre candidature est transmise au responsable de votre secteur.</p>
         </form>
       </article>
 
@@ -640,6 +648,14 @@
           </div>
           <div class="champ"><label for="r-mail">E-mail <span class="req">*</span></label><input type="email" id="r-mail" name="E-mail" required placeholder="vous@exemple.fr" autocomplete="email"></div>
           <div class="champ"><label for="r-tel">Téléphone <span class="req">*</span></label><input type="tel" id="r-tel" name="Téléphone" required placeholder="06 00 00 00 00" autocomplete="tel"></div>
+          <div class="champ champ-ville">
+            <label for="r-ville">Ville de résidence <span class="req">*</span></label>
+            <div class="ville-saisie">
+              <input type="text" id="r-ville" name="Ville de résidence" data-ville required placeholder="Ex. Beaune ou 21200" autocomplete="off" spellcheck="false">
+              <ul class="ville-suggestions" aria-label="Communes correspondantes" hidden></ul>
+            </div>
+            <p class="ville-info" aria-live="polite"></p>
+          </div>
           <button type="submit" class="btn btn-v" style="background:var(--bleu-texte)">Être rappelé(e)</button>
         </form>
       </article>
@@ -713,5 +729,6 @@
 <script src="js/communes-admr21.js"></script>
 <script src="js/recherche-antennes.js"></script>
 <script src="js/recrutement-journee.js"></script>
+<script src="js/candidature-secteur.js"></script>
 </body>
 </html>
