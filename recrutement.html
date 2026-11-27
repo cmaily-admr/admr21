@@ -714,6 +714,19 @@
   <div class="lb-cadre" id="lb-cadre"></div>
 </div>
 
+<!-- Volet « Je postule » : les formulaires y sont déplacés par js/volet-postuler.js -->
+<div class="volet" id="volet-postuler" role="dialog" aria-modal="true" aria-labelledby="volet-titre" hidden>
+  <div class="volet-fond" data-fermer-volet></div>
+  <div class="volet-panneau">
+    <button class="volet-x" type="button" data-fermer-volet aria-label="Fermer">×</button>
+    <p class="volet-sur">Demain, 7 h 30</p>
+    <h2 id="volet-titre">Je <em>postule.</em></h2>
+    <p class="volet-intro">Deux façons simples de nous rejoindre, à vous de choisir.</p>
+    <div class="volet-corps"></div>
+    <a class="volet-offres" href="https://admr21.nos-recrutements.fr/jobs" target="_blank" rel="noopener">Voir toutes nos offres d'emploi <svg aria-hidden="true"><use href="#i-externe"/></svg></a>
+  </div>
+</div>
+
 <!-- Confirmation d'envoi des formulaires -->
 <div class="merci-modal" id="merci-modal" aria-hidden="true">
   <div class="merci-fond" data-fermer></div>
@@ -730,5 +743,6 @@
 <script src="js/recherche-antennes.js"></script>
 <script src="js/recrutement-journee.js"></script>
 <script src="js/candidature-secteur.js"></script>
+<script src="js/volet-postuler.js"></script>
 </body>
 </html>

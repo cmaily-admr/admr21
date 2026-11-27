@@ -47,7 +47,7 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .marque small{font-family:var(--texte);font-weight:500;font-size:.8rem;opacity:.75}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--texte);font-weight:700;font-size:.95rem;text-decoration:none;border-radius:999px;padding:13px 24px;border:0;cursor:pointer;transition:transform .2s,background .2s}
 .btn:hover{transform:translateY(-2px)}
-.btn-j{background:var(--jaune);color:var(--encre)}
+.btn-j{background:var(--jaune);color:var(--encre);box-shadow:0 8px 22px rgba(249,176,4,.35)}
 .btn-j:hover{background:#ffbf1f}
 .btn-l{color:#fff;padding-left:4px}
 .btn-l .rond{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center}
@@ -109,10 +109,13 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .sous-titre svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* bouton discret « Je postule » à chaque heure */
-.chap-postuler{position:absolute;right:0;bottom:44px;display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.88rem;color:var(--encre);text-decoration:none;padding:9px 16px 9px 14px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.08);transition:background .2s,transform .2s}
-.chap-postuler::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--jaune)}
-.chap-postuler svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.chap-postuler:hover{background:var(--jaune);transform:translateY(-2px)}
+.chap-postuler{position:absolute;right:0;bottom:40px;display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:1.05rem;color:var(--encre);text-decoration:none;padding:15px 26px 15px 22px;border-radius:999px;background:var(--jaune);box-shadow:0 12px 28px rgba(249,176,4,.38);transition:transform .2s,box-shadow .2s,background .2s}
+.chap-postuler::before{content:"";width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.9);animation:pouls 2.2s ease-out infinite}
+@keyframes pouls{0%{box-shadow:0 0 0 0 rgba(255,255,255,.9)}70%{box-shadow:0 0 0 10px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.chap-postuler svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.chap-postuler:hover{background:#ffbf1f;transform:translateY(-3px);box-shadow:0 16px 34px rgba(249,176,4,.48)}
+.chap-postuler:hover svg{transform:translateX(3px)}
+.chap-postuler:focus-visible{outline:3px solid var(--vert-fonce);outline-offset:3px}
 
 /* ---------- photos ---------- */
 .photo-tall{position:sticky;top:110px;margin:0}
@@ -334,7 +337,7 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .chap,.mercis{padding-left:70px}
   .chap{padding-bottom:90px}
   .faq{padding-left:70px}
-  .chap-postuler{position:static;margin-top:36px}
+  .chap-postuler{position:static;margin-top:36px;width:100%;justify-content:center}
   .grid1,.grid2,.temoin{grid-template-columns:1fr;gap:40px}
   .photo-tall{position:relative;top:auto}
   .legende{left:10px}
@@ -366,6 +369,7 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
   .offres{padding:22px}
 }
 @media (prefers-reduced-motion:reduce){
+  .chap-postuler::before{animation:none}
   html{scroll-behavior:auto}
   .draw path{stroke-dashoffset:0;transition:none}.fade{opacity:1;transform:none;transition:none}
 }
@@ -382,3 +386,27 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
 .form-erreur{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#fdecea;color:#9b1c1c;font-size:.9rem;font-weight:600}
 .form-erreur[hidden]{display:none}
+
+/* ---------- volet « Je postule » ---------- */
+.volet{position:fixed;inset:0;z-index:90}
+.volet[hidden]{display:none}
+.volet-fond{position:absolute;inset:0;background:rgba(1,30,14,.55);opacity:0;transition:opacity .28s}
+.volet-panneau{position:absolute;top:0;right:0;bottom:0;width:min(620px,100%);background:var(--vert-pale);overflow-y:auto;overscroll-behavior:contain;padding:44px 34px 40px;transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);box-shadow:-20px 0 60px rgba(0,0,0,.2)}
+.volet.ouvert .volet-fond{opacity:1}
+.volet.ouvert .volet-panneau{transform:none}
+.volet-x{position:absolute;top:16px;right:18px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:var(--encre);font-size:1.7rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.volet-x:focus-visible{outline:3px solid var(--vert);outline-offset:2px}
+.volet-sur{font-family:var(--plume);font-style:italic;font-size:1.3rem;color:var(--vert);margin:0 0 4px}
+.volet h2{font-family:var(--titre);font-weight:800;font-size:clamp(2rem,4vw,2.8rem);line-height:1;letter-spacing:-.04em;color:var(--encre);margin:0 0 10px}
+.volet h2 em{font-family:var(--plume);font-weight:400;color:var(--vert);letter-spacing:-.01em}
+.volet-intro{margin:0 0 24px}
+.volet .cand-grille{grid-template-columns:1fr;gap:18px}
+.volet .bloc{box-shadow:0 10px 30px rgba(1,74,32,.08)}
+.volet .bloc.fade{opacity:1;transform:none}
+.volet-offres{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:700;color:var(--vert-fonce)}
+.volet-offres svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cand-cta{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:6px 0 10px}
+.cand-cta p{margin:0;color:rgba(255,255,255,.85)}
+.btn-xl{font-size:1.1rem;padding:17px 30px}
+@media (max-width:560px){.volet-panneau{padding:64px 16px 32px}}
+@media (prefers-reduced-motion:reduce){.volet-fond,.volet-panneau{transition:none}}
