@@ -1,61 +1,19 @@
 /* =========================================================
-   ADMR Côte-d'Or — Envoi des candidatures au bon cadre de secteur
+   ADMR Côte-d'Or — Candidatures envoyées au bon cadre de secteur
    Page recrutement : formulaires « CV » et « Être rappelé(e) ».
 
-   Le candidat saisit sa ville de résidence (avec suggestions).
-   À l'envoi, on retrouve l'antenne de sa commune (js/communes-admr21.js),
-   puis le cadre de secteur qui la suit, et le mail part à SON adresse.
-   Si la ville n'est pas trouvée (hors Côte-d'Or, faute de frappe…),
-   le mail part à l'adresse par défaut ci-dessous.
-
-   ┌────────────────────────── RÉGLAGES ──────────────────────────┐ */
+   - Le candidat choisit sa ville de résidence (suggestions).
+   - À l'envoi, le formulaire part vers /api/candidature (Cloudflare),
+     qui retrouve le cadre de secteur et envoie le mail via Brevo.
+     Les adresses des cadres sont dans functions/api/candidature.js
+     (elles ne sont donc plus visibles dans le code de la page).
+   - Si ce service n'est pas encore configuré ou ne répond pas,
+     la candidature part comme avant via FormSubmit vers l'adresse
+     de secours ci-dessous : aucune candidature n'est perdue.
+   ========================================================= */
 
 var CANDIDATURE_REGLAGES = {
-
-  // Adresse utilisée quand la ville n'est pas reconnue
-  parDefaut: 'communication@admr21.fr',
-
-  // false = TOUT arrive à parDefaut (le mail indique quand même l'antenne et le cadre concerné)
-  // true  = chaque candidature part directement au cadre de secteur
-  envoiDirect: false,
-
-  // Copie de chaque candidature (mettre '' pour ne pas en recevoir)
-  copie: 'communication@admr21.fr',
-
-  // Les 4 cadres de secteur : nom affiché dans le mail + adresse
-  // A = nord-ouest · B = Dijon / nord-est · C = est / Saône · D = sud-ouest
-  cadres: {
-    A: { nom: 'Amélie Gay', email: 'agay@admr21.fr' },
-    B: { nom: 'Marine Lecullier', email: 'mlecullier@admr21.fr' },
-    C: { nom: 'Amélie Bouchet', email: 'abouchet@admr21.fr' },
-    D: { nom: 'Stéphanie Rey', email: 'srey@admr21.fr' }
-  },
-
-  // Antenne (code de la carte) → lettre du cadre qui la suit
-  antennes: {
-    1:  'A', // Châtillon-sur-Seine (Pays Châtillonnais)
-    2:  'A', // Laignes
-    3:  'A', // Montbard + Semur-en-Auxois
-    4:  'A', // Venarey-les-Laumes
-    5:  'A', // Saint-Seine-l'Abbaye
-    6:  'B', // Is-sur-Tille (3 Rivières)
-    7:  'B', // Mirebeau-sur-Bèze
-    8:  'B', // Dijon métropole (Chenôve)
-    9:  'B', // Pontailler-sur-Saône
-    10: 'A', // Vitteaux
-    11: 'C', // Auxonne
-    12: 'C', // Genlis
-    13: 'C', // Gevrey-Chambertin
-    14: 'C', // Nuits-Saint-Georges
-    15: 'D', // Pouilly-en-Auxois
-    16: 'D', // Liernais
-    17: 'D', // Saulieu
-    18: 'D', // Arnay-le-Duc
-    19: 'D', // Beaune (Sud Côte-d'Or)
-    20: 'C', // Saint-Jean-de-Losne
-    21: 'C'  // Seurre
-  },
-
+  secours: 'communication@admr21.fr',
   // Nom de l'antenne affiché dans le mail
   nomsAntennes: {
     1: 'Châtillon-sur-Seine', 2: 'Laignes', 3: 'Montbard / Semur-en-Auxois', 4: 'Venarey-les-Laumes',
@@ -98,24 +56,73 @@ var CANDIDATURE_REGLAGES = {
     var exactes = communes.filter(function (c) { return c.n === nom && (!cp || c.cp === cp); });
     return exactes.length ? exactes[0] : null;
   }
-  function emailValide(e) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) && e.indexOf('A_COMPLETER') === -1; }
-
-  function destinataire(commune) {
-    if (!commune) return { email: R.parDefaut, cadre: 'Non attribué (ville non reconnue)', antenne: '—' };
-    var lettre = R.antennes[commune.code];
-    var cadre = lettre && R.cadres[lettre];
-    var antenne = R.nomsAntennes[commune.code] || '—';
-    if (!cadre || !emailValide(cadre.email)) return { email: R.parDefaut, cadre: 'Non attribué', antenne: antenne };
-    return { email: R.envoiDirect ? cadre.email : R.parDefaut, cadre: cadre.nom, antenne: antenne };
-  }
-
   function champCache(form, nom) {
     var el = form.querySelector('input[type=hidden][name="' + nom + '"]');
     if (!el) { el = document.createElement('input'); el.type = 'hidden'; el.name = nom; form.appendChild(el); }
     return el;
   }
 
-  document.querySelectorAll('.form-fs [data-ville]').forEach(function (champ, i) {
+  /* ---------- envoi ---------- */
+  var modal = document.getElementById('merci-modal');
+  function merci() {
+    if (!modal) return;
+    modal.classList.add('ouvert'); modal.setAttribute('aria-hidden', 'false');
+    var b = modal.querySelector('.btn'); if (b) b.focus();
+  }
+  function erreur(form, texte) {
+    var p = form.querySelector('.form-erreur');
+    if (!p) { p = document.createElement('p'); p.className = 'form-erreur'; p.setAttribute('role', 'alert'); form.appendChild(p); }
+    p.textContent = texte; p.hidden = !texte;
+  }
+  function val(form, nom) { var el = form.elements[nom]; return el ? el.value : ''; }
+
+  // Ancien envoi (FormSubmit vers l'adresse de secours) : utilisé si le service ne répond pas
+  function secours(form, champ) {
+    var c = retrouver(champ.value);
+    champCache(form, 'Antenne').value = c ? (R.nomsAntennes[c.code] || '—') : 'non reconnue';
+    form.action = 'https://formsubmit.co/' + R.secours;
+    form.target = 'fs-frame';
+    HTMLFormElement.prototype.submit.call(form);
+  }
+
+  function envoyer(form, champ) {
+    var btn = form.querySelector('button[type="submit"]');
+    var texte = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Envoi en cours…'; erreur(form, '');
+
+    var fd = new FormData();
+    var cv = form.querySelector('input[type="file"]');
+    fd.append('type', cv ? 'cv' : 'rappel');
+    fd.append('ville', champ.value);
+    fd.append('_honey', val(form, '_honey'));
+    if (cv) {
+      fd.append('nom', val(form, 'Nom et prénom'));
+      if (cv.files[0]) fd.append('cv', cv.files[0]);
+    } else {
+      fd.append('prenom', val(form, 'Prénom')); fd.append('nom', val(form, 'Nom'));
+      fd.append('email', val(form, 'E-mail')); fd.append('tel', val(form, 'Téléphone'));
+    }
+
+    function fin(ok) {
+      btn.disabled = false; btn.textContent = texte;
+      if (ok) {
+        merci(); form.reset();
+        var nf = document.getElementById('cv-nom-fichier'); if (nf && cv) nf.textContent = 'Aucun fichier choisi';
+      }
+    }
+
+    fetch('/api/candidature', { method: 'POST', body: fd })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, repli: true }; }); })
+      .then(function (d) {
+        if (d && d.ok) { fin(true); return; }
+        if (d && d.repli) { secours(form, champ); setTimeout(function () { fin(true); }, 1200); return; }
+        erreur(form, 'Envoi impossible : ' + ((d && d.info) || 'vérifiez les champs') + '.');
+        fin(false);
+      })
+      .catch(function () { secours(form, champ); setTimeout(function () { fin(true); }, 1200); });
+  }
+
+  document.querySelectorAll('.form-candidature [data-ville]').forEach(function (champ, i) {
     var form = champ.form;
     var zone = champ.closest('.champ-ville');
     var liste = zone.querySelector('.ville-suggestions');
@@ -165,17 +172,7 @@ var CANDIDATURE_REGLAGES = {
     champ.addEventListener('blur', function () { setTimeout(function () { fermer(); majInfo(true); }, 150); });
     form.addEventListener('reset', function () { setTimeout(function () { fermer(); majInfo(); }, 0); });
 
-    // À l'envoi : on choisit le destinataire (s'exécute avant l'envoi réel du formulaire)
-    form.addEventListener('submit', function () {
-      var d = destinataire(retrouver(champ.value));
-      form.action = 'https://formsubmit.co/' + d.email;
-      champCache(form, 'Antenne').value = d.antenne;
-      champCache(form, 'Cadre de secteur').value = d.cadre;
-      var cc = champCache(form, '_cc');
-      cc.value = (R.copie && R.copie !== d.email) ? R.copie : '';
-      if (!cc.value) cc.remove();
-    });
+    form.addEventListener('submit', function (e) { e.preventDefault(); envoyer(form, champ); });
   });
 
-  window.CANDIDATURE_DESTINATAIRE = function (ville) { return destinataire(retrouver(ville)); }; // pour tester
 })();

@@ -379,3 +379,6 @@ svg.trait{overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .ville-info{margin:6px 0 0;font-size:.8rem;min-height:1.2em;color:var(--gris)}
 .ville-info.ok{color:var(--vert);font-weight:600}
 .ville-info.ok::before{content:"✓ "}
+
+.form-erreur{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#fdecea;color:#9b1c1c;font-size:.9rem;font-weight:600}
+.form-erreur[hidden]{display:none}
